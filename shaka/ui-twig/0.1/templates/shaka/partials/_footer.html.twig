@@ -1,0 +1,102 @@
+{#
+  partials/_footer.html.twig
+  ===========================
+  Site footer.
+
+  Variables:
+    - footer_brand (object)  : { name, description, logo }
+    - footer_columns (array) : [
+        {
+          heading (string) : Column title,
+          links   (array)  : [{ label, url, external }]
+        }
+      ]
+    - footer_social (array)  : [{ platform, url, icon, label }]
+    - footer_legal  (object) : {
+        copyright (string),
+        links     (array)  : [{ label, url }]
+      }
+#}
+
+<footer>
+
+  {# ── Top section ───────────────────────────────────────────── #}
+  <div>
+
+    {# Brand / description column #}
+    {% if footer_brand is defined %}
+      <div>
+        {% if footer_brand.logo is defined %}
+          <img src="{{ footer_brand.logo }}" alt="{{ footer_brand.name|default('') }}">
+        {% else %}
+          <strong>{{ footer_brand.name|default('') }}</strong>
+        {% endif %}
+
+        {% if footer_brand.description is defined %}
+          <p>{{ footer_brand.description }}</p>
+        {% endif %}
+
+        {# Social links #}
+        {% if footer_social is defined and footer_social %}
+          <ul role="list" aria-label="Réseaux sociaux">
+            {% for social in footer_social %}
+              <li>
+                <a href="{{ social.url }}"
+                   aria-label="{{ social.label|default(social.platform) }}"
+                   {% if social.external is defined and social.external %}
+                     target="_blank" rel="noopener noreferrer"
+                   {% endif %}>
+                  {% if social.icon is defined %}
+                    {% include 'components/_icon.html.twig' with { name: social.icon } %}
+                  {% else %}
+                    {{ social.platform }}
+                  {% endif %}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {# Link columns #}
+    {% if footer_columns is defined %}
+      {% for column in footer_columns %}
+        <div>
+          <h3>{{ column.heading }}</h3>
+          <ul role="list">
+            {% for link in column.links %}
+              <li>
+                <a href="{{ link.url }}"
+                   {% if link.external is defined and link.external %}
+                     target="_blank" rel="noopener noreferrer"
+                   {% endif %}>
+                  {{ link.label }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    {% endif %}
+
+  </div>
+
+  {# ── Bottom bar ────────────────────────────────────────────── #}
+  {% if footer_legal is defined %}
+    <div>
+      <p>{{ footer_legal.copyright|default('') }}</p>
+
+      {% if footer_legal.links is defined %}
+        <ul role="list">
+          {% for link in footer_legal.links %}
+            <li>
+              <a href="{{ link.url }}">{{ link.label }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  {% endif %}
+
+</footer>

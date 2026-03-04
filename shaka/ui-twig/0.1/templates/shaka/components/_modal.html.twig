@@ -1,0 +1,97 @@
+{#
+  components/_modal.html.twig
+  ============================
+  Accessible modal dialog (requires JS for open/close behaviour).
+
+  Variables:
+    - id          (string)  : Unique modal ID. Required.
+    - title       (string)  : Dialog title shown in header. Required.
+    - description (string)  : Optional subtitle / description below title.
+    - size        (string)  : 'sm' | 'md' | 'lg' | 'xl' | 'full'. Default: 'md'
+    - close_label (string)  : Aria label for close button. Default: 'Fermer la fenêtre'
+    - actions     (array)   : Footer buttons, each is button component props.
+    - show_footer (boolean) : Show footer area. Default: true if actions defined.
+
+  Block:
+    - modal_body : Inner content of the dialog.
+
+  Requires JS:
+    - Set aria-modal="true" and role="dialog" when open
+    - Trap focus within the modal while open
+    - Close on backdrop click and Escape key
+    - Return focus to trigger element on close
+
+  Usage:
+    {# Trigger elsewhere in page #}
+    <button data-modal-open="{{ id }}">Ouvrir</button>
+
+    {% include 'components/_modal.html.twig' with {
+      id: 'confirm-delete',
+      title: 'Confirmer la suppression',
+      actions: [
+        { label: 'Annuler',   variant: 'secondary', attrs: { 'data-modal-close': 'confirm-delete' } },
+        { label: 'Supprimer', variant: 'danger' }
+      ]
+    } %}
+      {% block modal_body %}
+        <p>Cette action est irréversible. Souhaitez-vous continuer ?</p>
+      {% endblock %}
+    {# end include #}
+#}
+
+{# Backdrop #}
+<div
+  id="{{ id }}-backdrop"
+  data-modal-backdrop
+  aria-hidden="true"
+  hidden>
+</div>
+
+{# Dialog #}
+<div
+  id="{{ id }}"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="{{ id }}-title"
+  {% if description is defined %}aria-describedby="{{ id }}-description"{% endif %}
+  data-modal
+  data-size="{{ size|default('md') }}"
+  tabindex="-1"
+  hidden
+>
+
+  {# ── Header ────────────────────────────────────────────────── #}
+  <header data-modal-header>
+    <div>
+      <h2 id="{{ id }}-title" data-modal-title>{{ title }}</h2>
+      {% if description is defined and description %}
+        <p id="{{ id }}-description" data-modal-description>{{ description }}</p>
+      {% endif %}
+    </div>
+
+    <button
+      type="button"
+      aria-label="{{ close_label|default('Fermer la fenêtre') }}"
+      data-modal-close="{{ id }}"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </header>
+
+  {# ── Body ──────────────────────────────────────────────────── #}
+  <div data-modal-body>
+    {% block modal_body %}{% endblock %}
+  </div>
+
+  {# ── Footer ────────────────────────────────────────────────── #}
+  {% if actions is defined and actions|length or (show_footer is defined and show_footer) %}
+    <footer data-modal-footer>
+      {% if actions is defined %}
+        {% for action in actions %}
+          {% include 'components/_button.html.twig' with action %}
+        {% endfor %}
+      {% endif %}
+    </footer>
+  {% endif %}
+
+</div>

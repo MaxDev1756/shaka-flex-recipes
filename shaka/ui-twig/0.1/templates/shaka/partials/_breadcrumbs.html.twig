@@ -1,0 +1,69 @@
+{#
+  partials/_breadcrumbs.html.twig
+  ================================
+  Accessible breadcrumb trail with JSON-LD structured data.
+
+  Variables:
+    - breadcrumbs (array) : [
+        {
+          label  (string)  : Display text,
+          url    (string)  : Link href (omit or null for last/current item),
+          active (boolean) : Mark as current page
+        }
+      ]
+
+  Usage:
+    {% include 'partials/_breadcrumbs.html.twig' with {
+      breadcrumbs: [
+        { label: 'Accueil', url: '/' },
+        { label: 'Blog',    url: '/blog' },
+        { label: 'Article', active: true }
+      ]
+    } %}
+#}
+
+{% if breadcrumbs is defined and breadcrumbs|length %}
+
+  <nav aria-label="Fil d'Ariane">
+    <ol role="list">
+      {% for crumb in breadcrumbs %}
+        <li{% if crumb.active is defined and crumb.active %} aria-current="page"{% endif %}>
+
+          {# Show link for all items except the active/last one #}
+          {% if crumb.url is defined and crumb.url and (crumb.active is not defined or crumb.active != true) %}
+            <a href="{{ crumb.url }}">{{ crumb.label }}</a>
+          {% else %}
+            <span>{{ crumb.label }}</span>
+          {% endif %}
+
+          {# Separator (hidden from screen readers) #}
+          {% if not loop.last %}
+            <span aria-hidden="true">/</span>
+          {% endif %}
+
+        </li>
+      {% endfor %}
+    </ol>
+  </nav>
+
+  {# JSON-LD structured data for SEO #}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {% for crumb in breadcrumbs %}
+      {
+        "@type": "ListItem",
+        "position": {{ loop.index }},
+        "name": "{{ crumb.label|e('js') }}"
+        {% if crumb.url is defined and crumb.url %}
+        ,"item": "{{ crumb.url }}"
+        {% endif %}
+      }{% if not loop.last %},{% endif %}
+      {% endfor %}
+    ]
+  }
+  </script>
+
+{% endif %}

@@ -1,0 +1,12 @@
+{#
+  partials/_skip_link.html.twig
+  ==============================
+  Accessibility skip-to-content link.
+
+  Variables:
+    - target  (string) : Anchor ID to skip to. Default: '#main-content'
+    - label   (string) : Link text. Default: 'Aller au contenu principal'
+#}
+<a href="{{ target|default('#main-content') }}">
+  {{ label|default('Aller au contenu principal') }}
+</a>

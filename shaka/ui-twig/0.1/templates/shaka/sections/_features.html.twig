@@ -1,0 +1,103 @@
+{#
+  sections/_features.html.twig
+  =============================
+  Feature highlights grid section.
+
+  Variables:
+    - heading     (string) : Section heading.
+    - subheading  (string) : Section subtext.
+    - eyebrow     (string) : Small label above heading.
+    - features    (array)  : [
+        {
+          icon        (string) : Icon name,
+          title       (string) : Feature title,
+          description (string) : Feature description,
+          link        (object) : { url, label } — optional learn more link,
+          badge       (object) : Badge component props (e.g. 'Nouveau')
+        }
+      ]
+    - columns   (number) : Grid columns: 2 | 3 | 4. Default: 3
+    - layout    (string) : 'grid' | 'list' | 'alternating'. Default: 'grid'
+    - cta       (object) : Section-level CTA button props.
+
+  Usage:
+    {% include 'sections/_features.html.twig' with {
+      heading: 'Tout ce dont vous avez besoin',
+      features: [
+        { icon: 'bolt', title: 'Rapide', description: 'Performances optimisées.' },
+        { icon: 'shield', title: 'Sécurisé', description: 'Données chiffrées.' },
+        { icon: 'chart', title: 'Analytique', description: 'Tableaux de bord temps réel.' }
+      ]
+    } %}
+#}
+
+<section data-section="features" data-layout="{{ layout|default('grid') }}">
+
+  {# ── Section header ────────────────────────────────────────── #}
+  {% if heading is defined or subheading is defined %}
+    <header data-section-header>
+      {% if eyebrow is defined and eyebrow %}
+        <p data-section-eyebrow>{{ eyebrow }}</p>
+      {% endif %}
+      {% if heading is defined and heading %}
+        <h2 data-section-heading>{{ heading }}</h2>
+      {% endif %}
+      {% if subheading is defined and subheading %}
+        <p data-section-subheading>{{ subheading }}</p>
+      {% endif %}
+    </header>
+  {% endif %}
+
+  {# ── Features grid ─────────────────────────────────────────── #}
+  {% if features is defined and features|length %}
+    <ul
+      role="list"
+      data-features-grid
+      data-columns="{{ columns|default(3) }}">
+
+      {% for feature in features %}
+        <li data-feature-item>
+
+          {% if feature.icon is defined %}
+            <div data-feature-icon>
+              {% include 'components/_icon.html.twig' with { name: feature.icon, size: 'lg', aria_hidden: true } %}
+            </div>
+          {% endif %}
+
+          <div data-feature-content>
+
+            <div data-feature-title-row>
+              <h3 data-feature-title>{{ feature.title }}</h3>
+              {% if feature.badge is defined %}
+                {% include 'components/_badge.html.twig' with feature.badge %}
+              {% endif %}
+            </div>
+
+            {% if feature.description is defined %}
+              <p data-feature-description>{{ feature.description }}</p>
+            {% endif %}
+
+            {% if feature.link is defined %}
+              {% include 'components/_link.html.twig' with {
+                label: feature.link.label|default('En savoir plus'),
+                url:   feature.link.url,
+                icon_after: 'arrow-right'
+              } %}
+            {% endif %}
+
+          </div>
+
+        </li>
+      {% endfor %}
+
+    </ul>
+  {% endif %}
+
+  {# ── Section CTA ───────────────────────────────────────────── #}
+  {% if cta is defined and cta %}
+    <div data-section-cta>
+      {% include 'components/_button.html.twig' with cta %}
+    </div>
+  {% endif %}
+
+</section>

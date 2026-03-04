@@ -1,0 +1,43 @@
+{#
+  components/_badge.html.twig
+  ============================
+  Small inline status / label badge.
+
+  Variables:
+    - label   (string)  : Badge text. Required.
+    - variant (string)  : 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'outline'. Default: 'default'
+    - size    (string)  : 'sm' | 'md'. Default: 'md'
+    - dot     (boolean) : Show coloured dot before label.
+    - dismiss (boolean) : Show a remove/close button.
+    - attrs   (object)  : Extra HTML attributes.
+
+  Usage:
+    {% include 'components/_badge.html.twig' with { label: 'Nouveau', variant: 'primary' } %}
+    {% include 'components/_badge.html.twig' with { label: 'En ligne', variant: 'success', dot: true } %}
+#}
+
+<span
+  data-badge
+  data-variant="{{ variant|default('default') }}"
+  data-size="{{ size|default('md') }}"
+
+  {% if attrs is defined %}
+    {% for attr_key, attr_val in attrs %}
+      {{ attr_key }}="{{ attr_val }}"
+    {% endfor %}
+  {% endif %}
+>
+
+  {% if dot is defined and dot %}
+    <span aria-hidden="true" data-badge-dot></span>
+  {% endif %}
+
+  {{ label }}
+
+  {% if dismiss is defined and dismiss %}
+    <button type="button" aria-label="Supprimer {{ label }}" data-badge-dismiss>
+      <span aria-hidden="true">&times;</span>
+    </button>
+  {% endif %}
+
+</span>

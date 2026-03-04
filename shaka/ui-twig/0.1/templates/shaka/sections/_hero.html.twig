@@ -1,0 +1,109 @@
+{#
+  sections/_hero.html.twig
+  =========================
+  Full-width hero / banner section.
+
+  Variables:
+    - headline    (string)  : Main H1 title. Required.
+    - subheadline (string)  : Supporting paragraph text.
+    - cta_primary   (object): Primary button: { label, url, variant }
+    - cta_secondary (object): Secondary button: { label, url, variant }
+    - image       (object)  : { src, alt } — hero image or illustration.
+    - video       (object)  : { src, poster, autoplay } — background or side video.
+    - badge       (object)  : Small badge above headline. Badge component props.
+    - align       (string)  : 'left' | 'center' | 'right'. Default: 'left'
+    - layout      (string)  : 'split' | 'centered' | 'fullwidth'. Default: 'split'
+    - eyebrow     (string)  : Small text above headline.
+    - announcement (object) : { text, url, label } — dismissible banner strip above hero.
+
+  Usage:
+    {% include 'sections/_hero.html.twig' with {
+      headline: 'Bienvenue sur notre plateforme',
+      subheadline: 'Gérez vos projets plus efficacement.',
+      cta_primary: { label: 'Commencer', url: '/signup' },
+      cta_secondary: { label: 'En savoir plus', url: '/about', variant: 'ghost' },
+      layout: 'split',
+      image: { src: '/img/hero.png', alt: 'Aperçu du tableau de bord' }
+    } %}
+#}
+
+<section data-section="hero" data-layout="{{ layout|default('split') }}" data-align="{{ align|default('left') }}">
+
+  {# ── Announcement strip ────────────────────────────────────── #}
+  {% if announcement is defined and announcement %}
+    <div data-hero-announcement>
+      <span>{{ announcement.text }}</span>
+      {% if announcement.url is defined %}
+        {% include 'components/_link.html.twig' with {
+          label: announcement.label|default('En savoir plus'),
+          url: announcement.url
+        } %}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div data-hero-inner>
+
+    {# ── Copy column ───────────────────────────────────────────── #}
+    <div data-hero-copy>
+
+      {% if eyebrow is defined and eyebrow %}
+        <p data-hero-eyebrow>{{ eyebrow }}</p>
+      {% endif %}
+
+      {% if badge is defined and badge %}
+        {% include 'components/_badge.html.twig' with badge %}
+      {% endif %}
+
+      <h1 data-hero-headline>{{ headline }}</h1>
+
+      {% if subheadline is defined and subheadline %}
+        <p data-hero-subheadline>{{ subheadline }}</p>
+      {% endif %}
+
+      {% if cta_primary is defined or cta_secondary is defined %}
+        <div data-hero-actions>
+          {% if cta_primary is defined %}
+            {% include 'components/_button.html.twig' with {
+              label:   cta_primary.label,
+              url:     cta_primary.url,
+              variant: cta_primary.variant|default('primary'),
+              size:    cta_primary.size|default('lg')
+            } %}
+          {% endif %}
+          {% if cta_secondary is defined %}
+            {% include 'components/_button.html.twig' with {
+              label:   cta_secondary.label,
+              url:     cta_secondary.url,
+              variant: cta_secondary.variant|default('ghost'),
+              size:    cta_secondary.size|default('lg')
+            } %}
+          {% endif %}
+        </div>
+      {% endif %}
+
+    </div>
+
+    {# ── Media column ─────────────────────────────────────────── #}
+    {% if image is defined or video is defined %}
+      <div data-hero-media>
+        {% if video is defined and video %}
+          <video
+            src="{{ video.src }}"
+            {% if video.poster is defined %}poster="{{ video.poster }}"{% endif %}
+            {% if video.autoplay is defined and video.autoplay %}autoplay muted loop playsinline{% endif %}
+            preload="metadata">
+          </video>
+        {% elseif image is defined and image %}
+          <img
+            src="{{ image.src }}"
+            alt="{{ image.alt|default('') }}"
+            loading="eager"
+            fetchpriority="high">
+        {% endif %}
+      </div>
+    {% endif %}
+
+  </div>
+
+</section>

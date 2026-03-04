@@ -1,0 +1,156 @@
+{#
+  sections/_pricing.html.twig
+  ============================
+  Pricing plans section.
+
+  Variables:
+    - heading     (string)  : Section heading.
+    - subheading  (string)  : Section subtext.
+    - eyebrow     (string)  : Small label above heading.
+    - billing_toggle (boolean): Show monthly/yearly billing toggle. Default: false
+    - plans       (array)   : [
+        {
+          name        (string)  : Plan name. Required.
+          price       (object)  : {
+            monthly  (string),
+            yearly   (string),
+            currency (string, default: '€'),
+            period   (string, default: '/mois')
+          }
+          description (string)  : Brief plan summary.
+          features    (array)   : List of feature strings.
+          excluded    (array)   : Features NOT included (shown with ✕).
+          cta         (object)  : Button props.
+          badge       (string)  : Highlight label e.g. 'Populaire'.
+          featured    (boolean) : Visually emphasise this plan.
+        }
+      ]
+    - footnote    (string)  : Text below plans (e.g. refund policy).
+
+  Usage:
+    {% include 'sections/_pricing.html.twig' with {
+      heading: 'Tarifs simples et transparents',
+      plans: [
+        {
+          name: 'Starter',
+          price: { monthly: '0 €', yearly: '0 €' },
+          features: ['1 projet', '2 utilisateurs'],
+          cta: { label: 'Commencer gratuitement', url: '/signup', variant: 'secondary' }
+        },
+        {
+          name: 'Pro',
+          price: { monthly: '29 €', yearly: '23 €' },
+          features: ['Projets illimités', '10 utilisateurs', 'Support prioritaire'],
+          featured: true,
+          badge: 'Populaire',
+          cta: { label: 'Essai gratuit 14 jours', url: '/signup?plan=pro' }
+        }
+      ]
+    } %}
+#}
+
+<section data-section="pricing">
+
+  {% if heading is defined or subheading is defined %}
+    <header data-section-header>
+      {% if eyebrow is defined and eyebrow %}
+        <p data-section-eyebrow>{{ eyebrow }}</p>
+      {% endif %}
+      {% if heading is defined and heading %}
+        <h2 data-section-heading>{{ heading }}</h2>
+      {% endif %}
+      {% if subheading is defined and subheading %}
+        <p data-section-subheading>{{ subheading }}</p>
+      {% endif %}
+    </header>
+  {% endif %}
+
+  {# ── Billing toggle ────────────────────────────────────────── #}
+  {% if billing_toggle is defined and billing_toggle %}
+    <div data-billing-toggle role="group" aria-label="Cycle de facturation">
+      <button type="button" data-billing="monthly" aria-pressed="true">Mensuel</button>
+      <button type="button" data-billing="yearly" aria-pressed="false">
+        Annuel
+        {% include 'components/_badge.html.twig' with { label: '-20 %', variant: 'success' } %}
+      </button>
+    </div>
+  {% endif %}
+
+  {# ── Plans ─────────────────────────────────────────────────── #}
+  {% if plans is defined and plans|length %}
+    <ul role="list" data-pricing-grid>
+
+      {% for plan in plans %}
+        <li data-pricing-card{% if plan.featured is defined and plan.featured %} data-featured{% endif %}>
+
+          {# Badge #}
+          {% if plan.badge is defined and plan.badge %}
+            {% include 'components/_badge.html.twig' with { label: plan.badge, variant: 'primary' } %}
+          {% endif %}
+
+          {# Plan header #}
+          <div data-plan-header>
+            <h3 data-plan-name>{{ plan.name }}</h3>
+            {% if plan.description is defined %}
+              <p data-plan-description>{{ plan.description }}</p>
+            {% endif %}
+          </div>
+
+          {# Price #}
+          {% if plan.price is defined %}
+            <div data-plan-price>
+              <span data-price-monthly>
+                {{ plan.price.monthly }}
+                <small>{{ plan.price.period|default('/mois') }}</small>
+              </span>
+              {% if plan.price.yearly is defined %}
+                <span data-price-yearly hidden>
+                  {{ plan.price.yearly }}
+                  <small>{{ plan.price.period|default('/mois') }}</small>
+                </span>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          {# CTA #}
+          {% if plan.cta is defined %}
+            {% include 'components/_button.html.twig' with {
+              label:   plan.cta.label,
+              url:     plan.cta.url,
+              variant: plan.cta.variant|default(plan.featured is defined and plan.featured ? 'primary' : 'secondary'),
+              size:    'lg'
+            } %}
+          {% endif %}
+
+          {# Features included #}
+          {% if plan.features is defined and plan.features|length %}
+            <ul role="list" data-plan-features>
+              {% for feature in plan.features %}
+                <li data-feature-included>
+                  <span aria-hidden="true">✓</span>
+                  {{ feature }}
+                </li>
+              {% endfor %}
+              {% if plan.excluded is defined %}
+                {% for feature in plan.excluded %}
+                  <li data-feature-excluded>
+                    <span aria-hidden="true">✕</span>
+                    {{ feature }}
+                  </li>
+                {% endfor %}
+              {% endif %}
+            </ul>
+          {% endif %}
+
+        </li>
+      {% endfor %}
+
+    </ul>
+  {% endif %}
+
+  {# Footnote #}
+  {% if footnote is defined and footnote %}
+    <p data-pricing-footnote>{{ footnote }}</p>
+  {% endif %}
+
+</section>

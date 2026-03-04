@@ -1,0 +1,103 @@
+{#
+  sections/_faq.html.twig
+  ========================
+  Frequently Asked Questions section using native <details>/<summary>
+  (no JS required for basic expand/collapse; JS optional for accordion behaviour).
+
+  Variables:
+    - heading    (string) : Section heading. Default: 'Foire aux questions'
+    - subheading (string) : Section subtext.
+    - eyebrow    (string) : Small label above heading.
+    - items      (array)  : [
+        {
+          question (string)  : FAQ question text. Required.
+          answer   (string)  : FAQ answer text (HTML allowed). Required.
+          open     (boolean) : Expanded by default. Default: false
+        }
+      ]
+    - columns    (number) : 1 | 2. Default: 1
+    - cta        (object) : Optional CTA below FAQs (e.g. 'Still have questions? Contact us').
+    - accordion  (boolean): JS accordion mode (only one item open at a time). Default: false
+
+  Usage:
+    {% include 'sections/_faq.html.twig' with {
+      heading: 'Questions fréquentes',
+      items: [
+        { question: 'Comment fonctionne l\'essai gratuit ?', answer: 'Vous avez 14 jours...' },
+        { question: 'Puis-je annuler à tout moment ?',       answer: 'Oui, sans engagement.' }
+      ]
+    } %}
+#}
+
+<section
+  data-section="faq"
+  data-columns="{{ columns|default(1) }}"
+  {% if accordion is defined and accordion %}data-accordion{% endif %}>
+
+  {# ── Section header ────────────────────────────────────────── #}
+  {% if heading is defined or subheading is defined %}
+    <header data-section-header>
+      {% if eyebrow is defined and eyebrow %}
+        <p data-section-eyebrow>{{ eyebrow }}</p>
+      {% endif %}
+      <h2 data-section-heading>{{ heading|default('Foire aux questions') }}</h2>
+      {% if subheading is defined and subheading %}
+        <p data-section-subheading>{{ subheading }}</p>
+      {% endif %}
+    </header>
+  {% endif %}
+
+  {# ── JSON-LD for SEO (FAQPage schema) ─────────────────────── #}
+  {% if items is defined and items|length %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {% for item in items %}
+        {
+          "@type": "Question",
+          "name": "{{ item.question|e('js') }}",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "{{ item.answer|striptags|e('js') }}"
+          }
+        }{% if not loop.last %},{% endif %}
+        {% endfor %}
+      ]
+    }
+    </script>
+  {% endif %}
+
+  {# ── Items ─────────────────────────────────────────────────── #}
+  {% if items is defined and items|length %}
+    <dl data-faq-list>
+      {% for item in items %}
+        <div data-faq-item>
+          <details{% if item.open is defined and item.open %} open{% endif %}>
+            <summary data-faq-question>
+              {{ item.question }}
+              <span aria-hidden="true" data-faq-icon>&#9660;</span>
+            </summary>
+            <div data-faq-answer>
+              {{ item.answer|raw }}
+            </div>
+          </details>
+        </div>
+      {% endfor %}
+    </dl>
+  {% endif %}
+
+  {# ── CTA ───────────────────────────────────────────────────── #}
+  {% if cta is defined and cta %}
+    <div data-section-cta>
+      {% if cta.text is defined %}
+        <p>{{ cta.text }}</p>
+      {% endif %}
+      {% if cta.button is defined %}
+        {% include 'components/_button.html.twig' with cta.button %}
+      {% endif %}
+    </div>
+  {% endif %}
+
+</section>

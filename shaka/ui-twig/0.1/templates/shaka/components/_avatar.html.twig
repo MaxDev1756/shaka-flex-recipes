@@ -1,0 +1,72 @@
+{#
+  components/_avatar.html.twig
+  =============================
+  User avatar with image, initials fallback, and optional status indicator.
+
+  Variables:
+    - src      (string)  : Image URL. If absent, shows initials fallback.
+    - alt      (string)  : Alt text for the image. Default: user.name or ''
+    - initials (string)  : 1–2 character initials shown when no image.
+    - name     (string)  : Full name (used for aria-label and auto-initials if needed).
+    - size     (string)  : 'xs' | 'sm' | 'md' | 'lg' | 'xl'. Default: 'md'
+    - shape    (string)  : 'circle' | 'square'. Default: 'circle'
+    - status   (string)  : 'online' | 'offline' | 'away' | 'busy'. Shows status dot if set.
+    - badge    (string)  : Short badge text (e.g. count) overlaid on avatar.
+    - group    (boolean) : Set true when avatar is part of an AvatarGroup (removes outer margin).
+
+  Usage:
+    {% include 'components/_avatar.html.twig' with {
+      src: '/avatars/jane.jpg',
+      name: 'Jane Dupont',
+      size: 'lg',
+      status: 'online'
+    } %}
+
+    {# Initials fallback #}
+    {% include 'components/_avatar.html.twig' with { initials: 'JD', name: 'Jean Dubois' } %}
+#}
+
+{# Auto-generate initials from name if not explicitly provided #}
+{% if initials is not defined and name is defined %}
+  {% set parts = name|split(' ') %}
+  {% set initials = parts[0]|slice(0, 1)|upper %}
+  {% if parts|length > 1 %}
+    {% set initials = initials ~ parts[parts|length - 1]|slice(0, 1)|upper %}
+  {% endif %}
+{% endif %}
+
+<span
+  data-avatar
+  data-size="{{ size|default('md') }}"
+  data-shape="{{ shape|default('circle') }}"
+  {% if group is defined and group %}data-avatar-group-item{% endif %}
+  aria-label="{{ name|default(alt|default('Avatar')) }}"
+>
+
+  {% if src is defined and src %}
+    <img
+      src="{{ src }}"
+      alt="{{ alt|default(name|default('')) }}"
+      loading="lazy"
+      data-avatar-img>
+  {% elseif initials is defined and initials %}
+    <span aria-hidden="true" data-avatar-initials>{{ initials }}</span>
+  {% else %}
+    {# Generic person icon fallback #}
+    <span aria-hidden="true" data-avatar-fallback>&#128100;</span>
+  {% endif %}
+
+  {# Status indicator #}
+  {% if status is defined and status %}
+    <span
+      data-avatar-status="{{ status }}"
+      aria-label="{{ name is defined ? name ~ ' est ' : '' }}{{ status }}"
+    ></span>
+  {% endif %}
+
+  {# Numeric / text badge #}
+  {% if badge is defined and badge %}
+    <span data-avatar-badge aria-label="{{ badge }}">{{ badge }}</span>
+  {% endif %}
+
+</span>

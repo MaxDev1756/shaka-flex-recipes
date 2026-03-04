@@ -1,0 +1,63 @@
+{#
+  components/_alert.html.twig
+  ============================
+  Inline alert / callout box. Use _flash.html.twig for transient toast messages.
+
+  Variables:
+    - type     (string)  : 'info' | 'success' | 'warning' | 'danger'. Default: 'info'
+    - title    (string)  : Bold heading (optional).
+    - message  (string)  : Main content text. Required unless using block.
+    - dismiss  (boolean) : Show dismiss button. Default: false
+    - icon     (boolean) : Show type icon. Default: true
+
+  Block:
+    - alert_content : Override inner content entirely.
+
+  Usage:
+    {% include 'components/_alert.html.twig' with {
+      type: 'warning',
+      title: 'Attention',
+      message: 'Vos données ne sont pas sauvegardées.'
+    } %}
+#}
+
+{% set type = type|default('info') %}
+{% set alert_icons = {
+  info:    'ℹ',
+  success: '✓',
+  warning: '⚠',
+  danger:  '✕'
+} %}
+
+<div
+  role="alert"
+  data-alert
+  data-type="{{ type }}"
+  {% if dismiss is defined and dismiss %}data-dismissible{% endif %}
+>
+
+  {# Icon #}
+  {% if icon is not defined or icon != false %}
+    <span aria-hidden="true" data-alert-icon>{{ alert_icons[type]|default('ℹ') }}</span>
+  {% endif %}
+
+  {# Content #}
+  <div data-alert-content>
+    {% block alert_content %}
+      {% if title is defined and title %}
+        <strong data-alert-title>{{ title }}</strong>
+      {% endif %}
+      {% if message is defined and message %}
+        <p data-alert-message>{{ message }}</p>
+      {% endif %}
+    {% endblock %}
+  </div>
+
+  {# Dismiss #}
+  {% if dismiss is defined and dismiss %}
+    <button type="button" aria-label="Fermer" data-alert-dismiss>
+      <span aria-hidden="true">&times;</span>
+    </button>
+  {% endif %}
+
+</div>

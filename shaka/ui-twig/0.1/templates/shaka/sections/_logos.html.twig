@@ -1,0 +1,66 @@
+{#
+  sections/_logos.html.twig
+  ==========================
+  Partner / client logo strip.
+
+  Variables:
+    - heading  (string) : Optional label above logos. E.g. 'Ils nous font confiance'.
+    - logos    (array)  : [
+        {
+          src   (string) : Image URL. Required.
+          alt   (string) : Alt text / company name. Required.
+          url   (string) : Optional link to company website.
+          width (number) : Optional explicit width hint.
+        }
+      ]
+    - scroll   (boolean): Infinite CSS scroll marquee effect. Default: false
+    - columns  (number) : Static grid columns: 3 | 4 | 5 | 6. Default: 5
+
+  Usage:
+    {% include 'sections/_logos.html.twig' with {
+      heading: 'Ils nous font confiance',
+      logos: [
+        { src: '/logos/acme.svg',   alt: 'Acme Corp' },
+        { src: '/logos/globex.svg', alt: 'Globex' }
+      ]
+    } %}
+#}
+
+<section data-section="logos">
+
+  {% if heading is defined and heading %}
+    <p data-logos-heading>{{ heading }}</p>
+  {% endif %}
+
+  {% if logos is defined and logos|length %}
+    <div
+      data-logos-track
+      data-scroll="{{ scroll is defined and scroll ? 'true' : 'false' }}"
+      data-columns="{{ columns|default(5) }}"
+      {% if scroll is defined and scroll %}aria-label="Nos partenaires" role="marquee"{% endif %}>
+
+      {% for logo in logos %}
+        <div data-logo-item>
+          {% if logo.url is defined and logo.url %}
+            <a href="{{ logo.url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ logo.alt }}">
+              <img src="{{ logo.src }}" alt="{{ logo.alt }}" loading="lazy"{% if logo.width is defined %} width="{{ logo.width }}"{% endif %}>
+            </a>
+          {% else %}
+            <img src="{{ logo.src }}" alt="{{ logo.alt }}" loading="lazy"{% if logo.width is defined %} width="{{ logo.width }}"{% endif %}>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      {# Duplicate items for seamless scroll loop #}
+      {% if scroll is defined and scroll %}
+        {% for logo in logos %}
+          <div data-logo-item aria-hidden="true">
+            <img src="{{ logo.src }}" alt="" loading="lazy">
+          </div>
+        {% endfor %}
+      {% endif %}
+
+    </div>
+  {% endif %}
+
+</section>
