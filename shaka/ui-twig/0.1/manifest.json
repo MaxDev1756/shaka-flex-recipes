@@ -1,8 +1,0 @@
-{
-  "bundles": {
-    "Shaka\\UiTwig\\ShakaUiTwigBundle": ["all"]
-  },
-  "copy-from-recipe": {
-    "templates/": "templates/"
-  }
-}
