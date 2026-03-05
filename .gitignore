@@ -2,4 +2,5 @@
 /.phpunit.cache/
 /.vscode/
 .DS_Store
-/_compiled//_compiled/
+/_compiled/
+/_compiled/
