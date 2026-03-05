@@ -16,10 +16,10 @@
     twig:
       exception_controller: null
     # Then map 404 in error pages: templates/bundles/TwigBundle/Exception/error404.html.twig
-    {% extends 'pages/404.html.twig' %}
+    {% extends 'shaka/pages/404.html.twig' %}
 #}
 
-{% extends 'layout/base.html.twig' %}
+{% extends 'shaka/layout/base.html.twig' %}
 
 {% block title %}{{ title|default('404 – Page introuvable') }}{% endblock %}
 
@@ -48,7 +48,7 @@
             name="q"
             placeholder="Rechercher…"
             autocomplete="off">
-          {% include 'components/_button.html.twig' with {
+          {% include 'shaka/components/_button.html.twig' with {
             label: 'Rechercher',
             type: 'submit',
             variant: 'primary'
@@ -58,7 +58,7 @@
 
       {# Main CTA #}
       <div data-error-actions>
-        {% include 'components/_button.html.twig' with {
+        {% include 'shaka/components/_button.html.twig' with {
           label:   cta.label|default('Retour à l\'accueil'),
           url:     cta.url|default('/'),
           variant: 'primary',
@@ -73,7 +73,7 @@
           <ul role="list">
             {% for link in links %}
               <li>
-                {% include 'components/_link.html.twig' with { label: link.label, url: link.url } %}
+                {% include 'shaka/components/_link.html.twig' with { label: link.label, url: link.url } %}
               </li>
             {% endfor %}
           </ul>

@@ -17,10 +17,10 @@
 
   Usage (Symfony):
     templates/bundles/TwigBundle/Exception/error500.html.twig
-    {% extends 'pages/500.html.twig' %}
+    {% extends 'shaka/pages/500.html.twig' %}
 #}
 
-{% extends 'layout/base.html.twig' %}
+{% extends 'shaka/layout/base.html.twig' %}
 
 {% block title %}{{ title|default('500 – Erreur serveur') }}{% endblock %}
 
@@ -52,7 +52,7 @@
       {# Actions #}
       <div data-error-actions>
 
-        {% include 'components/_button.html.twig' with {
+        {% include 'shaka/components/_button.html.twig' with {
           label:   cta.label|default('Retour à l\'accueil'),
           url:     cta.url|default('/'),
           variant: 'primary',
@@ -73,7 +73,7 @@
       {% if status_url is defined and status_url %}
         <p data-error-status>
           Consultez notre
-          {% include 'components/_link.html.twig' with {
+          {% include 'shaka/components/_link.html.twig' with {
             label:    'page de statut',
             url:      status_url,
             external: true

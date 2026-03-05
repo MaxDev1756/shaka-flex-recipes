@@ -47,7 +47,7 @@
                      target="_blank" rel="noopener noreferrer"
                    {% endif %}>
                   {% if social.icon is defined %}
-                    {% include 'components/_icon.html.twig' with { name: social.icon } %}
+                    {% include 'shaka/components/_icon.html.twig' with { name: social.icon } %}
                   {% else %}
                     {{ social.platform }}
                   {% endif %}

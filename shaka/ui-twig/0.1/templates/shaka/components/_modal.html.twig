@@ -25,7 +25,7 @@
     {# Trigger elsewhere in page #}
     <button data-modal-open="{{ id }}">Ouvrir</button>
 
-    {% include 'components/_modal.html.twig' with {
+    {% include 'shaka/components/_modal.html.twig' with {
       id: 'confirm-delete',
       title: 'Confirmer la suppression',
       actions: [
@@ -88,7 +88,7 @@
     <footer data-modal-footer>
       {% if actions is defined %}
         {% for action in actions %}
-          {% include 'components/_button.html.twig' with action %}
+          {% include 'shaka/components/_button.html.twig' with action %}
         {% endfor %}
       {% endif %}
     </footer>

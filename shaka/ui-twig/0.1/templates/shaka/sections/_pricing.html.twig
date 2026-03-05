@@ -28,7 +28,7 @@
     - footnote    (string)  : Text below plans (e.g. refund policy).
 
   Usage:
-    {% include 'sections/_pricing.html.twig' with {
+    {% include 'shaka/sections/_pricing.html.twig' with {
       heading: 'Tarifs simples et transparents',
       plans: [
         {
@@ -71,7 +71,7 @@
       <button type="button" data-billing="monthly" aria-pressed="true">Mensuel</button>
       <button type="button" data-billing="yearly" aria-pressed="false">
         Annuel
-        {% include 'components/_badge.html.twig' with { label: '-20 %', variant: 'success' } %}
+        {% include 'shaka/components/_badge.html.twig' with { label: '-20 %', variant: 'success' } %}
       </button>
     </div>
   {% endif %}
@@ -85,7 +85,7 @@
 
           {# Badge #}
           {% if plan.badge is defined and plan.badge %}
-            {% include 'components/_badge.html.twig' with { label: plan.badge, variant: 'primary' } %}
+            {% include 'shaka/components/_badge.html.twig' with { label: plan.badge, variant: 'primary' } %}
           {% endif %}
 
           {# Plan header #}
@@ -114,7 +114,7 @@
 
           {# CTA #}
           {% if plan.cta is defined %}
-            {% include 'components/_button.html.twig' with {
+            {% include 'shaka/components/_button.html.twig' with {
               label:   plan.cta.label,
               url:     plan.cta.url,
               variant: plan.cta.variant|default(plan.featured is defined and plan.featured ? 'primary' : 'secondary'),

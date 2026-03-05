@@ -17,7 +17,7 @@
     - announcement (object) : { text, url, label } — dismissible banner strip above hero.
 
   Usage:
-    {% include 'sections/_hero.html.twig' with {
+    {% include 'shaka/sections/_hero.html.twig' with {
       headline: 'Bienvenue sur notre plateforme',
       subheadline: 'Gérez vos projets plus efficacement.',
       cta_primary: { label: 'Commencer', url: '/signup' },
@@ -34,7 +34,7 @@
     <div data-hero-announcement>
       <span>{{ announcement.text }}</span>
       {% if announcement.url is defined %}
-        {% include 'components/_link.html.twig' with {
+        {% include 'shaka/components/_link.html.twig' with {
           label: announcement.label|default('En savoir plus'),
           url: announcement.url
         } %}
@@ -52,7 +52,7 @@
       {% endif %}
 
       {% if badge is defined and badge %}
-        {% include 'components/_badge.html.twig' with badge %}
+        {% include 'shaka/components/_badge.html.twig' with badge %}
       {% endif %}
 
       <h1 data-hero-headline>{{ headline }}</h1>
@@ -64,7 +64,7 @@
       {% if cta_primary is defined or cta_secondary is defined %}
         <div data-hero-actions>
           {% if cta_primary is defined %}
-            {% include 'components/_button.html.twig' with {
+            {% include 'shaka/components/_button.html.twig' with {
               label:   cta_primary.label,
               url:     cta_primary.url,
               variant: cta_primary.variant|default('primary'),
@@ -72,7 +72,7 @@
             } %}
           {% endif %}
           {% if cta_secondary is defined %}
-            {% include 'components/_button.html.twig' with {
+            {% include 'shaka/components/_button.html.twig' with {
               label:   cta_secondary.label,
               url:     cta_secondary.url,
               variant: cta_secondary.variant|default('ghost'),

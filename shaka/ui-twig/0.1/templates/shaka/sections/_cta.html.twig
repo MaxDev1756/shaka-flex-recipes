@@ -14,7 +14,7 @@
     - align       (string) : 'left' | 'center'. Default: 'center'
 
   Usage:
-    {% include 'sections/_cta.html.twig' with {
+    {% include 'shaka/sections/_cta.html.twig' with {
       heading: 'Prêt à vous lancer ?',
       subheading: 'Rejoignez des milliers d'équipes qui nous font confiance.',
       cta_primary: { label: 'Essai gratuit', url: '/signup' },
@@ -44,7 +44,7 @@
 
     <div data-cta-actions>
       {% if cta_primary is defined %}
-        {% include 'components/_button.html.twig' with {
+        {% include 'shaka/components/_button.html.twig' with {
           label:   cta_primary.label,
           url:     cta_primary.url,
           variant: cta_primary.variant|default('primary'),
@@ -52,7 +52,7 @@
         } %}
       {% endif %}
       {% if cta_secondary is defined %}
-        {% include 'components/_button.html.twig' with {
+        {% include 'shaka/components/_button.html.twig' with {
           label:   cta_secondary.label,
           url:     cta_secondary.url,
           variant: cta_secondary.variant|default('ghost'),

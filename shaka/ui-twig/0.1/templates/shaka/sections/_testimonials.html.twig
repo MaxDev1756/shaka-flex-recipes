@@ -25,7 +25,7 @@
     - featured (number) : Index of a featured/larger testimonial.
 
   Usage:
-    {% include 'sections/_testimonials.html.twig' with {
+    {% include 'shaka/sections/_testimonials.html.twig' with {
       heading: 'Ils nous font confiance',
       testimonials: [
         {
@@ -75,7 +75,7 @@
 
           {# Badge #}
           {% if testimonial.badge is defined %}
-            {% include 'components/_badge.html.twig' with { label: testimonial.badge, variant: 'primary' } %}
+            {% include 'shaka/components/_badge.html.twig' with { label: testimonial.badge, variant: 'primary' } %}
           {% endif %}
 
           {# Quote #}
@@ -87,7 +87,7 @@
           {% if testimonial.author is defined %}
             <footer data-testimonial-author>
               {% if testimonial.author.avatar is defined %}
-                {% include 'components/_avatar.html.twig' with {
+                {% include 'shaka/components/_avatar.html.twig' with {
                   src:  testimonial.author.avatar.src,
                   alt:  testimonial.author.avatar.alt|default(testimonial.author.name),
                   name: testimonial.author.name,

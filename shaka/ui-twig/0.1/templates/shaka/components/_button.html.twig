@@ -17,8 +17,8 @@
     - external (boolean) : If url set, adds target="_blank" rel="noopener noreferrer".
 
   Usage:
-    {% include 'components/_button.html.twig' with { label: 'Envoyer', variant: 'primary' } %}
-    {% include 'components/_button.html.twig' with { label: 'Voir', url: '/page', variant: 'secondary' } %}
+    {% include 'shaka/components/_button.html.twig' with { label: 'Envoyer', variant: 'primary' } %}
+    {% include 'shaka/components/_button.html.twig' with { label: 'Voir', url: '/page', variant: 'secondary' } %}
 #}
 
 {% set is_link    = url is defined and url %}
@@ -54,14 +54,14 @@
 
   {# Icon before label #}
   {% if icon_before is defined and icon_before %}
-    {% include 'components/_icon.html.twig' with { name: icon_before, aria_hidden: true } %}
+    {% include 'shaka/components/_icon.html.twig' with { name: icon_before, aria_hidden: true } %}
   {% endif %}
 
   <span>{{ label }}</span>
 
   {# Icon after label #}
   {% if icon_after is defined and icon_after %}
-    {% include 'components/_icon.html.twig' with { name: icon_after, aria_hidden: true } %}
+    {% include 'shaka/components/_icon.html.twig' with { name: icon_after, aria_hidden: true } %}
   {% endif %}
 
 </{{ tag }}>

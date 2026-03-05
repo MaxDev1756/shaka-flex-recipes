@@ -17,10 +17,10 @@
 
   Usage:
     {# Decorative icon #}
-    {% include 'components/_icon.html.twig' with { name: 'arrow-right', aria_hidden: true } %}
+    {% include 'shaka/components/_icon.html.twig' with { name: 'arrow-right', aria_hidden: true } %}
 
     {# Meaningful icon (no adjacent text) #}
-    {% include 'components/_icon.html.twig' with { name: 'trash', label: 'Supprimer' } %}
+    {% include 'shaka/components/_icon.html.twig' with { name: 'trash', label: 'Supprimer' } %}
 #}
 
 {% set decorative = (aria_hidden is defined and aria_hidden) or (label is not defined or not label) %}

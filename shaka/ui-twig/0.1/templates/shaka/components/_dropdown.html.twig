@@ -25,7 +25,7 @@
     - Keyboard navigation (Arrow Up/Down, Home, End)
 
   Usage:
-    {% include 'components/_dropdown.html.twig' with {
+    {% include 'shaka/components/_dropdown.html.twig' with {
       id: 'user-menu',
       trigger: { label: 'Mon compte', icon: 'user' },
       items: [
@@ -51,7 +51,7 @@
     data-size="{{ trigger.size|default('md') }}"
   >
     {% if trigger.icon is defined %}
-      {% include 'components/_icon.html.twig' with { name: trigger.icon, aria_hidden: true } %}
+      {% include 'shaka/components/_icon.html.twig' with { name: trigger.icon, aria_hidden: true } %}
     {% endif %}
     <span>{{ trigger.label|default('Options') }}</span>
     <span aria-hidden="true" data-dropdown-chevron>&#9660;</span>
@@ -90,7 +90,7 @@
               {% if item.danger is defined and item.danger %}data-danger{% endif %}
             >
               {% if item.icon is defined %}
-                {% include 'components/_icon.html.twig' with { name: item.icon, aria_hidden: true } %}
+                {% include 'shaka/components/_icon.html.twig' with { name: item.icon, aria_hidden: true } %}
               {% endif %}
               {{ item.label }}
             </a>
@@ -104,7 +104,7 @@
               {% if item.danger is defined and item.danger %}data-danger{% endif %}
             >
               {% if item.icon is defined %}
-                {% include 'components/_icon.html.twig' with { name: item.icon, aria_hidden: true } %}
+                {% include 'shaka/components/_icon.html.twig' with { name: item.icon, aria_hidden: true } %}
               {% endif %}
               {{ item.label }}
             </button>

@@ -20,7 +20,7 @@
     - variant  (string) : 'default' | 'brand' | 'dark'. Default: 'default'
 
   Usage:
-    {% include 'sections/_stats.html.twig' with {
+    {% include 'shaka/sections/_stats.html.twig' with {
       stats: [
         { value: '10 000+', label: 'Clients actifs' },
         { value: '99,9 %',  label: 'Disponibilité SLA' },
@@ -55,7 +55,7 @@
         <div data-stat-item>
 
           {% if stat.icon is defined %}
-            {% include 'components/_icon.html.twig' with { name: stat.icon, size: 'lg', aria_hidden: true } %}
+            {% include 'shaka/components/_icon.html.twig' with { name: stat.icon, size: 'lg', aria_hidden: true } %}
           {% endif %}
 
           <dt data-stat-label>{{ stat.label }}</dt>

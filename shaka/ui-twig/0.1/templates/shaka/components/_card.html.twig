@@ -21,7 +21,7 @@
     - card_footer  : Override the entire footer area.
 
   Usage:
-    {% include 'components/_card.html.twig' with {
+    {% include 'shaka/components/_card.html.twig' with {
       title: 'Mon article',
       description: 'Résumé de l'article...',
       image: { src: '/img/post.jpg', alt: 'Photo de l\'article' },
@@ -45,10 +45,10 @@
     {% if badge is defined or icon is defined or meta is defined %}
       <header data-card-header>
         {% if icon is defined and icon %}
-          {% include 'components/_icon.html.twig' with { name: icon } %}
+          {% include 'shaka/components/_icon.html.twig' with { name: icon } %}
         {% endif %}
         {% if badge is defined and badge %}
-          {% include 'components/_badge.html.twig' with badge %}
+          {% include 'shaka/components/_badge.html.twig' with badge %}
         {% endif %}
         {% if meta is defined and meta %}
           <small data-card-meta>{{ meta }}</small>
@@ -87,12 +87,12 @@
     {% if actions is defined and actions|length %}
       <footer data-card-footer>
         {% for action in actions %}
-          {% include 'components/_button.html.twig' with action %}
+          {% include 'shaka/components/_button.html.twig' with action %}
         {% endfor %}
       </footer>
     {% elseif link is defined and link.label is defined %}
       <footer data-card-footer>
-        {% include 'components/_link.html.twig' with { label: link.label, url: link.url } %}
+        {% include 'shaka/components/_link.html.twig' with { label: link.label, url: link.url } %}
       </footer>
     {% endif %}
   {% endblock %}

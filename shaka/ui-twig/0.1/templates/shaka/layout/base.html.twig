@@ -69,20 +69,20 @@
 {# ── Skip link ─────────────────────────────────────────────────── #}
 {% block skip_link %}
   {% if skip_link is not defined or skip_link != false %}
-    {% include 'partials/_skip_link.html.twig' %}
+    {% include 'shaka/partials/_skip_link.html.twig' %}
   {% endif %}
 {% endblock %}
 
 {# ── Navbar ────────────────────────────────────────────────────── #}
 {% block navbar %}
-  {% include 'partials/_navbar.html.twig' %}
+  {% include 'shaka/partials/_navbar.html.twig' %}
 {% endblock %}
 
 {# ── Flash messages ────────────────────────────────────────────── #}
 {% block flash %}
   {% if flash_messages is defined and flash_messages|length %}
     {% for message in flash_messages %}
-      {% include 'partials/_flash.html.twig' with { message: message } %}
+      {% include 'shaka/partials/_flash.html.twig' with { message: message } %}
     {% endfor %}
   {% endif %}
 {% endblock %}
@@ -99,7 +99,7 @@
 
 {# ── Footer ────────────────────────────────────────────────────── #}
 {% block footer %}
-  {% include 'partials/_footer.html.twig' %}
+  {% include 'shaka/partials/_footer.html.twig' %}
 {% endblock %}
 
 {% block head_scripts %}{% endblock %}

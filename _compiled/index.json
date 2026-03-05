@@ -1,0 +1,20 @@
+{
+    "aliases": [],
+    "recipes": {
+        "shaka/ui-twig": [
+            "0.1"
+        ]
+    },
+    "recipe-conflicts": [],
+    "versions": [],
+    "branch": "main",
+    "is_contrib": false,
+    "_links": {
+        "repository": "github.com/MaxDev1756/shaka-flex-recipes",
+        "origin_template": "{package}:{version}@github.com/MaxDev1756/shaka-flex-recipes:main",
+        "recipe_template": "https://raw.githubusercontent.com/MaxDev1756/shaka-flex-recipes/flex/{package_dotted}.{version}.json",
+        "recipe_template_relative": "{package_dotted}.{version}.json",
+        "archived_recipes_template": "https://raw.githubusercontent.com/MaxDev1756/shaka-flex-recipes/flex/archived/{package_dotted}/{ref}.json",
+        "archived_recipes_template_relative": "archived/{package_dotted}/{ref}.json"
+    }
+}

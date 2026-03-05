@@ -24,19 +24,19 @@
     - article_body : The main HTML/Markdown rendered content. Override this block.
 
   Usage:
-    {% extends 'pages/content.html.twig' %}
+    {% extends 'shaka/pages/content.html.twig' %}
     {% block article_body %}
       <p>Mon contenu rendu ici…</p>
     {% endblock %}
 #}
 
-{% extends 'layout/base.html.twig' %}
+{% extends 'shaka/layout/base.html.twig' %}
 
 {% block title %}{{ title|default('Article') }}{% endblock %}
 
 {% block breadcrumbs %}
   {% if breadcrumbs is defined and breadcrumbs %}
-    {% include 'partials/_breadcrumbs.html.twig' with { breadcrumbs: breadcrumbs } %}
+    {% include 'shaka/partials/_breadcrumbs.html.twig' with { breadcrumbs: breadcrumbs } %}
   {% endif %}
 {% endblock %}
 
@@ -62,7 +62,7 @@
         {% if author is defined and author %}
           <div data-author>
             {% if author.avatar is defined %}
-              {% include 'components/_avatar.html.twig' with {
+              {% include 'shaka/components/_avatar.html.twig' with {
                 src:  author.avatar.src,
                 alt:  author.avatar.alt|default(author.name),
                 name: author.name,
@@ -101,9 +101,9 @@
           {% for tag in tags %}
             <li>
               {% if tag is iterable %}
-                {% include 'components/_badge.html.twig' with { label: tag.label, variant: 'outline' } %}
+                {% include 'shaka/components/_badge.html.twig' with { label: tag.label, variant: 'outline' } %}
               {% else %}
-                {% include 'components/_badge.html.twig' with { label: tag, variant: 'outline' } %}
+                {% include 'shaka/components/_badge.html.twig' with { label: tag, variant: 'outline' } %}
               {% endif %}
             </li>
           {% endfor %}
@@ -157,8 +157,8 @@
       <div data-article-share>
         <p>Partager cet article :</p>
         {# Replace hrefs with real share URLs in your controller / macro #}
-        {% include 'components/_link.html.twig' with { label: 'Twitter', url: '#', external: true } %}
-        {% include 'components/_link.html.twig' with { label: 'LinkedIn', url: '#', external: true } %}
+        {% include 'shaka/components/_link.html.twig' with { label: 'Twitter', url: '#', external: true } %}
+        {% include 'shaka/components/_link.html.twig' with { label: 'LinkedIn', url: '#', external: true } %}
       </div>
     {% endif %}
 
@@ -171,7 +171,7 @@
       <ul role="list" data-related-grid>
         {% for article in related %}
           <li>
-            {% include 'components/_card.html.twig' with article %}
+            {% include 'shaka/components/_card.html.twig' with article %}
           </li>
         {% endfor %}
       </ul>

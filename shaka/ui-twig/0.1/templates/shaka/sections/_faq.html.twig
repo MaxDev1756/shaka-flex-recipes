@@ -20,7 +20,7 @@
     - accordion  (boolean): JS accordion mode (only one item open at a time). Default: false
 
   Usage:
-    {% include 'sections/_faq.html.twig' with {
+    {% include 'shaka/sections/_faq.html.twig' with {
       heading: 'Questions fréquentes',
       items: [
         { question: 'Comment fonctionne l\'essai gratuit ?', answer: 'Vous avez 14 jours...' },
@@ -95,7 +95,7 @@
         <p>{{ cta.text }}</p>
       {% endif %}
       {% if cta.button is defined %}
-        {% include 'components/_button.html.twig' with cta.button %}
+        {% include 'shaka/components/_button.html.twig' with cta.button %}
       {% endif %}
     </div>
   {% endif %}

@@ -9,7 +9,7 @@
     convention: hero_*, features_*, stats_*, etc.
 
   Usage (Symfony / Twig controller):
-    return $this->render('pages/home.html.twig', [
+    return $this->render('shaka/pages/home.html.twig', [
       'title'       => 'Accueil – MonProduit',
       'description' => 'Description de la page pour le SEO',
       'hero' => [
@@ -21,7 +21,7 @@
     ]);
 #}
 
-{% extends 'layout/base.html.twig' %}
+{% extends 'shaka/layout/base.html.twig' %}
 
 {% block title %}{{ title|default('Accueil') }}{% endblock %}
 
@@ -29,42 +29,42 @@
 
   {# ── Hero ─────────────────────────────────────────────────── #}
   {% if hero is defined %}
-    {% include 'sections/_hero.html.twig' with hero %}
+    {% include 'shaka/sections/_hero.html.twig' with hero %}
   {% endif %}
 
   {# ── Logo strip ────────────────────────────────────────────── #}
   {% if logos is defined %}
-    {% include 'sections/_logos.html.twig' with logos %}
+    {% include 'shaka/sections/_logos.html.twig' with logos %}
   {% endif %}
 
   {# ── Features ─────────────────────────────────────────────── #}
   {% if features is defined %}
-    {% include 'sections/_features.html.twig' with features %}
+    {% include 'shaka/sections/_features.html.twig' with features %}
   {% endif %}
 
   {# ── Stats ─────────────────────────────────────────────────── #}
   {% if stats is defined %}
-    {% include 'sections/_stats.html.twig' with stats %}
+    {% include 'shaka/sections/_stats.html.twig' with stats %}
   {% endif %}
 
   {# ── Testimonials ─────────────────────────────────────────── #}
   {% if testimonials is defined %}
-    {% include 'sections/_testimonials.html.twig' with testimonials %}
+    {% include 'shaka/sections/_testimonials.html.twig' with testimonials %}
   {% endif %}
 
   {# ── Pricing ──────────────────────────────────────────────── #}
   {% if pricing is defined %}
-    {% include 'sections/_pricing.html.twig' with pricing %}
+    {% include 'shaka/sections/_pricing.html.twig' with pricing %}
   {% endif %}
 
   {# ── FAQ ──────────────────────────────────────────────────── #}
   {% if faq is defined %}
-    {% include 'sections/_faq.html.twig' with faq %}
+    {% include 'shaka/sections/_faq.html.twig' with faq %}
   {% endif %}
 
   {# ── CTA ──────────────────────────────────────────────────── #}
   {% if cta is defined %}
-    {% include 'sections/_cta.html.twig' with cta %}
+    {% include 'shaka/sections/_cta.html.twig' with cta %}
   {% endif %}
 
 {% endblock %}

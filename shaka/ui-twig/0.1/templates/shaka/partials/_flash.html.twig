@@ -12,7 +12,7 @@
       }
 
   Usage:
-    {% include 'partials/_flash.html.twig' with { message: { type: 'success', text: 'Enregistré !' } } %}
+    {% include 'shaka/partials/_flash.html.twig' with { message: { type: 'success', text: 'Enregistré !' } } %}
 #}
 
 {% set type  = message.type|default('info') %}

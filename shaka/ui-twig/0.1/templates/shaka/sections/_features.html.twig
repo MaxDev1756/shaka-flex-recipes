@@ -21,7 +21,7 @@
     - cta       (object) : Section-level CTA button props.
 
   Usage:
-    {% include 'sections/_features.html.twig' with {
+    {% include 'shaka/sections/_features.html.twig' with {
       heading: 'Tout ce dont vous avez besoin',
       features: [
         { icon: 'bolt', title: 'Rapide', description: 'Performances optimisées.' },
@@ -60,7 +60,7 @@
 
           {% if feature.icon is defined %}
             <div data-feature-icon>
-              {% include 'components/_icon.html.twig' with { name: feature.icon, size: 'lg', aria_hidden: true } %}
+              {% include 'shaka/components/_icon.html.twig' with { name: feature.icon, size: 'lg', aria_hidden: true } %}
             </div>
           {% endif %}
 
@@ -69,7 +69,7 @@
             <div data-feature-title-row>
               <h3 data-feature-title>{{ feature.title }}</h3>
               {% if feature.badge is defined %}
-                {% include 'components/_badge.html.twig' with feature.badge %}
+                {% include 'shaka/components/_badge.html.twig' with feature.badge %}
               {% endif %}
             </div>
 
@@ -78,7 +78,7 @@
             {% endif %}
 
             {% if feature.link is defined %}
-              {% include 'components/_link.html.twig' with {
+              {% include 'shaka/components/_link.html.twig' with {
                 label: feature.link.label|default('En savoir plus'),
                 url:   feature.link.url,
                 icon_after: 'arrow-right'
@@ -96,7 +96,7 @@
   {# ── Section CTA ───────────────────────────────────────────── #}
   {% if cta is defined and cta %}
     <div data-section-cta>
-      {% include 'components/_button.html.twig' with cta %}
+      {% include 'shaka/components/_button.html.twig' with cta %}
     </div>
   {% endif %}
 

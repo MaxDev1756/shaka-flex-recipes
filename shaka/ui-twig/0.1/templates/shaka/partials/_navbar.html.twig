@@ -70,7 +70,7 @@
     {# ── CTA ───────────────────────────────────────────────────── #}
     {% if nav_cta is defined and nav_cta %}
       <div>
-        {% include 'components/_button.html.twig' with {
+        {% include 'shaka/components/_button.html.twig' with {
           label:   nav_cta.label,
           url:     nav_cta.url,
           variant: nav_cta.variant|default('primary')

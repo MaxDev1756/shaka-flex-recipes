@@ -15,7 +15,7 @@
     - group    (boolean) : Set true when avatar is part of an AvatarGroup (removes outer margin).
 
   Usage:
-    {% include 'components/_avatar.html.twig' with {
+    {% include 'shaka/components/_avatar.html.twig' with {
       src: '/avatars/jane.jpg',
       name: 'Jane Dupont',
       size: 'lg',
@@ -23,7 +23,7 @@
     } %}
 
     {# Initials fallback #}
-    {% include 'components/_avatar.html.twig' with { initials: 'JD', name: 'Jean Dubois' } %}
+    {% include 'shaka/components/_avatar.html.twig' with { initials: 'JD', name: 'Jean Dubois' } %}
 #}
 
 {# Auto-generate initials from name if not explicitly provided #}
