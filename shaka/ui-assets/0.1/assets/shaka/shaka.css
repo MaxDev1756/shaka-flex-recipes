@@ -1,0 +1,55 @@
+/* ==========================================================================
+   SHAKA CSS — v1.0.0
+   Twig component library stylesheet
+   ==========================================================================
+
+   Entry point — imports all partials in the correct cascade order.
+   Include only this file in your <head>:
+
+     <link rel="stylesheet" href="/assets/shaka/shaka.css">
+
+   ──────────────────────────────────────────────────────────────────────────
+   Architecture
+   ──────────────────────────────────────────────────────────────────────────
+
+   shaka.css          ← you are here (entry point)
+   ├── base.css       ← design tokens (custom properties) · CSS reset · typography · utilities
+   ├── layout.css     ← container · grid · navbar · footer · breadcrumbs · flash · skip link
+   ├── components.css ← button · link · badge · card · alert · icon · avatar · dropdown · modal
+   └── sections.css   ← hero · features · cta · stats · testimonials · logos · pricing · faq
+                         + page templates (home · content · 404 · 500)
+
+   ──────────────────────────────────────────────────────────────────────────
+   Usage with Twig templates
+   ──────────────────────────────────────────────────────────────────────────
+
+   Styles are bound to HTML via data-attributes — never via class names.
+   This keeps Twig templates clean and decoupled from styling concerns.
+
+   Example mappings:
+     data-variant="primary"   → _button.html.twig  (variant prop)
+     data-section="hero"      → _hero.html.twig
+     data-card                → _card.html.twig
+     data-badge               → _badge.html.twig
+
+   ──────────────────────────────────────────────────────────────────────────
+   Theming
+   ──────────────────────────────────────────────────────────────────────────
+
+   Dark mode is automatic via @media (prefers-color-scheme: dark).
+   Manual override: add data-theme="dark" or data-theme="light" to <html>.
+
+   To customise the design system, override custom properties in :root
+   AFTER this import, or extend a token layer:
+
+     :root {
+       --color-brand-600: #0ea5e9;   /* swap brand to sky-blue *\/
+       --font-display:    'Playfair Display', serif;
+     }
+
+   ========================================================================== */
+
+@import url('./base.css');
+@import url('./layout.css');
+@import url('./components.css');
+@import url('./sections.css');
