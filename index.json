@@ -4,6 +4,9 @@
         "shaka/ui-assets": [
             "0.1"
         ],
+        "shaka/ui-js": [
+            "0.1"
+        ],
         "shaka/ui-twig": [
             "0.1"
         ]
