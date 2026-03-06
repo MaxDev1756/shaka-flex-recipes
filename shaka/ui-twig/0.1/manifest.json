@@ -4,6 +4,6 @@
   },
   "copy-from-recipe": {
     "templates/": "templates/",
-    "src/": "src/"
+    "config/": "config/"
   }
 }
