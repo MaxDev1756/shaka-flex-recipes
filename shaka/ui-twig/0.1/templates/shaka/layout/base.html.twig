@@ -59,6 +59,12 @@
 
   {% block head_meta %}{% endblock %}
 
+  {#
+    Pour charger shaka.css via AssetMapper :
+    {{ encore_entry_link_tags('shaka') }}
+    ou directement :
+    <link rel="stylesheet" href="{{ asset('assets/shaka/shaka.css') }}">
+  #}
   {% block head_styles %}{% endblock %}
 </head>
 

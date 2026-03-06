@@ -1,42 +1,28 @@
 {#
   partials/_breadcrumbs.html.twig
   ================================
-  Accessible breadcrumb trail with JSON-LD structured data.
+  Fil d'Ariane accessible avec données structurées JSON-LD.
 
-  Variables:
-    - breadcrumbs (array) : [
-        {
-          label  (string)  : Display text,
-          url    (string)  : Link href (omit or null for last/current item),
-          active (boolean) : Mark as current page
-        }
-      ]
+  Variables :
+    - breadcrumbs (array) : [{ label, url, active }]
 
-  Usage:
-    {% include 'shaka/partials/_breadcrumbs.html.twig' with {
-      breadcrumbs: [
-        { label: 'Accueil', url: '/' },
-        { label: 'Blog',    url: '/blog' },
-        { label: 'Article', active: true }
-      ]
-    } %}
+  Fichier CSS associé : assets/shaka/partials/breadcrumbs.css
+  Sélecteur racine   : [data-breadcrumbs]
 #}
 
 {% if breadcrumbs is defined and breadcrumbs|length %}
 
-  <nav aria-label="Fil d'Ariane">
+  <nav data-breadcrumbs aria-label="Fil d'Ariane">
     <ol role="list">
       {% for crumb in breadcrumbs %}
         <li{% if crumb.active is defined and crumb.active %} aria-current="page"{% endif %}>
 
-          {# Show link for all items except the active/last one #}
           {% if crumb.url is defined and crumb.url and (crumb.active is not defined or crumb.active != true) %}
             <a href="{{ crumb.url }}">{{ crumb.label }}</a>
           {% else %}
             <span>{{ crumb.label }}</span>
           {% endif %}
 
-          {# Separator (hidden from screen readers) #}
           {% if not loop.last %}
             <span aria-hidden="true">/</span>
           {% endif %}
@@ -46,7 +32,6 @@
     </ol>
   </nav>
 
-  {# JSON-LD structured data for SEO #}
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",

@@ -1,0 +1,68 @@
+/* ==========================================================================
+   SHAKA — components/alert.css
+   Couplé à : shaka/components/_alert.html.twig
+   ========================================================================== */
+
+[data-alert] {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  border: 1px solid;
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+}
+
+[data-alert][data-type="info"] {
+  background: var(--color-info-bg);
+  border-color: var(--color-info);
+  color: var(--color-info-text);
+}
+[data-alert][data-type="success"] {
+  background: var(--color-success-bg);
+  border-color: var(--color-success);
+  color: var(--color-success-text);
+}
+[data-alert][data-type="warning"] {
+  background: var(--color-warning-bg);
+  border-color: var(--color-warning);
+  color: var(--color-warning-text);
+}
+[data-alert][data-type="danger"] {
+  background: var(--color-danger-bg);
+  border-color: var(--color-danger);
+  color: var(--color-danger-text);
+}
+
+[data-alert-icon] {
+  flex-shrink: 0;
+  font-size: var(--text-base);
+  line-height: 1.4;
+}
+
+[data-alert-content] { flex: 1; }
+
+[data-alert-title] {
+  display: block;
+  font-weight: var(--weight-semibold);
+  margin-bottom: var(--space-1);
+}
+
+[data-alert-message] {
+  max-width: 100%;
+  color: inherit;
+  opacity: 0.9;
+}
+
+[data-alert-dismiss] {
+  margin-inline-start: auto;
+  flex-shrink: 0;
+  opacity: 0.5;
+  font-size: var(--text-lg);
+  line-height: 1;
+  padding: 2px;
+  color: inherit;
+  border-radius: var(--radius-sm);
+}
+[data-alert-dismiss]:hover { opacity: 1; }

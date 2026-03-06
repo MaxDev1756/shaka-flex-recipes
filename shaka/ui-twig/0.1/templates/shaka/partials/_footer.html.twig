@@ -1,31 +1,25 @@
 {#
   partials/_footer.html.twig
   ===========================
-  Site footer.
+  Pied de page du site.
 
-  Variables:
-    - footer_brand (object)  : { name, description, logo }
-    - footer_columns (array) : [
-        {
-          heading (string) : Column title,
-          links   (array)  : [{ label, url, external }]
-        }
-      ]
-    - footer_social (array)  : [{ platform, url, icon, label }]
-    - footer_legal  (object) : {
-        copyright (string),
-        links     (array)  : [{ label, url }]
-      }
+  Variables :
+    - footer_brand   (object) : { name, description, logo }
+    - footer_columns (array)  : [{ heading, links: [{ label, url, external }] }]
+    - footer_social  (array)  : [{ platform, url, icon, label, external }]
+    - footer_legal   (object) : { copyright, links: [{ label, url }] }
+
+  Fichier CSS associé : assets/shaka/partials/footer.css
+  Sélecteur racine   : [data-footer]
 #}
 
-<footer>
+<footer data-footer>
 
-  {# ── Top section ───────────────────────────────────────────── #}
-  <div>
+  {# ── Partie haute ────────────────────────────────────────── #}
+  <div data-footer-top>
 
-    {# Brand / description column #}
     {% if footer_brand is defined %}
-      <div>
+      <div data-footer-brand>
         {% if footer_brand.logo is defined %}
           <img src="{{ footer_brand.logo }}" alt="{{ footer_brand.name|default('') }}">
         {% else %}
@@ -36,16 +30,17 @@
           <p>{{ footer_brand.description }}</p>
         {% endif %}
 
-        {# Social links #}
         {% if footer_social is defined and footer_social %}
-          <ul role="list" aria-label="Réseaux sociaux">
+          <ul role="list" data-footer-social aria-label="Réseaux sociaux">
             {% for social in footer_social %}
               <li>
-                <a href="{{ social.url }}"
-                   aria-label="{{ social.label|default(social.platform) }}"
-                   {% if social.external is defined and social.external %}
-                     target="_blank" rel="noopener noreferrer"
-                   {% endif %}>
+                <a
+                  href="{{ social.url }}"
+                  aria-label="{{ social.label|default(social.platform) }}"
+                  {% if social.external is not defined or social.external != false %}
+                    target="_blank" rel="noopener noreferrer"
+                  {% endif %}
+                >
                   {% if social.icon is defined %}
                     {% include 'shaka/components/_icon.html.twig' with { name: social.icon } %}
                   {% else %}
@@ -59,20 +54,19 @@
       </div>
     {% endif %}
 
-    {# Link columns #}
     {% if footer_columns is defined %}
       {% for column in footer_columns %}
-        <div>
+        <div data-footer-col>
           <h3>{{ column.heading }}</h3>
           <ul role="list">
             {% for link in column.links %}
               <li>
-                <a href="{{ link.url }}"
-                   {% if link.external is defined and link.external %}
-                     target="_blank" rel="noopener noreferrer"
-                   {% endif %}>
-                  {{ link.label }}
-                </a>
+                <a
+                  href="{{ link.url }}"
+                  {% if link.external is defined and link.external %}
+                    target="_blank" rel="noopener noreferrer"
+                  {% endif %}
+                >{{ link.label }}</a>
               </li>
             {% endfor %}
           </ul>
@@ -82,17 +76,14 @@
 
   </div>
 
-  {# ── Bottom bar ────────────────────────────────────────────── #}
+  {# ── Bas de page ─────────────────────────────────────────── #}
   {% if footer_legal is defined %}
-    <div>
+    <div data-footer-bottom>
       <p>{{ footer_legal.copyright|default('') }}</p>
-
       {% if footer_legal.links is defined %}
         <ul role="list">
           {% for link in footer_legal.links %}
-            <li>
-              <a href="{{ link.url }}">{{ link.label }}</a>
-            </li>
+            <li><a href="{{ link.url }}">{{ link.label }}</a></li>
           {% endfor %}
         </ul>
       {% endif %}

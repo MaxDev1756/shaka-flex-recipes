@@ -1,0 +1,55 @@
+/* ==========================================================================
+   SHAKA — layout/base-layout.css
+   Structure globale de la page. Couplé à shaka/layout/base.html.twig.
+   ========================================================================== */
+
+/* Structure page */
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main[id="main-content"] {
+  flex: 1;
+}
+
+/* Section — base partagée */
+[data-section] {
+  padding-block: var(--section-py);
+  position: relative;
+}
+
+/* En-tête de section centré */
+[data-section-header] {
+  text-align: center;
+  max-width: 560px;
+  margin-inline: auto;
+  margin-bottom: var(--space-12);
+}
+
+[data-section-header] [data-eyebrow] {
+  margin-bottom: var(--space-3);
+}
+
+[data-section-header] h2 {
+  margin-bottom: var(--space-4);
+}
+
+[data-section-header] p {
+  margin-inline: auto;
+  color: var(--text-secondary);
+}
+
+/* CTA centré sous une section */
+[data-section-cta] {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-10);
+}
+
+/* Wrapper interne d'une section */
+[data-section-inner] {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}

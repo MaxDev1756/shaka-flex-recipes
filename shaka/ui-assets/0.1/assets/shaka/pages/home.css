@@ -1,0 +1,11 @@
+/* ==========================================================================
+   SHAKA — pages/home.css
+   Couplé à : shaka/pages/home.html.twig
+   Styles spécifiques à la page d'accueil.
+   Minimal — la page est essentiellement composée de sections.
+   ========================================================================== */
+
+/* Alternance de fond entre sections */
+[data-page="home"] [data-section]:nth-child(even) {
+  background: var(--surface-muted);
+}

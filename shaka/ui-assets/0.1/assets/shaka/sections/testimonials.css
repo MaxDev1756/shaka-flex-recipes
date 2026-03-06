@@ -1,0 +1,72 @@
+/* ==========================================================================
+   SHAKA — sections/testimonials.css
+   Couplé à : shaka/sections/_testimonials.html.twig
+   ========================================================================== */
+
+[data-section="testimonials"] { background: var(--surface-muted); }
+
+[data-testimonials-grid] {
+  display: grid;
+  gap: var(--space-5);
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+[data-testimonials-grid][data-columns="1"] { grid-template-columns: 1fr; max-width: var(--container-text); }
+[data-testimonials-grid][data-columns="2"] { grid-template-columns: repeat(2, 1fr); }
+[data-testimonials-grid][data-columns="3"] { grid-template-columns: repeat(3, 1fr); }
+
+[data-testimonial-item] {
+  background: var(--surface-page);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  transition: box-shadow var(--transition);
+}
+[data-testimonial-item]:hover { box-shadow: var(--shadow-md); }
+
+[data-testimonial-rating] {
+  display: flex;
+  gap: 2px;
+  color: var(--color-warning);
+  font-size: var(--text-sm);
+}
+
+[data-testimonial-quote] { flex: 1; }
+[data-testimonial-quote] p {
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--text-primary);
+  max-width: 100%;
+  font-style: italic;
+}
+
+[data-testimonial-author] {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+}
+
+[data-author-name] {
+  display: block;
+  font-weight: var(--weight-semibold);
+  font-style: normal;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+[data-author-meta] {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  max-width: 100%;
+  margin-top: 2px;
+}
+
+@media (max-width: 768px) {
+  [data-testimonials-grid][data-columns="3"],
+  [data-testimonials-grid][data-columns="2"] { grid-template-columns: 1fr; }
+}

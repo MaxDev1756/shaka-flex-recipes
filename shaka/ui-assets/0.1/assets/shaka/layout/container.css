@@ -1,0 +1,24 @@
+/* ==========================================================================
+   SHAKA — layout/container.css
+   Conteneur centré avec padding horizontal responsive.
+   ========================================================================== */
+
+.sk-container,
+[data-container] {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+[data-container="text"] {
+  max-width: var(--container-text);
+}
+
+[data-container="wide"] {
+  max-width: 1440px;
+}
+
+[data-container="full"] {
+  max-width: none;
+}

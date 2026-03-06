@@ -1,0 +1,65 @@
+/* ==========================================================================
+   SHAKA — pages/error-500.css
+   Couplé à : shaka/pages/500.html.twig
+   ========================================================================== */
+
+[data-page="error-500"] {
+  min-height: calc(100dvh - 56px - 200px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--section-py) var(--gutter);
+}
+
+[data-page="error-500"] [data-error-inner] {
+  max-width: 480px;
+  margin-inline: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+[data-page="error-500"] [data-error-code] {
+  font-size: clamp(5rem, 18vw, 8rem);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1;
+  color: var(--border-strong);
+  margin-bottom: calc(-1 * var(--space-2));
+}
+
+[data-page="error-500"] [data-error-headline] {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+
+[data-page="error-500"] [data-error-message] {
+  color: var(--text-secondary);
+  max-width: 44ch;
+  text-align: center;
+}
+
+[data-error-id] {
+  font-size: var(--text-sm);
+  color: var(--text-tertiary);
+  text-align: center;
+  max-width: none;
+}
+
+[data-error-actions] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+[data-error-status] {
+  font-size: var(--text-sm);
+  color: var(--text-tertiary);
+  text-align: center;
+  max-width: none;
+}

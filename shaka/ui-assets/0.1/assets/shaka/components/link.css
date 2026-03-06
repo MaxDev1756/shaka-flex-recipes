@@ -1,0 +1,38 @@
+/* ==========================================================================
+   SHAKA — components/link.css
+   Couplé à : shaka/components/_link.html.twig
+   ========================================================================== */
+
+[data-link] {
+  color: var(--text-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: transparent;
+  transition:
+    color var(--transition),
+    text-decoration-color var(--transition);
+}
+
+[data-link]:hover {
+  text-decoration-color: currentColor;
+}
+
+[data-link][data-variant="muted"] {
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+[data-link][data-variant="muted"]:hover {
+  color: var(--text-primary);
+}
+
+[data-link][data-variant="no-underline"] {
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+/* Indicateur lien externe */
+[data-external-indicator] {
+  font-size: 0.8em;
+  opacity: 0.6;
+  margin-inline-start: 2px;
+}

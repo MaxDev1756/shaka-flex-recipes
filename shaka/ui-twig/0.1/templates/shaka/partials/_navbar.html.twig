@@ -1,27 +1,25 @@
 {#
   partials/_navbar.html.twig
   ===========================
-  Responsive navigation bar.
+  Barre de navigation responsive.
 
-  Variables:
-    - brand (object) : { name, url, logo } — Logo / brand name
-    - nav_items (array) : [
-        {
-          label      (string)  : Link text,
-          url        (string)  : href,
-          active     (boolean) : Is this item the current page?,
-          children   (array)   : Optional sub-menu items [{ label, url }]
-        }
-      ]
-    - nav_cta (object) : Optional call-to-action button { label, url, variant }
-    - nav_id  (string) : ID for the <nav> element. Default: 'main-nav'
+  Variables :
+    - brand     (object) : { name, url, logo }
+    - nav_items (array)  : [{ label, url, active, children: [{ label, url }] }]
+    - nav_cta   (object) : { label, url, variant }
+    - nav_id    (string) : ID de la <nav>. Défaut : 'main-nav'
+
+  Fichier CSS associé : assets/shaka/partials/navbar.css
+  Sélecteur racine   : [data-navbar]
+
+  JS requis : toggle data-open sur [data-navbar-menu] au clic sur [data-navbar-toggle]
 #}
 
-<header>
-  <nav id="{{ nav_id|default('main-nav') }}" aria-label="Navigation principale">
+<header data-navbar>
+  <div data-navbar-inner>
 
-    {# ── Brand ─────────────────────────────────────────────────── #}
-    <div>
+    {# ── Brand ──────────────────────────────────────────────── #}
+    <div data-navbar-brand>
       <a href="{{ brand.url|default('/') }}">
         {% if brand.logo is defined and brand.logo %}
           <img src="{{ brand.logo }}" alt="{{ brand.name|default('') }}">
@@ -31,33 +29,25 @@
       </a>
     </div>
 
-    {# ── Toggle (mobile) ───────────────────────────────────────── #}
-    <button
-      type="button"
-      aria-controls="nav-menu"
-      aria-expanded="false"
-      aria-label="Ouvrir le menu">
-      <span aria-hidden="true">&#9776;</span>
-    </button>
-
-    {# ── Nav links ─────────────────────────────────────────────── #}
-    <ul id="nav-menu" role="list">
+    {# ── Menu ────────────────────────────────────────────────── #}
+    <ul
+      id="{{ nav_id|default('main-nav') }}-menu"
+      role="list"
+      data-navbar-menu
+    >
       {% if nav_items is defined %}
         {% for item in nav_items %}
           <li{% if item.children is defined and item.children %} aria-haspopup="true"{% endif %}>
 
-            <a href="{{ item.url }}"
-               {% if item.active is defined and item.active %}aria-current="page"{% endif %}>
-              {{ item.label }}
-            </a>
+            <a
+              href="{{ item.url }}"
+              {% if item.active is defined and item.active %}aria-current="page"{% endif %}
+            >{{ item.label }}</a>
 
-            {# Sub-menu #}
             {% if item.children is defined and item.children %}
               <ul role="list">
                 {% for child in item.children %}
-                  <li>
-                    <a href="{{ child.url }}">{{ child.label }}</a>
-                  </li>
+                  <li><a href="{{ child.url }}">{{ child.label }}</a></li>
                 {% endfor %}
               </ul>
             {% endif %}
@@ -67,16 +57,28 @@
       {% endif %}
     </ul>
 
-    {# ── CTA ───────────────────────────────────────────────────── #}
+    {# ── CTA ─────────────────────────────────────────────────── #}
     {% if nav_cta is defined and nav_cta %}
-      <div>
+      <div data-navbar-cta>
         {% include 'shaka/components/_button.html.twig' with {
           label:   nav_cta.label,
           url:     nav_cta.url,
-          variant: nav_cta.variant|default('primary')
+          variant: nav_cta.variant|default('primary'),
+          size:    'sm'
         } %}
       </div>
     {% endif %}
 
-  </nav>
+    {# ── Toggle mobile ───────────────────────────────────────── #}
+    <button
+      type="button"
+      aria-controls="{{ nav_id|default('main-nav') }}-menu"
+      aria-expanded="false"
+      aria-label="Ouvrir le menu"
+      data-navbar-toggle
+    >
+      <span aria-hidden="true">&#9776;</span>
+    </button>
+
+  </div>
 </header>
