@@ -1,68 +1,21 @@
-{#
-  components/_button.html.twig
-  =============================
-  Bouton polyvalent. Se rend en <button> ou en <a> si url est défini.
-
-  Variables :
-    - label       (string)  : Texte du bouton. Requis.
-    - url         (string)  : Si défini, rend un <a> au lieu de <button>.
-    - type        (string)  : 'button' | 'submit' | 'reset'. Défaut : 'button'
-    - variant     (string)  : 'primary' | 'secondary' | 'ghost' | 'danger' | 'link'. Défaut : 'primary'
-    - size        (string)  : 'sm' | 'md' | 'lg'. Défaut : 'md'
-    - disabled    (boolean) : État désactivé.
-    - loading     (boolean) : Affiche un spinner et bloque les interactions.
-    - icon_before (string)  : Nom d'icône avant le label.
-    - icon_after  (string)  : Nom d'icône après le label.
-    - attrs       (object)  : Attributs HTML supplémentaires.
-    - external    (boolean) : Ajoute target="_blank" rel="noopener noreferrer".
-
-  Fichier CSS associé : assets/shaka/components/button.css
-  Sélecteur racine   : [data-btn]
-
-  Usage :
-    {% include 'shaka/components/_button.html.twig' with { label: 'Envoyer', variant: 'primary' } %}
-    {% include 'shaka/components/_button.html.twig' with { label: 'Voir', url: '/page', variant: 'secondary' } %}
-#}
-
-{% set is_link     = url is defined and url %}
-{% set is_disabled = (disabled is defined and disabled) or (loading is defined and loading) %}
-{% set tag         = is_link ? 'a' : 'button' %}
-
-<{{ tag }}
-  {% if is_link %}
-    href="{{ url }}"
-    {% if external is defined and external %}target="_blank" rel="noopener noreferrer"{% endif %}
-    {% if is_disabled %}aria-disabled="true" tabindex="-1"{% endif %}
-  {% else %}
-    type="{{ type|default('button') }}"
-    {% if is_disabled %}disabled aria-disabled="true"{% endif %}
-  {% endif %}
-
-  data-btn
-  data-variant="{{ variant|default('primary') }}"
-  data-size="{{ size|default('md') }}"
-
-  {% if loading is defined and loading %}aria-busy="true"{% endif %}
-
-  {% if attrs is defined %}
-    {% for attr_key, attr_val in attrs %}
-      {{ attr_key }}="{{ attr_val }}"
-    {% endfor %}
-  {% endif %}
->
-
-  {% if loading is defined and loading %}
-    <span aria-hidden="true" data-spinner>○</span>
-  {% endif %}
-
-  {% if icon_before is defined and icon_before %}
-    {% include 'shaka/components/_icon.html.twig' with { name: icon_before, aria_hidden: true } %}
-  {% endif %}
-
-  <span>{{ label }}</span>
-
-  {% if icon_after is defined and icon_after %}
-    {% include 'shaka/components/_icon.html.twig' with { name: icon_after, aria_hidden: true } %}
-  {% endif %}
-
-</{{ tag }}>
+{% set label = label ?? 'Button' %}
+{% set href = href ?? url ?? null %}
+{% set variant = variant ?? 'primary' %}
+{% set size = size ?? 'md' %}
+{% set type = type ?? 'button' %}
+{% set icon_left = icon_left ?? null %}
+{% set icon_right = icon_right ?? null %}
+{% set class_name = class_name ?? '' %}
+{% if href %}
+  <a class="shaka-button shaka-button--{{ variant }} shaka-button--{{ size }} {{ class_name|trim }}" href="{{ href }}">
+    {% if icon_left %}<span class="shaka-button__icon">{{ icon_left }}</span>{% endif %}
+    <span>{{ label }}</span>
+    {% if icon_right %}<span class="shaka-button__icon">{{ icon_right }}</span>{% endif %}
+  </a>
+{% else %}
+  <button class="shaka-button shaka-button--{{ variant }} shaka-button--{{ size }} {{ class_name|trim }}" type="{{ type }}">
+    {% if icon_left %}<span class="shaka-button__icon">{{ icon_left }}</span>{% endif %}
+    <span>{{ label }}</span>
+    {% if icon_right %}<span class="shaka-button__icon">{{ icon_right }}</span>{% endif %}
+  </button>
+{% endif %}

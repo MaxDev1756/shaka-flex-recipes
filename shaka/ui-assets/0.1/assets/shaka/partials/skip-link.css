@@ -1,25 +1,14 @@
-/* ==========================================================================
-   SHAKA — partials/skip-link.css
-   Couplé à : shaka/partials/_skip_link.html.twig
-   ========================================================================== */
-
-[data-skip-link] {
-  position: absolute;
-  top: var(--space-2);
-  left: var(--space-2);
-  z-index: var(--z-modal);
-  padding: var(--space-2) var(--space-4);
+.shaka-skip-link {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.625rem 0.875rem;
+  border-radius: var(--radius-md);
   background: var(--text-primary);
-  color: var(--surface-page);
-  border-radius: var(--radius-lg);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-medium);
-  transform: translateY(-120%);
-  transition: transform var(--transition);
-  text-decoration: none;
+  color: var(--text-inverse);
+  transform: translateY(-200%);
+  transition: transform .2s ease;
 }
-
-[data-skip-link]:focus {
-  transform: translateY(0);
-  box-shadow: var(--ring);
-}
+.shaka-skip-link:focus,
+.shaka-skip-link:focus-visible { transform: translateY(0); }

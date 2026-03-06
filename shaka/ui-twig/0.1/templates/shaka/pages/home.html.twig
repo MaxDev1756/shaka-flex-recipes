@@ -1,70 +1,12 @@
-{#
-  pages/home.html.twig
-  =====================
-  Homepage. Composes all major marketing sections.
-
-  Variables (passed through to each section):
-    See individual section templates for their variables.
-    All section data can be passed as top-level variables with the
-    convention: hero_*, features_*, stats_*, etc.
-
-  Usage (Symfony / Twig controller):
-    return $this->render('shaka/pages/home.html.twig', [
-      'title'       => 'Accueil – MonProduit',
-      'description' => 'Description de la page pour le SEO',
-      'hero' => [
-        'headline'    => 'Transformez votre façon de travailler',
-        'subheadline' => 'La plateforme tout-en-un pour les équipes modernes.',
-        'cta_primary' => ['label' => 'Essai gratuit', 'url' => '/signup'],
-      ],
-      ...
-    ]);
-#}
-
 {% extends 'shaka/layout/base.html.twig' %}
-
-{% block title %}{{ title|default('Accueil') }}{% endblock %}
-
+{% block title %}{{ title ?? 'Shaka — Home' }}{% endblock %}
 {% block content %}
-
-  {# ── Hero ─────────────────────────────────────────────────── #}
-  {% if hero is defined %}
-    {% include 'shaka/sections/_hero.html.twig' with hero %}
-  {% endif %}
-
-  {# ── Logo strip ────────────────────────────────────────────── #}
-  {% if logos is defined %}
-    {% include 'shaka/sections/_logos.html.twig' with logos %}
-  {% endif %}
-
-  {# ── Features ─────────────────────────────────────────────── #}
-  {% if features is defined %}
-    {% include 'shaka/sections/_features.html.twig' with features %}
-  {% endif %}
-
-  {# ── Stats ─────────────────────────────────────────────────── #}
-  {% if stats is defined %}
-    {% include 'shaka/sections/_stats.html.twig' with stats %}
-  {% endif %}
-
-  {# ── Testimonials ─────────────────────────────────────────── #}
-  {% if testimonials is defined %}
-    {% include 'shaka/sections/_testimonials.html.twig' with testimonials %}
-  {% endif %}
-
-  {# ── Pricing ──────────────────────────────────────────────── #}
-  {% if pricing is defined %}
-    {% include 'shaka/sections/_pricing.html.twig' with pricing %}
-  {% endif %}
-
-  {# ── FAQ ──────────────────────────────────────────────────── #}
-  {% if faq is defined %}
-    {% include 'shaka/sections/_faq.html.twig' with faq %}
-  {% endif %}
-
-  {# ── CTA ──────────────────────────────────────────────────── #}
-  {% if cta is defined %}
-    {% include 'shaka/sections/_cta.html.twig' with cta %}
-  {% endif %}
-
+  {% include 'shaka/sections/_hero.html.twig' %}
+  {% include 'shaka/sections/_logos.html.twig' %}
+  {% include 'shaka/sections/_features.html.twig' %}
+  {% include 'shaka/sections/_stats.html.twig' %}
+  {% include 'shaka/sections/_testimonials.html.twig' %}
+  {% include 'shaka/sections/_pricing.html.twig' %}
+  {% include 'shaka/sections/_faq.html.twig' %}
+  {% include 'shaka/sections/_cta.html.twig' %}
 {% endblock %}

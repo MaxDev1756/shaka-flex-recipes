@@ -1,42 +1,4 @@
-/* ==========================================================================
-   SHAKA — partials/breadcrumbs.css
-   Couplé à : shaka/partials/_breadcrumbs.html.twig
-   ========================================================================== */
-
-[data-breadcrumbs] {
-  padding-block: var(--space-3);
-}
-
-[data-breadcrumbs] ol {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-1);
-  max-width: var(--container-max);
-  margin-inline: auto;
-  padding-inline: var(--gutter);
-}
-
-[data-breadcrumbs] li {
-  display: flex;
-  align-items: center;
-  gap: var(--space-1);
-  font-size: var(--text-sm);
-  color: var(--text-tertiary);
-}
-
-[data-breadcrumbs] li a {
-  color: var(--text-secondary);
-  transition: color var(--transition);
-}
-[data-breadcrumbs] li a:hover { color: var(--text-primary); }
-
-[data-breadcrumbs] li[aria-current="page"] span {
-  color: var(--text-primary);
-  font-weight: var(--weight-medium);
-}
-
-[data-breadcrumbs] [aria-hidden="true"] {
-  color: var(--text-tertiary);
-  font-size: var(--text-xs);
-}
+.shaka-breadcrumbs { padding-top: 1rem; }
+.shaka-breadcrumbs__list { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; padding: 0; }
+.shaka-breadcrumbs__item { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); }
+.shaka-breadcrumbs__item + .shaka-breadcrumbs__item::before { content: "/"; color: var(--text-tertiary); margin-right: 0.5rem; }

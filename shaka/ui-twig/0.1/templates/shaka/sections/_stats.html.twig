@@ -1,87 +1,15 @@
-{#
-  sections/_stats.html.twig
-  ==========================
-  Key metrics / statistics section.
-
-  Variables:
-    - heading    (string) : Optional section heading.
-    - subheading (string) : Optional supporting text.
-    - eyebrow    (string) : Small label above heading.
-    - stats      (array)  : [
-        {
-          value       (string) : The metric value, e.g. '10 000+', '99 %'
-          label       (string) : Description of the metric
-          description (string) : Optional extra detail
-          icon        (string) : Optional icon name
-          trend       (object) : { value, direction: 'up'|'down', label }
-        }
-      ]
-    - columns  (number) : Grid columns: 2 | 3 | 4. Default: auto from item count.
-    - variant  (string) : 'default' | 'brand' | 'dark'. Default: 'default'
-
-  Usage:
-    {% include 'shaka/sections/_stats.html.twig' with {
-      stats: [
-        { value: '10 000+', label: 'Clients actifs' },
-        { value: '99,9 %',  label: 'Disponibilité SLA' },
-        { value: '45',      label: 'Pays couverts' },
-        { value: '< 50 ms', label: 'Latence moyenne' }
-      ]
-    } %}
-#}
-
-<section data-section="stats" data-variant="{{ variant|default('default') }}">
-
-  {% if heading is defined or subheading is defined %}
-    <header data-section-header>
-      {% if eyebrow is defined and eyebrow %}
-        <p data-section-eyebrow>{{ eyebrow }}</p>
-      {% endif %}
-      {% if heading is defined and heading %}
-        <h2 data-section-heading>{{ heading }}</h2>
-      {% endif %}
-      {% if subheading is defined and subheading %}
-        <p data-section-subheading>{{ subheading }}</p>
-      {% endif %}
-    </header>
-  {% endif %}
-
-  {% if stats is defined and stats|length %}
-    <dl
-      data-stats-grid
-      data-columns="{{ columns|default(stats|length > 3 ? 4 : stats|length) }}">
-
-      {% for stat in stats %}
-        <div data-stat-item>
-
-          {% if stat.icon is defined %}
-            {% include 'shaka/components/_icon.html.twig' with { name: stat.icon, size: 'lg', aria_hidden: true } %}
-          {% endif %}
-
-          <dt data-stat-label>{{ stat.label }}</dt>
-
-          <dd data-stat-value>{{ stat.value }}</dd>
-
-          {% if stat.description is defined and stat.description %}
-            <p data-stat-description>{{ stat.description }}</p>
-          {% endif %}
-
-          {% if stat.trend is defined and stat.trend %}
-            <span
-              data-stat-trend="{{ stat.trend.direction|default('up') }}"
-              aria-label="{{ stat.trend.direction == 'up' ? 'Hausse' : 'Baisse' }} de {{ stat.trend.value }}">
-              {% if stat.trend.direction == 'up' %}&#8593;{% else %}&#8595;{% endif %}
-              {{ stat.trend.value }}
-              {% if stat.trend.label is defined %}
-                <span>{{ stat.trend.label }}</span>
-              {% endif %}
-            </span>
-          {% endif %}
-
-        </div>
-      {% endfor %}
-
-    </dl>
-  {% endif %}
-
+{% set items = items ?? [
+  { value: '12', label: 'UI components' },
+  { value: '4', label: 'Starter pages' },
+  { value: '1', label: 'Showcase route' }
+] %}
+<section class="shaka-stats">
+  <div class="shaka-container shaka-stats__grid">
+    {% for item in items %}
+      <article class="shaka-stat">
+        <strong class="shaka-stat__value">{{ item.value }}</strong>
+        <span class="shaka-stat__label">{{ item.label }}</span>
+      </article>
+    {% endfor %}
+  </div>
 </section>

@@ -1,84 +1,41 @@
-{#
-  partials/_navbar.html.twig
-  ===========================
-  Barre de navigation responsive.
+{% set links = nav_links ?? [
+  { label: 'Home', href: '/' },
+  { label: 'Showcase', href: '/shaka/showcase' },
+  { label: 'Content', href: '/shaka/content' }
+] %}
+{% set cta = nav_cta ?? { label: 'Get started', href: '/shaka/showcase' } %}
 
-  Variables :
-    - brand     (object) : { name, url, logo }
-    - nav_items (array)  : [{ label, url, active, children: [{ label, url }] }]
-    - nav_cta   (object) : { label, url, variant }
-    - nav_id    (string) : ID de la <nav>. Défaut : 'main-nav'
+<header class="shaka-navbar" data-controller="shaka-navbar" data-state="closed">
+	<div class="shaka-container shaka-navbar__inner">
+		<a class="shaka-navbar__brand" href="{{ brand_url ?? '/' }}">
+			{{ brand_name ?? 'Shaka' }}
+		</a>
 
-  Fichier CSS associé : assets/shaka/partials/navbar.css
-  Sélecteur racine   : [data-navbar]
+		<button class="shaka-navbar__toggle" type="button" aria-expanded="false" aria-label="Open navigation" data-shaka-navbar-target="button" data-action="click->shaka-navbar#toggle">
+			Menu
+		</button>
 
-  JS requis : toggle data-open sur [data-navbar-menu] au clic sur [data-navbar-toggle]
-#}
+		<nav class="shaka-navbar__nav" aria-label="Navigation principale" data-shaka-navbar-target="menu" hidden>
+			<ul class="shaka-navbar__list">
+				{% for item in links %}
+					<li>
+						<a class="shaka-navbar__link{% if item.active ?? false %} is-active{% endif %}" href="{{ item.href ?? '#' }}" {% if item.active ?? false %} aria-current="page" {% endif %}>
+							{{ item.label ?? 'Link' }}
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
 
-<header data-navbar>
-  <div data-navbar-inner>
-
-    {# ── Brand ──────────────────────────────────────────────── #}
-    <div data-navbar-brand>
-      <a href="{{ brand.url|default('/') }}">
-        {% if brand.logo is defined and brand.logo %}
-          <img src="{{ brand.logo }}" alt="{{ brand.name|default('') }}">
-        {% else %}
-          {{ brand.name|default('Brand') }}
-        {% endif %}
-      </a>
-    </div>
-
-    {# ── Menu ────────────────────────────────────────────────── #}
-    <ul
-      id="{{ nav_id|default('main-nav') }}-menu"
-      role="list"
-      data-navbar-menu
-    >
-      {% if nav_items is defined %}
-        {% for item in nav_items %}
-          <li{% if item.children is defined and item.children %} aria-haspopup="true"{% endif %}>
-
-            <a
-              href="{{ item.url }}"
-              {% if item.active is defined and item.active %}aria-current="page"{% endif %}
-            >{{ item.label }}</a>
-
-            {% if item.children is defined and item.children %}
-              <ul role="list">
-                {% for child in item.children %}
-                  <li><a href="{{ child.url }}">{{ child.label }}</a></li>
-                {% endfor %}
-              </ul>
-            {% endif %}
-
-          </li>
-        {% endfor %}
-      {% endif %}
-    </ul>
-
-    {# ── CTA ─────────────────────────────────────────────────── #}
-    {% if nav_cta is defined and nav_cta %}
-      <div data-navbar-cta>
-        {% include 'shaka/components/_button.html.twig' with {
-          label:   nav_cta.label,
-          url:     nav_cta.url,
-          variant: nav_cta.variant|default('primary'),
-          size:    'sm'
-        } %}
-      </div>
-    {% endif %}
-
-    {# ── Toggle mobile ───────────────────────────────────────── #}
-    <button
-      type="button"
-      aria-controls="{{ nav_id|default('main-nav') }}-menu"
-      aria-expanded="false"
-      aria-label="Ouvrir le menu"
-      data-navbar-toggle
-    >
-      <span aria-hidden="true">&#9776;</span>
-    </button>
-
-  </div>
+			{% if cta %}
+				<div class="shaka-navbar__cta">
+					{% include 'shaka/components/_button.html.twig' with {
+            label: cta.label ?? 'Get started',
+            href: cta.href ?? '#',
+            variant: cta.variant ?? 'primary',
+            size: 'sm'
+          } only %}
+				</div>
+			{% endif %}
+		</nav>
+	</div>
 </header>

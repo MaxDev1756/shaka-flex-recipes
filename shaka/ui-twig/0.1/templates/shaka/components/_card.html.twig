@@ -1,100 +1,24 @@
-{#
-  components/_card.html.twig
-  ===========================
-  Versatile content card.
-
-  Variables:
-    - title       (string)  : Card heading.
-    - description (string)  : Card body text.
-    - image       (object)  : { src, alt, position: 'top'|'bottom' }
-    - badge       (object)  : Badge props passed to _badge component.
-    - link        (object)  : { url, label } — makes whole card or a CTA link.
-    - actions     (array)   : Array of button props passed to _button component.
-    - meta        (string)  : Small meta info (date, author, etc.).
-    - icon        (string)  : Icon name shown in header area.
-    - variant     (string)  : 'default' | 'bordered' | 'elevated' | 'flat'. Default: 'default'
-    - tag         (string)  : HTML tag to use. Default: 'article'
-
-  Blocks:
-    - card_header  : Override the entire header area.
-    - card_body    : Override the entire body area.
-    - card_footer  : Override the entire footer area.
-
-  Usage:
-    {% include 'shaka/components/_card.html.twig' with {
-      title: 'Mon article',
-      description: 'Résumé de l'article...',
-      image: { src: '/img/post.jpg', alt: 'Photo de l\'article' },
-      link: { url: '/blog/mon-article' }
-    } %}
-#}
-
-{% set card_tag = tag|default('article') %}
-
-<{{ card_tag }} data-card data-variant="{{ variant|default('default') }}">
-
-  {# ── Image top ─────────────────────────────────────────────── #}
-  {% if image is defined and image and (image.position is not defined or image.position == 'top') %}
-    <figure data-card-image>
-      <img src="{{ image.src }}" alt="{{ image.alt|default('') }}" loading="lazy">
-    </figure>
-  {% endif %}
-
-  {# ── Header ────────────────────────────────────────────────── #}
-  {% block card_header %}
-    {% if badge is defined or icon is defined or meta is defined %}
-      <header data-card-header>
-        {% if icon is defined and icon %}
-          {% include 'shaka/components/_icon.html.twig' with { name: icon } %}
-        {% endif %}
-        {% if badge is defined and badge %}
-          {% include 'shaka/components/_badge.html.twig' with badge %}
-        {% endif %}
-        {% if meta is defined and meta %}
-          <small data-card-meta>{{ meta }}</small>
-        {% endif %}
-      </header>
-    {% endif %}
-  {% endblock %}
-
-  {# ── Body ──────────────────────────────────────────────────── #}
-  {% block card_body %}
-    <div data-card-body>
-      {% if title is defined and title %}
-        <h3 data-card-title>
-          {% if link is defined and link.url is defined %}
-            <a href="{{ link.url }}">{{ title }}</a>
-          {% else %}
-            {{ title }}
-          {% endif %}
-        </h3>
-      {% endif %}
-      {% if description is defined and description %}
-        <p data-card-description>{{ description }}</p>
-      {% endif %}
+{% set title = title ?? 'Card title' %}
+{% set text = text ?? description ?? 'A short piece of content to show the visual style of the card component.' %}
+{% set eyebrow = eyebrow ?? null %}
+{% set href = href ?? null %}
+{% set badge = badge ?? null %}
+{% set actions = actions ?? [] %}
+<article class="shaka-card">
+  {% if eyebrow or badge %}
+    <div class="shaka-card__meta">
+      {% if eyebrow %}<span class="shaka-card__eyebrow">{{ eyebrow }}</span>{% endif %}
+      {% if badge %}{% include 'shaka/components/_badge.html.twig' with badge only %}{% endif %}
     </div>
-  {% endblock %}
-
-  {# ── Image bottom ──────────────────────────────────────────── #}
-  {% if image is defined and image and image.position is defined and image.position == 'bottom' %}
-    <figure data-card-image>
-      <img src="{{ image.src }}" alt="{{ image.alt|default('') }}" loading="lazy">
-    </figure>
   {% endif %}
-
-  {# ── Footer / actions ──────────────────────────────────────── #}
-  {% block card_footer %}
-    {% if actions is defined and actions|length %}
-      <footer data-card-footer>
-        {% for action in actions %}
-          {% include 'shaka/components/_button.html.twig' with action %}
-        {% endfor %}
-      </footer>
-    {% elseif link is defined and link.label is defined %}
-      <footer data-card-footer>
-        {% include 'shaka/components/_link.html.twig' with { label: link.label, url: link.url } %}
-      </footer>
-    {% endif %}
-  {% endblock %}
-
-</{{ card_tag }}>
+  <div class="shaka-card__body">
+    <h3 class="shaka-card__title">{{ title }}</h3>
+    <p class="shaka-card__text">{{ text }}</p>
+  </div>
+  {% if href or actions %}
+    <div class="shaka-card__footer">
+      {% if href %}{% include 'shaka/components/_link.html.twig' with { label: link_label ?? 'Learn more', href: href } only %}{% endif %}
+      {% for action in actions %}{% include 'shaka/components/_button.html.twig' with action only %}{% endfor %}
+    </div>
+  {% endif %}
+</article>

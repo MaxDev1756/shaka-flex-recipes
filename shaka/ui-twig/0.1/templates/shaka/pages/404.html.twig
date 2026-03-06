@@ -1,87 +1,15 @@
-{#
-  pages/404.html.twig
-  ====================
-  HTTP 404 – Page introuvable.
-
-  Variables:
-    - title      (string) : Page title. Default: '404 – Page introuvable'
-    - headline   (string) : H1 displayed to user. Default: 'Page introuvable'
-    - message    (string) : Explanatory paragraph. Default: generic message.
-    - cta        (object) : Button to go back home. Default: { label: 'Retour à l'accueil', url: '/' }
-    - search_url (string) : If set, show a search form pointing to this URL.
-    - links      (array)  : Helpful links: [{ label, url }]
-
-  Usage (Symfony):
-    # config/packages/twig.yaml
-    twig:
-      exception_controller: null
-    # Then map 404 in error pages: templates/bundles/TwigBundle/Exception/error404.html.twig
-    {% extends 'shaka/pages/404.html.twig' %}
-#}
-
 {% extends 'shaka/layout/base.html.twig' %}
-
-{% block title %}{{ title|default('404 – Page introuvable') }}{% endblock %}
-
+{% block title %}Page not found{% endblock %}
 {% block content %}
-
-  <div data-page="error-404">
-
-    <div data-error-inner>
-
-      {# Status code #}
-      <p data-error-code aria-hidden="true">404</p>
-
-      <h1 data-error-headline>{{ headline|default('Page introuvable') }}</h1>
-
-      <p data-error-message>
-        {{ message|default('La page que vous cherchez n\'existe pas ou a été déplacée.') }}
-      </p>
-
-      {# Search #}
-      {% if search_url is defined and search_url %}
-        <form action="{{ search_url }}" method="get" role="search" data-error-search>
-          <label for="error-search-input">Rechercher sur le site</label>
-          <input
-            id="error-search-input"
-            type="search"
-            name="q"
-            placeholder="Rechercher…"
-            autocomplete="off">
-          {% include 'shaka/components/_button.html.twig' with {
-            label: 'Rechercher',
-            type: 'submit',
-            variant: 'primary'
-          } %}
-        </form>
-      {% endif %}
-
-      {# Main CTA #}
-      <div data-error-actions>
-        {% include 'shaka/components/_button.html.twig' with {
-          label:   cta.label|default('Retour à l\'accueil'),
-          url:     cta.url|default('/'),
-          variant: 'primary',
-          size:    'lg'
-        } %}
+  <section class="shaka-error-page">
+    <div class="shaka-container shaka-error-page__inner">
+      {% include 'shaka/components/_badge.html.twig' with { label: '404', variant: 'neutral' } only %}
+      <h1>Page not found</h1>
+      <p>The page you are looking for does not exist or has been moved.</p>
+      <div class="shaka-error-page__actions">
+        {% include 'shaka/components/_button.html.twig' with { label: 'Back home', href: '/' } only %}
+        {% include 'shaka/components/_button.html.twig' with { label: 'See showcase', href: '/shaka/showcase', variant: 'secondary' } only %}
       </div>
-
-      {# Helpful links #}
-      {% if links is defined and links|length %}
-        <nav data-error-links aria-label="Pages utiles">
-          <p>Peut-être cherchez-vous :</p>
-          <ul role="list">
-            {% for link in links %}
-              <li>
-                {% include 'shaka/components/_link.html.twig' with { label: link.label, url: link.url } %}
-              </li>
-            {% endfor %}
-          </ul>
-        </nav>
-      {% endif %}
-
     </div>
-
-  </div>
-
+  </section>
 {% endblock %}

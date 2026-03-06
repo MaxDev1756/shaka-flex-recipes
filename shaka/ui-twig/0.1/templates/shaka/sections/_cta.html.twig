@@ -1,66 +1,13 @@
-{#
-  sections/_cta.html.twig
-  ========================
-  Call-to-action banner section.
-
-  Variables:
-    - heading     (string) : Main CTA heading. Required.
-    - subheading  (string) : Supporting text.
-    - cta_primary   (object): { label, url, variant, size }
-    - cta_secondary (object): { label, url, variant, size }
-    - eyebrow     (string) : Small label above heading.
-    - image       (object) : { src, alt } — optional decorative background or side image.
-    - variant     (string) : 'default' | 'brand' | 'dark' | 'split'. Default: 'default'
-    - align       (string) : 'left' | 'center'. Default: 'center'
-
-  Usage:
-    {% include 'shaka/sections/_cta.html.twig' with {
-      heading: 'Prêt à vous lancer ?',
-      subheading: 'Rejoignez des milliers d'équipes qui nous font confiance.',
-      cta_primary: { label: 'Essai gratuit', url: '/signup' },
-      cta_secondary: { label: 'Contacter l'équipe', url: '/contact', variant: 'ghost' }
-    } %}
-#}
-
-<section data-section="cta" data-variant="{{ variant|default('default') }}" data-align="{{ align|default('center') }}">
-
-  {% if image is defined and image %}
-    <div data-cta-bg-image aria-hidden="true">
-      <img src="{{ image.src }}" alt="">
+{% set title = title ?? 'Ready to start?' %}
+{% set text = text ?? 'Install Shaka, preview the components and adapt them to your project.' %}
+{% set primary = primary ?? { label: 'See showcase', href: '/shaka/showcase' } %}
+{% set secondary = secondary ?? { label: 'Read content page', href: '/shaka/content', variant: 'secondary' } %}
+<section class="shaka-cta">
+  <div class="shaka-container shaka-cta__inner">
+    <div><h2>{{ title }}</h2><p>{{ text }}</p></div>
+    <div class="shaka-cta__actions">
+      {% include 'shaka/components/_button.html.twig' with primary only %}
+      {% include 'shaka/components/_button.html.twig' with secondary only %}
     </div>
-  {% endif %}
-
-  <div data-cta-inner>
-
-    {% if eyebrow is defined and eyebrow %}
-      <p data-section-eyebrow>{{ eyebrow }}</p>
-    {% endif %}
-
-    <h2 data-cta-heading>{{ heading }}</h2>
-
-    {% if subheading is defined and subheading %}
-      <p data-cta-subheading>{{ subheading }}</p>
-    {% endif %}
-
-    <div data-cta-actions>
-      {% if cta_primary is defined %}
-        {% include 'shaka/components/_button.html.twig' with {
-          label:   cta_primary.label,
-          url:     cta_primary.url,
-          variant: cta_primary.variant|default('primary'),
-          size:    cta_primary.size|default('lg')
-        } %}
-      {% endif %}
-      {% if cta_secondary is defined %}
-        {% include 'shaka/components/_button.html.twig' with {
-          label:   cta_secondary.label,
-          url:     cta_secondary.url,
-          variant: cta_secondary.variant|default('ghost'),
-          size:    cta_secondary.size|default('lg')
-        } %}
-      {% endif %}
-    </div>
-
   </div>
-
 </section>

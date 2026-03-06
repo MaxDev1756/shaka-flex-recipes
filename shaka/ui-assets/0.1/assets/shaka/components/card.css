@@ -1,105 +1,14 @@
-/* ==========================================================================
-   SHAKA — components/card.css
-   Couplé à : shaka/components/_card.html.twig
-   ========================================================================== */
-
-[data-card] {
-  background: var(--surface-page);
+.shaka-card {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  transition:
-    border-color var(--transition),
-    box-shadow var(--transition);
+  background: var(--surface-page);
+  box-shadow: var(--shadow-card);
 }
-
-[data-card]:hover {
-  border-color: var(--border-strong);
-  box-shadow: var(--shadow-md);
-}
-
-[data-card][data-variant="elevated"] {
-  border-color: transparent;
-  box-shadow: var(--shadow-md);
-}
-[data-card][data-variant="elevated"]:hover {
-  box-shadow: var(--shadow-xl);
-}
-
-[data-card][data-variant="flat"] {
-  background: var(--surface-muted);
-  border-color: transparent;
-  box-shadow: none;
-}
-
-/* Image */
-[data-card-image] {
-  margin: 0;
-  overflow: hidden;
-  aspect-ratio: 16 / 9;
-  background: var(--surface-subtle);
-}
-[data-card-image] img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform var(--duration-slow) var(--ease);
-}
-[data-card]:hover [data-card-image] img {
-  transform: scale(1.02);
-}
-
-/* Header */
-[data-card-header] {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-4) var(--space-4) 0;
-}
-
-/* Body */
-[data-card-body] {
-  flex: 1;
-  padding: var(--space-4);
-}
-[data-card-header] + [data-card-body] {
-  padding-top: var(--space-3);
-}
-
-[data-card-title] {
-  font-size: var(--text-base);
-  font-weight: var(--weight-semibold);
-  color: var(--text-primary);
-  line-height: var(--leading-snug);
-  margin-bottom: var(--space-2);
-}
-[data-card-title] a {
-  color: inherit;
-}
-[data-card-title] a:hover {
-  color: var(--text-brand);
-}
-
-[data-card-description] {
-  font-size: var(--text-sm);
-  color: var(--text-secondary);
-  line-height: var(--leading-relaxed);
-  max-width: 100%;
-}
-
-[data-card-meta] {
-  font-size: var(--text-xs);
-  color: var(--text-tertiary);
-  margin-inline-start: auto;
-}
-
-/* Footer */
-[data-card-footer] {
-  padding: var(--space-3) var(--space-4);
-  border-top: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
+.shaka-card__meta { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.shaka-card__eyebrow { color: var(--text-tertiary); font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+.shaka-card__body { display: grid; gap: 0.5rem; }
+.shaka-card__text { color: var(--text-secondary); }
+.shaka-card__footer { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }

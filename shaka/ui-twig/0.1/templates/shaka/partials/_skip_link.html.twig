@@ -1,18 +1,1 @@
-{#
-  partials/_skip_link.html.twig
-  ==============================
-  Lien d'accessibilité "aller au contenu principal". Visible uniquement au focus clavier.
-
-  Variables :
-    - target (string) : Ancre cible. Défaut : '#main-content'
-    - label  (string) : Texte du lien. Défaut : 'Aller au contenu principal'
-
-  Fichier CSS associé : assets/shaka/partials/skip-link.css
-  Sélecteur racine   : [data-skip-link]
-#}
-<a
-  href="{{ target|default('#main-content') }}"
-  data-skip-link
->
-  {{ label|default('Aller au contenu principal') }}
-</a>
+<a class="shaka-skip-link" href="#main-content">Aller au contenu</a>

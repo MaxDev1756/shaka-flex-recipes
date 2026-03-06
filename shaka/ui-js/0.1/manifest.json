@@ -1,0 +1,10 @@
+{
+  "copy-from-recipe": {
+    "assets/": "assets/"
+  },
+  "post-install-output": [
+    "Shaka UI JS installed.",
+    "Stimulus controllers were copied into assets/controllers/.",
+    "Make sure your project uses Symfony StimulusBundle and imports ./bootstrap.js from assets/app.js."
+  ]
+}

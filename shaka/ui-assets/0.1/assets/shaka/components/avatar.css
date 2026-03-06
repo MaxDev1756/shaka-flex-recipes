@@ -1,86 +1,13 @@
-/* ==========================================================================
-   SHAKA — components/avatar.css
-   Couplé à : shaka/components/_avatar.html.twig
-   ========================================================================== */
-
-[data-avatar] {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  flex-shrink: 0;
-  background: var(--color-brand-100);
-  color: var(--color-brand-700);
-  font-weight: var(--weight-semibold);
-  overflow: visible;
-  vertical-align: middle;
+.shaka-avatar {
+  display: inline-grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: var(--surface-subtle);
+  color: var(--text-primary);
+  font-weight: 700;
+  overflow: hidden;
 }
-
-/* Formes */
-[data-avatar][data-shape="circle"],
-[data-avatar]:not([data-shape]) { border-radius: var(--radius-full); }
-[data-avatar][data-shape="square"] { border-radius: var(--radius-lg); }
-
-/* Tailles */
-[data-avatar][data-size="xs"]  { width: 24px;  height: 24px;  font-size: var(--text-xs); }
-[data-avatar][data-size="sm"]  { width: 32px;  height: 32px;  font-size: var(--text-xs); }
-[data-avatar][data-size="md"],
-[data-avatar]:not([data-size]) { width: 40px;  height: 40px;  font-size: var(--text-sm); }
-[data-avatar][data-size="lg"]  { width: 48px;  height: 48px;  font-size: var(--text-base); }
-[data-avatar][data-size="xl"]  { width: 64px;  height: 64px;  font-size: var(--text-xl); }
-
-/* Image */
-[data-avatar-img] {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: inherit;
-}
-
-/* Initiales */
-[data-avatar-initials],
-[data-avatar-fallback] {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: inherit;
-  line-height: 1;
-}
-
-/* Statut */
-[data-avatar-status] {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 28%;
-  height: 28%;
-  min-width: 8px;
-  min-height: 8px;
-  border-radius: var(--radius-full);
-  border: 2px solid var(--surface-page);
-}
-[data-avatar-status="online"]  { background: var(--color-success); }
-[data-avatar-status="offline"] { background: var(--color-neutral-400); }
-[data-avatar-status="away"]    { background: var(--color-warning); }
-[data-avatar-status="busy"]    { background: var(--color-danger); }
-
-/* Badge */
-[data-avatar-badge] {
-  position: absolute;
-  top: -3px;
-  right: -3px;
-  background: var(--color-danger);
-  color: var(--color-white);
-  font-size: 10px;
-  font-weight: var(--weight-semibold);
-  min-width: 16px;
-  height: 16px;
-  padding: 0 3px;
-  border-radius: var(--radius-full);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid var(--surface-page);
-}
+.shaka-avatar--sm { width: 2.25rem; height: 2.25rem; font-size: 0.875rem; }
+.shaka-avatar img { width: 100%; height: 100%; object-fit: cover; }

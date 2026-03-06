@@ -187,3 +187,11 @@
   --text-brand:    var(--color-brand-600);
   --text-link:     var(--color-brand-600);
 }
+
+
+:root {
+  --container-width: 72rem;
+  --page-padding: 1.25rem;
+  --radius-pill: 999px;
+  --shadow-card: 0 10px 30px rgba(9, 9, 11, 0.06);
+}

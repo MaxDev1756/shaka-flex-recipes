@@ -1,93 +1,18 @@
-{#
-  partials/_footer.html.twig
-  ===========================
-  Pied de page du site.
-
-  Variables :
-    - footer_brand   (object) : { name, description, logo }
-    - footer_columns (array)  : [{ heading, links: [{ label, url, external }] }]
-    - footer_social  (array)  : [{ platform, url, icon, label, external }]
-    - footer_legal   (object) : { copyright, links: [{ label, url }] }
-
-  Fichier CSS associé : assets/shaka/partials/footer.css
-  Sélecteur racine   : [data-footer]
-#}
-
-<footer data-footer>
-
-  {# ── Partie haute ────────────────────────────────────────── #}
-  <div data-footer-top>
-
-    {% if footer_brand is defined %}
-      <div data-footer-brand>
-        {% if footer_brand.logo is defined %}
-          <img src="{{ footer_brand.logo }}" alt="{{ footer_brand.name|default('') }}">
-        {% else %}
-          <strong>{{ footer_brand.name|default('') }}</strong>
-        {% endif %}
-
-        {% if footer_brand.description is defined %}
-          <p>{{ footer_brand.description }}</p>
-        {% endif %}
-
-        {% if footer_social is defined and footer_social %}
-          <ul role="list" data-footer-social aria-label="Réseaux sociaux">
-            {% for social in footer_social %}
-              <li>
-                <a
-                  href="{{ social.url }}"
-                  aria-label="{{ social.label|default(social.platform) }}"
-                  {% if social.external is not defined or social.external != false %}
-                    target="_blank" rel="noopener noreferrer"
-                  {% endif %}
-                >
-                  {% if social.icon is defined %}
-                    {% include 'shaka/components/_icon.html.twig' with { name: social.icon } %}
-                  {% else %}
-                    {{ social.platform }}
-                  {% endif %}
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
-        {% endif %}
-      </div>
-    {% endif %}
-
-    {% if footer_columns is defined %}
-      {% for column in footer_columns %}
-        <div data-footer-col>
-          <h3>{{ column.heading }}</h3>
-          <ul role="list">
-            {% for link in column.links %}
-              <li>
-                <a
-                  href="{{ link.url }}"
-                  {% if link.external is defined and link.external %}
-                    target="_blank" rel="noopener noreferrer"
-                  {% endif %}
-                >{{ link.label }}</a>
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
-      {% endfor %}
-    {% endif %}
-
-  </div>
-
-  {# ── Bas de page ─────────────────────────────────────────── #}
-  {% if footer_legal is defined %}
-    <div data-footer-bottom>
-      <p>{{ footer_legal.copyright|default('') }}</p>
-      {% if footer_legal.links is defined %}
-        <ul role="list">
-          {% for link in footer_legal.links %}
-            <li><a href="{{ link.url }}">{{ link.label }}</a></li>
+{% set links = footer_links ?? [] %}
+<footer class="shaka-footer">
+  <div class="shaka-container shaka-footer__inner">
+    <div class="shaka-footer__brand">
+      <strong>{{ footer_brand ?? 'Shaka' }}</strong>
+      <p>{{ footer_text ?? 'A simple Twig UI starter kit.' }}</p>
+    </div>
+    {% if links %}
+      <nav class="shaka-footer__nav" aria-label="Liens de pied de page">
+        <ul class="shaka-footer__list">
+          {% for item in links %}
+            <li><a href="{{ item.href ?? '#' }}">{{ item.label ?? 'Link' }}</a></li>
           {% endfor %}
         </ul>
-      {% endif %}
-    </div>
-  {% endif %}
-
+      </nav>
+    {% endif %}
+  </div>
 </footer>

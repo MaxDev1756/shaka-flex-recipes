@@ -1,48 +1,12 @@
-{#
-  partials/_flash.html.twig
-  ==========================
-  Message flash / notification transitoire.
-
-  Variables :
-    - message (object) : {
-        type    (string)  : 'success' | 'error' | 'warning' | 'info'. Défaut : 'info'
-        text    (string)  : Corps du message. Requis.
-        title   (string)  : En-tête optionnel en gras.
-        dismiss (boolean) : Affiche le bouton de fermeture. Défaut : true
-      }
-
-  Fichier CSS associé : assets/shaka/partials/flash.css
-  Sélecteur racine   : [data-flash]
-#}
-
-{% set type  = message.type|default('info') %}
-{% set icons = { success: '✓', error: '✕', warning: '⚠', info: 'ℹ' } %}
-
-<div
-  role="alert"
-  aria-live="polite"
-  aria-atomic="true"
-  data-flash
-  data-type="{{ type }}"
->
-
-  <span aria-hidden="true">{{ icons[type]|default('ℹ') }}</span>
-
-  <div data-flash-text>
-    {% if message.title is defined and message.title %}
-      <strong>{{ message.title }}</strong>
-    {% endif %}
-    <span>{{ message.text }}</span>
+{% set messages = flash_messages ?? [] %}
+{% if messages %}
+  <div class="shaka-flash-stack" aria-live="polite">
+    {% for message in messages %}
+      {% include 'shaka/components/_alert.html.twig' with {
+        variant: message.variant ?? 'info',
+        title: message.title ?? null,
+        text: message.text ?? message.message ?? ''
+      } only %}
+    {% endfor %}
   </div>
-
-  {% if message.dismiss is not defined or message.dismiss != false %}
-    <button
-      type="button"
-      aria-label="Fermer ce message"
-      data-flash-dismiss
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
-  {% endif %}
-
-</div>
+{% endif %}

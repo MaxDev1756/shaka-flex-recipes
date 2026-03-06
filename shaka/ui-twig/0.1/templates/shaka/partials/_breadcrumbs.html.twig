@@ -1,54 +1,16 @@
-{#
-  partials/_breadcrumbs.html.twig
-  ================================
-  Fil d'Ariane accessible avec données structurées JSON-LD.
-
-  Variables :
-    - breadcrumbs (array) : [{ label, url, active }]
-
-  Fichier CSS associé : assets/shaka/partials/breadcrumbs.css
-  Sélecteur racine   : [data-breadcrumbs]
-#}
-
-{% if breadcrumbs is defined and breadcrumbs|length %}
-
-  <nav data-breadcrumbs aria-label="Fil d'Ariane">
-    <ol role="list">
-      {% for crumb in breadcrumbs %}
-        <li{% if crumb.active is defined and crumb.active %} aria-current="page"{% endif %}>
-
-          {% if crumb.url is defined and crumb.url and (crumb.active is not defined or crumb.active != true) %}
-            <a href="{{ crumb.url }}">{{ crumb.label }}</a>
+{% set items = breadcrumbs ?? [] %}
+{% if items %}
+  <nav class="shaka-breadcrumbs" aria-label="Fil d’Ariane">
+    <ol class="shaka-breadcrumbs__list">
+      {% for item in items %}
+        <li class="shaka-breadcrumbs__item">
+          {% if not loop.last and (item.href ?? null) %}
+            <a href="{{ item.href }}">{{ item.label ?? 'Item' }}</a>
           {% else %}
-            <span>{{ crumb.label }}</span>
+            <span aria-current="page">{{ item.label ?? 'Item' }}</span>
           {% endif %}
-
-          {% if not loop.last %}
-            <span aria-hidden="true">/</span>
-          {% endif %}
-
         </li>
       {% endfor %}
     </ol>
   </nav>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {% for crumb in breadcrumbs %}
-      {
-        "@type": "ListItem",
-        "position": {{ loop.index }},
-        "name": "{{ crumb.label|e('js') }}"
-        {% if crumb.url is defined and crumb.url %}
-        ,"item": "{{ crumb.url }}"
-        {% endif %}
-      }{% if not loop.last %},{% endif %}
-      {% endfor %}
-    ]
-  }
-  </script>
-
 {% endif %}

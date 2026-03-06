@@ -1,39 +1,11 @@
-/* ==========================================================================
-   SHAKA — core/utilities.css
-   Classes utilitaires légères et helpers d'accessibilité.
-   ========================================================================== */
-
-/* ── Screen-reader only ──────────────────────────────────────── */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-/* ── Transitions communes ────────────────────────────────────── */
-a, button, [role="button"] {
-  transition:
-    color var(--transition),
-    background-color var(--transition),
-    border-color var(--transition),
-    box-shadow var(--transition),
-    opacity var(--transition);
-}
-
-/* ── Truncate ────────────────────────────────────────────────── */
-.truncate {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-/* ── Hidden ──────────────────────────────────────────────────── */
-[hidden] {
-  display: none !important;
-}
+.shaka-stack > * + * { margin-top: 1rem; }
+.shaka-stack-lg > * + * { margin-top: 2rem; }
+.shaka-inline { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+.shaka-grid { display: grid; gap: 1rem; }
+.shaka-grid--2 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.shaka-grid--3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.shaka-section-heading { max-width: 40rem; margin-bottom: 1.5rem; }
+.shaka-section-heading p { margin-top: 0.5rem; }
+.shaka-prose > * + * { margin-top: 1rem; }
+.shaka-prose ul { padding-left: 1.25rem; }
+.shaka-prose li + li { margin-top: 0.5rem; }
