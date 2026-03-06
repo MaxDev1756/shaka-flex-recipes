@@ -3,6 +3,7 @@
     "Shaka\\UiTwig\\ShakaUiTwigBundle": ["all"]
   },
   "copy-from-recipe": {
-    "templates/": "templates/"
+    "templates/": "templates/",
+    "src/": "src/"
   }
 }
