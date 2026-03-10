@@ -1,1 +1,7 @@
-<a class="shaka-skip-link" href="#main-content">Aller au contenu</a>
+{% set text = text ?? 'Aller au contenu' %}
+{% set href = href ?? '#main-content' %}
+{% set show_always = show_always ?? false %}
+
+<a class="shaka-skip-link{% if show_always %} is-visible{% endif %}" href="{{ href }}" {% if show_always %} style="position: static; transform: none;" {% endif %}>
+	{{ text }}
+</a>

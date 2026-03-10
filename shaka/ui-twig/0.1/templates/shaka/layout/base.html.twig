@@ -2,20 +2,27 @@
 {% set page_description = description ?? 'Starter kit Twig minimaliste pour Symfony.' %}
 <!DOCTYPE html>
 <html lang="{{ lang ?? 'fr' }}">
-<head>
-  <meta charset="{{ charset ?? 'UTF-8' }}">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}{{ page_title }}{% endblock %}</title>
-  <meta name="description" content="{% block meta_description %}{{ page_description }}{% endblock %}">
-  {% block head_meta %}{% endblock %}
-  {% block head_styles %}<link rel="stylesheet" href="{{ asset('styles/app.css') }}">{% endblock %}
-  {% block head_scripts %}{% endblock %}
-</head>
-<body class="shaka-site {{ body_class ?? '' }}">
-  {% block body_start %}{% endblock %}
-  {% block skip_link %}{% include 'shaka/partials/_skip_link.html.twig' %}{% endblock %}
-  {% block navbar %}
-    {% include 'shaka/partials/_navbar.html.twig' with {
+	<head>
+		<meta charset="{{ charset ?? 'UTF-8' }}">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>
+			{% block title %}
+				{{ page_title }}
+			{% endblock %}
+		</title>
+		<meta name="description" content="{% block meta_description %}{{ page_description }}{% endblock %}"> {% block head_meta %}{% endblock %}
+		{% block head_styles %}<link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+		{% endblock %}
+		{% block head_scripts %}
+			{{ importmap('app') }}
+		{% endblock %}
+	</head>
+	<body class="shaka-site {{ body_class ?? '' }}"> {% block body_start %}{% endblock %}
+		{% block skip_link %}
+			{% include 'shaka/partials/_skip_link.html.twig' %}
+		{% endblock %}
+		{% block navbar %}
+			{% include 'shaka/partials/_navbar.html.twig' with {
       brand_name: brand_name ?? 'Shaka',
       brand_url: brand_url ?? '/',
       nav_links: nav_links ?? [
@@ -25,12 +32,15 @@
       ],
       nav_cta: nav_cta ?? { label: 'Get started', href: '/shaka/showcase' }
     } only %}
-  {% endblock %}
-  {% block flash %}{% include 'shaka/partials/_flash.html.twig' with { flash_messages: flash_messages ?? [] } only %}{% endblock %}
-  {% block breadcrumbs %}{% endblock %}
-  <main id="main-content" class="shaka-main">{% block content %}{% endblock %}</main>
-  {% block footer %}
-    {% include 'shaka/partials/_footer.html.twig' with {
+		{% endblock %}
+		{% block flash %}
+			{% include 'shaka/partials/_flash.html.twig' with { flash_messages: flash_messages ?? [] } only %}
+		{% endblock %}
+		{% block breadcrumbs %}{% endblock %}
+		<main id="main-content" class="shaka-main"> {% block content %}{% endblock %}
+			</main>
+			{% block footer %}
+				{% include 'shaka/partials/_footer.html.twig' with {
       footer_brand: footer_brand ?? 'Shaka',
       footer_text: footer_text ?? 'A simple Twig UI starter kit.',
       footer_links: footer_links ?? [
@@ -39,6 +49,6 @@
         { label: 'Contact', href: '#' }
       ]
     } only %}
-  {% endblock %}
-</body>
-</html>
+			{% endblock %}
+		</body>
+	</html>

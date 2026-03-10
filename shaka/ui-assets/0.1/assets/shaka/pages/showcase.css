@@ -1,0 +1,53 @@
+.shaka-page--showcase .shaka-page__header {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.shaka-showcase-block {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  background: var(--surface-page);
+  box-shadow: var(--shadow-card);
+}
+
+.shaka-showcase-block--interactive {
+  margin-bottom: clamp(4rem, 8vw, 7rem);
+}
+
+.shaka-showcase-block > h2 {
+  margin: 0;
+}
+
+.shaka-showcase-preview {
+  display: grid;
+  gap: 1rem;
+}
+
+.shaka-showcase-preview--spaced {
+  gap: 1.5rem;
+}
+
+.shaka-showcase-surface {
+  padding: 1rem;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-subtle);
+}
+
+.shaka-showcase-navbar-preview {
+  position: relative;
+  z-index: 1;
+}
+
+.shaka-showcase-footer-preview {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.shaka-showcase-section-stack {
+  display: grid;
+  gap: 2rem;
+}

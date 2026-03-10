@@ -6,14 +6,93 @@
   background: color-mix(in srgb, var(--surface-page) 88%, transparent);
   backdrop-filter: blur(12px);
 }
-.shaka-navbar__inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 4rem; }
-.shaka-navbar__brand { font-weight: 700; letter-spacing: -0.02em; }
-.shaka-navbar__nav { margin-left: auto; }
-.shaka-navbar__list { display: flex; align-items: center; gap: 0.25rem; list-style: none; padding: 0; }
-.shaka-navbar__link { display: inline-flex; padding: 0.5rem 0.75rem; border-radius: var(--radius-md); color: var(--text-secondary); }
-.shaka-navbar__link:hover, .shaka-navbar__link.is-active { background: var(--surface-subtle); color: var(--text-primary); }
+
+.shaka-navbar__inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: 4rem;
+}
+
+.shaka-navbar__brand {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.shaka-navbar__toggle {
+  display: none;
+  margin-left: auto;
+}
+
+.shaka-navbar__nav {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.shaka-navbar__list {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.shaka-navbar__cta {
+  display: flex;
+  align-items: center;
+}
+
+.shaka-navbar__link {
+  display: inline-flex;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.shaka-navbar__link:hover,
+.shaka-navbar__link.is-active {
+  background: var(--surface-subtle);
+  color: var(--text-primary);
+}
+
 @media (max-width: 760px) {
-  .shaka-navbar__inner { flex-wrap: wrap; padding-block: 0.75rem; }
-  .shaka-navbar__nav { width: 100%; margin-left: 0; order: 3; }
-  .shaka-navbar__list { flex-wrap: wrap; }
+  .shaka-navbar__inner {
+    flex-wrap: wrap;
+    padding-block: 0.75rem;
+  }
+
+  .shaka-navbar__toggle {
+    display: inline-flex;
+  }
+
+  .shaka-navbar__nav {
+    width: 100%;
+    margin-left: 0;
+    order: 3;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .shaka-navbar__nav[hidden] {
+    display: none;
+  }
+
+  .shaka-navbar__list {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .shaka-navbar__cta {
+    width: 100%;
+  }
+
+  .shaka-navbar__cta .shaka-button {
+    width: 100%;
+    justify-content: center;
+  }
 }

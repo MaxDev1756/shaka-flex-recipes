@@ -1,5 +1,41 @@
-.shaka-dropdown { display: grid; gap: 0.5rem; padding: 1rem; border: 1px dashed var(--border); border-radius: var(--radius-lg); }
-.shaka-dropdown__trigger { justify-self: start; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface-page); }
-.shaka-dropdown__menu { display: grid; gap: 0.25rem; }
-.shaka-dropdown__item { padding: 0.5rem 0.75rem; border-radius: var(--radius-md); }
-.shaka-dropdown__item:hover { background: var(--surface-subtle); }
+.shaka-dropdown {
+  position: relative;
+  display: inline-flex;
+}
+
+.shaka-dropdown__trigger {
+  position: relative;
+  z-index: 2;
+}
+
+.shaka-dropdown__menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  min-width: 12rem;
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-page);
+  box-shadow: var(--shadow-card);
+  z-index: 30;
+}
+
+.shaka-dropdown__menu[hidden] {
+  display: none;
+}
+
+.shaka-dropdown__item {
+  display: flex;
+  align-items: center;
+  padding: 0.625rem 0.75rem;
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.shaka-dropdown__item:hover {
+  background: var(--surface-subtle);
+}

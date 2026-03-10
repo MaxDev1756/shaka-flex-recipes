@@ -1,0 +1,5 @@
+services:
+    Shaka\UiTwig\Controller\:
+        resource: '../vendor/shaka/ui-twig/src/Controller/'
+        public: true
+        tags: ['controller.service_arguments']

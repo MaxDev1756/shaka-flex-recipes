@@ -6,16 +6,26 @@
 {% set icon_left = icon_left ?? null %}
 {% set icon_right = icon_right ?? null %}
 {% set class_name = class_name ?? '' %}
+{% set attributes = attributes ?? '' %}
+
 {% if href %}
-  <a class="shaka-button shaka-button--{{ variant }} shaka-button--{{ size }} {{ class_name|trim }}" href="{{ href }}">
-    {% if icon_left %}<span class="shaka-button__icon">{{ icon_left }}</span>{% endif %}
-    <span>{{ label }}</span>
-    {% if icon_right %}<span class="shaka-button__icon">{{ icon_right }}</span>{% endif %}
-  </a>
+	<a class="shaka-button shaka-button--{{ variant }} shaka-button--{{ size }} {{ class_name|trim }}" href="{{ href }}" {{ attributes|raw }}>
+		{% if icon_left %}
+			<span class="shaka-button__icon">{{ icon_left }}</span>
+		{% endif %}
+		<span>{{ label }}</span>
+		{% if icon_right %}
+			<span class="shaka-button__icon">{{ icon_right }}</span>
+		{% endif %}
+	</a>
 {% else %}
-  <button class="shaka-button shaka-button--{{ variant }} shaka-button--{{ size }} {{ class_name|trim }}" type="{{ type }}">
-    {% if icon_left %}<span class="shaka-button__icon">{{ icon_left }}</span>{% endif %}
-    <span>{{ label }}</span>
-    {% if icon_right %}<span class="shaka-button__icon">{{ icon_right }}</span>{% endif %}
-  </button>
+	<button class="shaka-button shaka-button--{{ variant }} shaka-button--{{ size }} {{ class_name|trim }}" type="{{ type }}" {{ attributes|raw }}>
+		{% if icon_left %}
+			<span class="shaka-button__icon">{{ icon_left }}</span>
+		{% endif %}
+		<span>{{ label }}</span>
+		{% if icon_right %}
+			<span class="shaka-button__icon">{{ icon_right }}</span>
+		{% endif %}
+	</button>
 {% endif %}

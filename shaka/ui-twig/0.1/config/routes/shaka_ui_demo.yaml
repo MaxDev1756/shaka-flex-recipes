@@ -1,3 +1,3 @@
 shaka_ui_demo:
-  resource: '@ShakaUiTwigBundle/Controller/'
-  type: attribute
+    resource: '@ShakaUiTwigBundle/Controller/'
+    type: attribute
