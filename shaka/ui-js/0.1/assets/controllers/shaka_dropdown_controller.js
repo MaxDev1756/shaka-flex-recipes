@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
-    static targets = ['menu'];
+    static targets = ['menu', 'button'];
 
     connect() {
         this.close();
@@ -17,36 +17,37 @@ export default class extends Controller {
         event.preventDefault();
         event.stopPropagation();
 
-        if (this.isOpen()) {
-            this.close();
-            return;
-        }
-
-        this.open();
+        this.isOpen() ? this.close() : this.open();
     }
 
     open() {
-        if (!this.hasMenuTarget) {
-            return;
+        if (this.hasMenuTarget) {
+            this.menuTarget.hidden = false;
+            this.menuTarget.classList.add('is-open');
         }
 
-        this.menuTarget.classList.add('is-open');
-        this.menuTarget.hidden = false;
+        if (this.hasButtonTarget) {
+            this.buttonTarget.setAttribute('aria-expanded', 'true');
+        }
+
         this.element.setAttribute('data-state', 'open');
     }
 
     close() {
-        if (!this.hasMenuTarget) {
-            return;
+        if (this.hasMenuTarget) {
+            this.menuTarget.hidden = true;
+            this.menuTarget.classList.remove('is-open');
         }
 
-        this.menuTarget.classList.remove('is-open');
-        this.menuTarget.hidden = true;
+        if (this.hasButtonTarget) {
+            this.buttonTarget.setAttribute('aria-expanded', 'false');
+        }
+
         this.element.setAttribute('data-state', 'closed');
     }
 
     isOpen() {
-        return this.hasMenuTarget && this.menuTarget.classList.contains('is-open');
+        return this.element.getAttribute('data-state') === 'open';
     }
 
     handleClickOutside(event) {

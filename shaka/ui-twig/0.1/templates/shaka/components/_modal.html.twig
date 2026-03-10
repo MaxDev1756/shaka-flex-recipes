@@ -1,30 +1,43 @@
 {% set title = title ?? 'Modal title' %}
-{% set text = text ?? 'This is a static preview of the modal component. JavaScript can be added later with Stimulus.' %}
+{% set text = text ?? 'This is a modal preview.' %}
 
 <div class="shaka-modal" data-controller="shaka-modal" data-state="closed">
-	<button type="button" class="shaka-modal__trigger" data-action="click->shaka-modal#open">
-		Open modal
-	</button>
+  <button
+    type="button"
+    class="shaka-modal__trigger"
+    data-action="click->shaka-modal#open"
+  >
+    Open modal
+  </button>
 
-	<div class="shaka-modal__overlay" data-shaka-modal-target="overlay" data-action="click->shaka-modal#closeOnOverlay" hidden>
-		<div class="shaka-modal__dialog" data-shaka-modal-target="dialog" hidden>
-			<div class="shaka-modal__header">
-				<h3>{{ title }}</h3>
-			</div>
+  <div
+    class="shaka-modal__overlay"
+    data-shaka-modal-target="overlay"
+    data-action="click->shaka-modal#closeOnOverlay"
+    hidden
+  >
+    <div class="shaka-modal__dialog" data-shaka-modal-target="dialog" hidden>
+      <div class="shaka-modal__header">
+        <h3>{{ title }}</h3>
+      </div>
 
-			<div class="shaka-modal__body">
-				<p>{{ text }}</p>
-			</div>
+      <div class="shaka-modal__body">
+        <p>{{ text }}</p>
+      </div>
 
-			<div class="shaka-modal__footer">
-				<button type="button" class="shaka-button shaka-button--secondary" data-action="click->shaka-modal#close">
-					Close
-				</button>
+      <div class="shaka-modal__footer">
+        <button
+          type="button"
+          class="shaka-button shaka-button--secondary"
+          data-action="click->shaka-modal#close"
+        >
+          Close
+        </button>
 
-				{% include 'shaka/components/_button.html.twig' with {
+        {% include 'shaka/components/_button.html.twig' with {
           label: 'Confirm'
         } only %}
-			</div>
-		</div>
-	</div>
+      </div>
+    </div>
+  </div>
 </div>

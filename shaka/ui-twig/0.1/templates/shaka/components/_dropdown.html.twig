@@ -6,15 +6,21 @@
 ] %}
 
 <div class="shaka-dropdown" data-controller="shaka-dropdown" data-state="closed">
-	<button class="shaka-dropdown__trigger" type="button" aria-expanded="false" data-action="click->shaka-dropdown#toggle">
-		{{ label }}
-	</button>
+  <button
+    class="shaka-dropdown__trigger"
+    type="button"
+    aria-expanded="false"
+    data-shaka-dropdown-target="button"
+    data-action="click->shaka-dropdown#toggle"
+  >
+    {{ label }}
+  </button>
 
-	<div class="shaka-dropdown__menu" data-shaka-dropdown-target="menu" hidden>
-		{% for item in items %}
-			<a class="shaka-dropdown__item" href="{{ item.href ?? '#' }}">
-				{{ item.label ?? 'Item' }}
-			</a>
-		{% endfor %}
-	</div>
+  <div class="shaka-dropdown__menu" data-shaka-dropdown-target="menu" hidden>
+    {% for item in items %}
+      <a class="shaka-dropdown__item" href="{{ item.href ?? '#' }}">
+        {{ item.label ?? 'Item' }}
+      </a>
+    {% endfor %}
+  </div>
 </div>

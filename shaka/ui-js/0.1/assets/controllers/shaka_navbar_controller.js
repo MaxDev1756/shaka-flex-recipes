@@ -4,9 +4,9 @@ export default class extends Controller {
     static targets = ['menu', 'button'];
 
     connect() {
-        this.close();
         this.handleResize = this.handleResize.bind(this);
         window.addEventListener('resize', this.handleResize);
+        this.handleResize();
     }
 
     disconnect() {
@@ -15,13 +15,7 @@ export default class extends Controller {
 
     toggle(event) {
         event.preventDefault();
-
-        if (this.isOpen()) {
-            this.close();
-            return;
-        }
-
-        this.open();
+        this.isOpen() ? this.close() : this.open();
     }
 
     open() {
@@ -38,23 +32,6 @@ export default class extends Controller {
     }
 
     close() {
-        if (this.hasMenuTarget) {
-            this.menuTarget.hidden = true;
-            this.menuTarget.classList.remove('is-open');
-        }
-
-        if (this.hasButtonTarget) {
-            this.buttonTarget.setAttribute('aria-expanded', 'false');
-        }
-
-        this.element.setAttribute('data-state', 'closed');
-    }
-
-    isOpen() {
-        return this.hasMenuTarget && this.menuTarget.classList.contains('is-open');
-    }
-
-    handleResize() {
         if (window.innerWidth >= 992) {
             if (this.hasMenuTarget) {
                 this.menuTarget.hidden = false;
@@ -69,7 +46,26 @@ export default class extends Controller {
             return;
         }
 
-        if (this.element.getAttribute('data-state') !== 'open') {
+        if (this.hasMenuTarget) {
+            this.menuTarget.hidden = true;
+            this.menuTarget.classList.remove('is-open');
+        }
+
+        if (this.hasButtonTarget) {
+            this.buttonTarget.setAttribute('aria-expanded', 'false');
+        }
+
+        this.element.setAttribute('data-state', 'closed');
+    }
+
+    isOpen() {
+        return this.element.getAttribute('data-state') === 'open';
+    }
+
+    handleResize() {
+        if (window.innerWidth >= 992) {
+            this.close();
+        } else if (!this.isOpen()) {
             this.close();
         }
     }

@@ -5,8 +5,9 @@
     <div class="shaka-container shaka-page__inner shaka-stack-lg">
       <header class="shaka-page__header">
         <h1>Shaka showcase</h1>
-        <p>A simple preview page to discover the default rendering of each component.</p>
+        <p>A simple preview page to discover the default rendering of each component and test the interactive ones.</p>
       </header>
+
       <section class="shaka-showcase-block">
         <h2>Buttons</h2>
         <div class="shaka-inline">
@@ -15,6 +16,7 @@
           {% include 'shaka/components/_button.html.twig' with { label: 'Ghost', variant: 'ghost' } only %}
         </div>
       </section>
+
       <section class="shaka-showcase-block">
         <h2>Feedback</h2>
         <div class="shaka-stack">
@@ -22,14 +24,16 @@
           {% include 'shaka/components/_alert.html.twig' with { variant: 'success', title: 'Success', text: 'A success alert with a clearer state.' } only %}
         </div>
       </section>
+
       <section class="shaka-showcase-block">
         <h2>Cards</h2>
         <div class="shaka-grid shaka-grid--3">
           {% include 'shaka/components/_card.html.twig' with { title: 'Starter', text: 'Simple defaults make it easier to understand.' } only %}
           {% include 'shaka/components/_card.html.twig' with { title: 'Customizable', text: 'Each component has its own CSS file.', badge: { label: 'CSS', variant: 'brand' } } only %}
-          {% include 'shaka/components/_card.html.twig' with { title: 'Ready for JS', text: 'Interactive pieces can later be enhanced with Stimulus.' } only %}
+          {% include 'shaka/components/_card.html.twig' with { title: 'Ready for JS', text: 'Interactive pieces can be enhanced with Stimulus.' } only %}
         </div>
       </section>
+
       <section class="shaka-showcase-block">
         <h2>Other components</h2>
         <div class="shaka-inline">
@@ -38,10 +42,19 @@
           {% include 'shaka/components/_link.html.twig' with { label: 'Text link', href: '#' } only %}
           {% include 'shaka/components/_avatar.html.twig' with { name: 'Maxime' } only %}
         </div>
+      </section>
+
+      <section class="shaka-showcase-block">
+        <h2>Interactive components</h2>
         <div class="shaka-grid shaka-grid--2">
-          {% include 'shaka/components/_dropdown.html.twig' %}
-          {% include 'shaka/components/_modal.html.twig' %}
+          {% include 'shaka/components/_dropdown.html.twig' only %}
+          {% include 'shaka/components/_modal.html.twig' only %}
         </div>
+      </section>
+
+      <section class="shaka-showcase-block">
+        <h2>Navbar preview</h2>
+        {% include 'shaka/partials/_navbar.html.twig' only %}
       </section>
     </div>
   </section>

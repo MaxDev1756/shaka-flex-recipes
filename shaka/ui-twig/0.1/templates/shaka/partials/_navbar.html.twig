@@ -1,41 +1,57 @@
 {% set links = nav_links ?? [
-  { label: 'Home', href: '/' },
+  { label: 'Home', href: '/shaka' },
   { label: 'Showcase', href: '/shaka/showcase' },
   { label: 'Content', href: '/shaka/content' }
 ] %}
 {% set cta = nav_cta ?? { label: 'Get started', href: '/shaka/showcase' } %}
 
 <header class="shaka-navbar" data-controller="shaka-navbar" data-state="closed">
-	<div class="shaka-container shaka-navbar__inner">
-		<a class="shaka-navbar__brand" href="{{ brand_url ?? '/' }}">
-			{{ brand_name ?? 'Shaka' }}
-		</a>
+  <div class="shaka-container shaka-navbar__inner">
+    <a class="shaka-navbar__brand" href="{{ brand_url ?? '/shaka' }}">
+      {{ brand_name ?? 'Shaka' }}
+    </a>
 
-		<button class="shaka-navbar__toggle" type="button" aria-expanded="false" aria-label="Open navigation" data-shaka-navbar-target="button" data-action="click->shaka-navbar#toggle">
-			Menu
-		</button>
+    <button
+      class="shaka-navbar__toggle"
+      type="button"
+      aria-expanded="false"
+      aria-label="Open navigation"
+      data-shaka-navbar-target="button"
+      data-action="click->shaka-navbar#toggle"
+    >
+      Menu
+    </button>
 
-		<nav class="shaka-navbar__nav" aria-label="Navigation principale" data-shaka-navbar-target="menu" hidden>
-			<ul class="shaka-navbar__list">
-				{% for item in links %}
-					<li>
-						<a class="shaka-navbar__link{% if item.active ?? false %} is-active{% endif %}" href="{{ item.href ?? '#' }}" {% if item.active ?? false %} aria-current="page" {% endif %}>
-							{{ item.label ?? 'Link' }}
-						</a>
-					</li>
-				{% endfor %}
-			</ul>
+    <nav
+      class="shaka-navbar__nav"
+      aria-label="Navigation principale"
+      data-shaka-navbar-target="menu"
+      hidden
+    >
+      <ul class="shaka-navbar__list">
+        {% for item in links %}
+          <li>
+            <a
+              class="shaka-navbar__link{% if item.active ?? false %} is-active{% endif %}"
+              href="{{ item.href ?? '#' }}"
+              {% if item.active ?? false %}aria-current="page"{% endif %}
+            >
+              {{ item.label ?? 'Link' }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
 
-			{% if cta %}
-				<div class="shaka-navbar__cta">
-					{% include 'shaka/components/_button.html.twig' with {
+      {% if cta %}
+        <div class="shaka-navbar__cta">
+          {% include 'shaka/components/_button.html.twig' with {
             label: cta.label ?? 'Get started',
             href: cta.href ?? '#',
             variant: cta.variant ?? 'primary',
             size: 'sm'
           } only %}
-				</div>
-			{% endif %}
-		</nav>
-	</div>
+        </div>
+      {% endif %}
+    </nav>
+  </div>
 </header>
