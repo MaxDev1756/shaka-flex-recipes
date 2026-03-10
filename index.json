@@ -1,6 +1,9 @@
 {
     "aliases": [],
     "recipes": {
+        "shaka/api-docs": [
+            "0.1"
+        ],
         "shaka/ui-assets": [
             "0.1"
         ],
