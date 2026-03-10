@@ -1,0 +1,41 @@
+{% extends 'shaka/api/layout/base.html.twig' %}
+
+{% block title %}Shaka API Errors{% endblock %}
+
+{% block shell %}
+  {% include 'shaka/api/partials/_topbar.html.twig' %}
+
+  <main class="shaka-api-page">
+    <div class="shaka-api-page__grid">
+      {% include 'shaka/api/partials/_sidebar.html.twig' only %}
+
+      <div class="shaka-api-page__content">
+        <header class="shaka-api-section">
+          <span class="shaka-api-badge">Errors</span>
+          <h1>Error handling</h1>
+          <p>Document error payloads and status codes with reusable components.</p>
+        </header>
+
+        {% include 'shaka/api/components/_endpoint_card.html.twig' with {
+          method: 'POST',
+          path: '/v1/users',
+          title: 'Validation error example',
+          description: 'This endpoint can return validation failures.',
+          responses: [
+            { code: 422, label: 'Validation failed' },
+            { code: 401, label: 'Unauthorized' }
+          ]
+        } only %}
+
+        {% include 'shaka/api/components/_code_tabs.html.twig' with {
+          title: 'Example error response',
+          snippets: {
+            'json': '{ "error": { "code": "validation_failed", "message": "The email field is required." } }',
+            'php': '$response["error"]["code"];',
+            'javascript': 'error.code // validation_failed'
+          }
+        } only %}
+      </div>
+    </div>
+  </main>
+{% endblock %}

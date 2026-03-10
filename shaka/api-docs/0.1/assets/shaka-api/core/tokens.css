@@ -1,0 +1,17 @@
+:root {
+  --surface-page: #ffffff;
+  --surface-subtle: #f8fafc;
+  --surface-soft: #f4f4f5;
+  --text-primary: #09090b;
+  --text-secondary: #52525b;
+  --text-tertiary: #71717a;
+  --border: #e4e4e7;
+  --brand: #7c3aed;
+  --brand-soft: #f5f3ff;
+  --radius-md: .625rem;
+  --radius-lg: .875rem;
+  --radius-xl: 1rem;
+  --shadow-soft: 0 8px 24px rgba(15,23,42,.06);
+  --shadow-card: 0 18px 40px rgba(15,23,42,.08);
+  --container: 1280px;
+}

@@ -1,0 +1,33 @@
+{% set method = method ?? 'GET' %}
+{% set path = path ?? '/v1/example' %}
+{% set title = title ?? 'Example endpoint' %}
+{% set description = description ?? 'A short description of the endpoint.' %}
+{% set auth = auth ?? 'Bearer token' %}
+{% set responses = responses ?? [
+  { code: 200, label: 'OK' },
+  { code: 401, label: 'Unauthorized' }
+] %}
+
+<article class="shaka-api-endpoint-card">
+  <header class="shaka-api-endpoint-card__header">
+    <div class="shaka-api-endpoint-card__meta">
+      <span class="shaka-api-method shaka-api-method--{{ method|lower }}">{{ method }}</span>
+      <code class="shaka-api-endpoint-card__path">{{ path }}</code>
+    </div>
+    <h3 class="shaka-api-endpoint-card__title">{{ title }}</h3>
+    <p class="shaka-api-endpoint-card__description">{{ description }}</p>
+  </header>
+
+  <div class="shaka-api-endpoint-card__details">
+    <p class="shaka-api-endpoint-card__auth"><strong>Auth:</strong> {{ auth }}</p>
+
+    <ul class="shaka-api-endpoint-card__responses">
+      {% for response in responses %}
+        <li>
+          <span class="shaka-api-endpoint-card__status">{{ response.code }}</span>
+          <span>{{ response.label }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</article>

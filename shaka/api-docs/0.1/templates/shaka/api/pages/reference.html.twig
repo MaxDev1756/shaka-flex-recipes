@@ -1,0 +1,47 @@
+{% extends 'shaka/api/layout/base.html.twig' %}
+
+{% block title %}Shaka API Reference{% endblock %}
+
+{% block shell %}
+  {% include 'shaka/api/partials/_topbar.html.twig' %}
+
+  <main class="shaka-api-page shaka-api-page--reference">
+    <div class="shaka-api-page__grid">
+      {% include 'shaka/api/partials/_sidebar.html.twig' only %}
+
+      <div class="shaka-api-page__content">
+        <header class="shaka-api-section">
+          <span class="shaka-api-badge">Reference</span>
+          <h1>Endpoints</h1>
+          <p>Detailed examples and response formats, designed for product APIs and SaaS documentation.</p>
+        </header>
+
+        <div class="shaka-api-stack">
+          {% include 'shaka/api/components/_endpoint_card.html.twig' with {
+            method: 'GET',
+            path: '/v1/projects/{id}',
+            title: 'Get project',
+            description: 'Retrieve a single project by id.'
+          } only %}
+
+          {% include 'shaka/api/components/_code_tabs.html.twig' with {
+            title: 'Request example',
+            snippets: {
+              'bash': 'curl https://api.example.com/v1/projects/123',
+              'php': '$client->request("GET", "/v1/projects/123");',
+              'javascript': 'await fetch("/v1/projects/123");'
+            }
+          } only %}
+
+          {% include 'shaka/api/components/_response_table.html.twig' with {
+            rows: [
+              { field: 'id', type: 'string', description: 'Project id' },
+              { field: 'status', type: 'string', description: 'Current lifecycle status' },
+              { field: 'owner', type: 'object', description: 'Project owner details' }
+            ]
+          } only %}
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock %}

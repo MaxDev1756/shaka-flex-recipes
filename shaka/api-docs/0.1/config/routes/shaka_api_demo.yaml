@@ -1,0 +1,3 @@
+shaka_api_demo:
+  resource: '@ShakaApiDocsBundle/Controller/'
+  type: attribute

@@ -1,0 +1,23 @@
+{% set items = items ?? [
+  { label: 'Overview', href: '/shaka/api' },
+  { label: 'Authentication', href: '#authentication' },
+  { label: 'Requests', href: '#requests' },
+  { label: 'Response format', href: '#response-format' },
+  { label: 'Reference', href: '/shaka/api/reference' },
+  { label: 'Errors', href: '/shaka/api/errors' }
+] %}
+
+<aside class="shaka-api-sidebar">
+  <div class="shaka-api-sidebar__brand">
+    <span class="shaka-api-badge">API</span>
+    <strong>Shaka Docs</strong>
+  </div>
+
+  <nav aria-label="API docs navigation">
+    <ul class="shaka-api-sidebar__list">
+      {% for item in items %}
+        <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+</aside>

@@ -1,0 +1,5 @@
+services:
+  Shaka\ApiDocs\Controller\:
+    resource: '../vendor/shaka/api-docs/src/Controller/'
+    public: true
+    tags: ['controller.service_arguments']

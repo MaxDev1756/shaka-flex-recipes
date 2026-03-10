@@ -1,0 +1,3 @@
+.shaka-api-method{display:inline-flex;align-items:center;justify-content:center;min-width:4rem;padding:.2rem .55rem;border-radius:999px;font-size:.8rem;font-weight:700;background:var(--surface-soft)}
+.shaka-api-method--get{color:#047857;background:#ecfdf3}
+.shaka-api-method--post{color:#7c3aed;background:#f5f3ff}

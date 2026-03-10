@@ -1,0 +1,6 @@
+.shaka-api-topbar{position:sticky;top:0;z-index:100;border-bottom:1px solid var(--border);background:rgba(255,255,255,.9);backdrop-filter:blur(12px)}
+.shaka-api-topbar__inner{width:min(100% - 2rem,var(--container));margin-inline:auto;min-height:4rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.shaka-api-topbar__brand{font-weight:700;text-decoration:none}
+.shaka-api-topbar__actions{display:flex;gap:1rem}
+.shaka-api-link{color:var(--text-secondary);text-decoration:none}
+.shaka-api-link:hover{color:var(--text-primary)}

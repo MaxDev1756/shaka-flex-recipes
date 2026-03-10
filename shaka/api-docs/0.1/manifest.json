@@ -1,0 +1,21 @@
+{
+  "bundles": {
+    "Shaka\\ApiDocs\\ShakaApiDocsBundle": ["all"]
+  },
+  "copy-from-recipe": {
+    "templates/": "templates/",
+    "assets/": "assets/",
+    "config/": "config/"
+  },
+  "post-install-output": [
+    "Shaka API Docs installed successfully.",
+    "",
+    "Demo routes:",
+    "  /shaka/api",
+    "  /shaka/api/reference",
+    "  /shaka/api/errors",
+    "",
+    "Compile assets:",
+    "  php bin/console asset-map:compile"
+  ]
+}

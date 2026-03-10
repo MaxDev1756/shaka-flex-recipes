@@ -1,0 +1,4 @@
+.shaka-api-response-table{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius-xl);background:var(--surface-page);box-shadow:var(--shadow-soft)}
+.shaka-api-response-table table{width:100%;border-collapse:collapse}
+.shaka-api-response-table th,.shaka-api-response-table td{padding:.875rem 1rem;text-align:left;border-bottom:1px solid var(--border)}
+.shaka-api-response-table th{background:var(--surface-subtle)}

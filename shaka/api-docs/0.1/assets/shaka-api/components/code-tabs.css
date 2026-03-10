@@ -1,0 +1,8 @@
+.shaka-code-tabs{padding:1rem;border:1px solid var(--border);border-radius:var(--radius-xl);background:#0b1220;color:#f8fafc;box-shadow:var(--shadow-card)}
+.shaka-code-tabs__header{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:1rem}
+.shaka-code-tabs__tablist{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.shaka-code-tabs__tab,.shaka-code-tabs__copy{padding:.5rem .75rem;border:1px solid rgba(255,255,255,.14);border-radius:.65rem;background:transparent;color:#cbd5e1;cursor:pointer}
+.shaka-code-tabs__tab.is-active{background:#111827;color:#fff}
+.shaka-code-tabs__panel{display:none}
+.shaka-code-tabs__panel.is-active{display:block}
+.shaka-code-tabs pre{margin:0;overflow:auto;background:#111827;padding:1rem;border-radius:.75rem}
