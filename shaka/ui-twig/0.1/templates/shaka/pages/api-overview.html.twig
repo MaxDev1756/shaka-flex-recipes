@@ -1,0 +1,62 @@
+{% extends 'shaka/layout/base.html.twig' %}
+{% block title %}Shaka API Overview{% endblock %}
+
+{% block content %}
+  <section class="shaka-api-page shaka-api-page--overview">
+    <div class="shaka-container shaka-api-page__inner">
+      <div class="shaka-api-page__sidebar">
+        {% include 'shaka/partials/_api_sidebar.html.twig' only %}
+      </div>
+
+      <div class="shaka-api-page__content">
+        <header class="shaka-api-page__header">
+          <h1>API overview</h1>
+          <p>Build a clean and beginner-friendly API documentation area with reusable Shaka components.</p>
+        </header>
+
+        <section id="authentication" class="shaka-api-page__section">
+          <h2>Authentication</h2>
+          <p>Every request requires a bearer token passed in the <code>Authorization</code> header.</p>
+
+          {% include 'shaka/components/_code_tabs.html.twig' with {
+            title: 'Auth example',
+            snippets: {
+              'bash': 'curl -H "Authorization: Bearer <token>" https://api.example.com/v1/users',
+              'php': '$client->request("GET", "/v1/users", [ "headers" => [ "Authorization" => "Bearer ".$token ] ]);',
+              'javascript': 'await fetch("/v1/users", { headers: { Authorization: `Bearer ${token}` } });'
+            }
+          } only %}
+        </section>
+
+        <section id="requests" class="shaka-api-page__section">
+          <h2>Common endpoints</h2>
+
+          <div class="shaka-api-page__endpoint-list">
+            {% include 'shaka/components/_api_endpoint_card.html.twig' with {
+              method: 'GET',
+              path: '/v1/users',
+              title: 'List users',
+              description: 'Returns a paginated list of users.'
+            } only %}
+
+            {% include 'shaka/components/_api_endpoint_card.html.twig' with {
+              method: 'POST',
+              path: '/v1/users',
+              title: 'Create user',
+              description: 'Creates a new user from the provided payload.',
+              responses: [
+                { code: 201, label: 'Created' },
+                { code: 422, label: 'Validation failed' }
+              ]
+            } only %}
+          </div>
+        </section>
+
+        <section id="response-format" class="shaka-api-page__section">
+          <h2>Response format</h2>
+          {% include 'shaka/components/_api_response_table.html.twig' only %}
+        </section>
+      </div>
+    </div>
+  </section>
+{% endblock %}

@@ -1,0 +1,56 @@
+.shaka-api-endpoint-card {
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  background: var(--surface-page);
+  box-shadow: var(--shadow-soft);
+}
+
+.shaka-api-endpoint-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.shaka-api-endpoint-card__method {
+  display: inline-flex;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: var(--surface-subtle);
+}
+
+.shaka-api-endpoint-card__method--get {
+  color: #047857;
+  background: #ecfdf3;
+}
+
+.shaka-api-endpoint-card__method--post {
+  color: #7c3aed;
+  background: #f5f3ff;
+}
+
+.shaka-api-endpoint-card__path {
+  padding: 0.2rem 0.45rem;
+  border-radius: 0.4rem;
+  background: var(--surface-subtle);
+}
+
+.shaka-api-endpoint-card__responses {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.shaka-api-endpoint-card__responses li {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.shaka-api-endpoint-card__status {
+  font-weight: 700;
+}

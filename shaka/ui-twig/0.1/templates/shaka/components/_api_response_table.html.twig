@@ -1,0 +1,27 @@
+{% set rows = rows ?? [
+  { field: 'id', type: 'string', description: 'Unique identifier' },
+  { field: 'name', type: 'string', description: 'Resource display name' },
+  { field: 'created_at', type: 'datetime', description: 'Creation timestamp' }
+] %}
+
+<div class="shaka-api-response-table">
+  <table>
+    <thead>
+      <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for row in rows %}
+        <tr>
+          <td><code>{{ row.field }}</code></td>
+          <td>{{ row.type }}</td>
+          <td>{{ row.description }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,27 @@
+.shaka-api-page__inner {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 2rem;
+  padding-block: 3rem;
+}
+
+.shaka-api-page__header {
+  margin-bottom: 1.5rem;
+}
+
+.shaka-api-page__section {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.shaka-api-page__endpoint-list {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (max-width: 900px) {
+  .shaka-api-page__inner {
+    grid-template-columns: 1fr;
+  }
+}

@@ -31,3 +31,9 @@
 @import "./pages/error-404.css";
 @import "./pages/error-500.css";
 @import "./pages/showcase.css";
+@import "./components/api-endpoint-card.css";
+@import "./components/code-tabs.css";
+@import "./components/api-response-table.css";
+@import "./partials/api-sidebar.css";
+@import "./pages/api-overview.css";
+@import "./pages/api-reference.css";
