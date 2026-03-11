@@ -1,11 +1,47 @@
+{% set nav_links = nav_links ?? [
+  { label: 'Overview',   href: '/shaka/api',           icon: '◎' },
+  { label: 'Reference',  href: '/shaka/api/reference',  icon: '⚡' },
+  { label: 'Errors',     href: '/shaka/api/errors',     icon: '△' }
+] %}
+{% set current_path = app.request.pathInfo ?? '' %}
+
 <header class="shaka-api-topbar">
   <div class="shaka-api-topbar__inner">
-    <a class="shaka-api-topbar__brand" href="/shaka/api">Shaka API Docs</a>
 
+    {# Brand #}
+    <a class="shaka-api-topbar__brand" href="/shaka/api" aria-label="{{ api_name ?? 'API Docs' }} home">
+      <span class="shaka-api-topbar__brand-icon" aria-hidden="true">
+        {{ api_acronym ?? 'AP' }}
+      </span>
+      <span>{{ api_name ?? 'Shaka API' }}</span>
+    </a>
+
+    {# Desktop nav #}
+    <nav class="shaka-api-topbar__nav" aria-label="Main navigation">
+      {% for link in nav_links %}
+        <a class="shaka-api-topbar__link{% if current_path starts with link.href %} is-active{% endif %}"
+           href="{{ link.href }}">
+          {{ link.label }}
+        </a>
+      {% endfor %}
+    </nav>
+
+    {# Actions #}
     <div class="shaka-api-topbar__actions">
-      <a class="shaka-api-link" href="/shaka/api">Overview</a>
-      <a class="shaka-api-link" href="/shaka/api/reference">Reference</a>
-      <a class="shaka-api-link" href="/shaka/api/errors">Errors</a>
+      {% if api_version is defined %}
+        <span class="shaka-api-topbar__version">v{{ api_version }}</span>
+      {% endif %}
+
+      {# Mobile burger — triggers sidebar open via shaka-sidebar controller #}
+      <button class="shaka-api-topbar__burger"
+              type="button"
+              aria-label="Open navigation"
+              data-action="click->shaka-sidebar#open">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
+
   </div>
 </header>

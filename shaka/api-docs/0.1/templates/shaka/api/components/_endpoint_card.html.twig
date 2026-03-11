@@ -1,33 +1,89 @@
-{% set method = method ?? 'GET' %}
-{% set path = path ?? '/v1/example' %}
-{% set title = title ?? 'Example endpoint' %}
-{% set description = description ?? 'A short description of the endpoint.' %}
-{% set auth = auth ?? 'Bearer token' %}
-{% set responses = responses ?? [
+{# ─────────────────────────────────────────────────────────
+   Component: Endpoint Card
+   ─────────────────────────────────────────────────────────
+   Variables:
+     method      string  HTTP verb — GET | POST | PUT | PATCH | DELETE
+     path        string  URL path, e.g. /v1/users/{id}
+     title       string  Short human-readable name
+     description string  Longer description
+     auth        string  Auth scheme, default "Bearer token"
+     responses   array   [{ code: int, label: string }]
+     open        bool    Expand card by default (default: false)
+   ───────────────────────────────────────────────────────── #}
+{% set method      = method      ?? 'GET' %}
+{% set path        = path        ?? '/v1/example' %}
+{% set title       = title       ?? 'Example endpoint' %}
+{% set description = description ?? '' %}
+{% set auth        = auth        ?? 'Bearer token' %}
+{% set open        = open        ?? false %}
+{% set responses   = responses   ?? [
   { code: 200, label: 'OK' },
   { code: 401, label: 'Unauthorized' }
 ] %}
 
-<article class="shaka-api-endpoint-card">
-  <header class="shaka-api-endpoint-card__header">
-    <div class="shaka-api-endpoint-card__meta">
-      <span class="shaka-api-method shaka-api-method--{{ method|lower }}">{{ method }}</span>
-      <code class="shaka-api-endpoint-card__path">{{ path }}</code>
+<article
+  class="shaka-endpoint{% if open %} is-open{% endif %}"
+  data-controller="shaka-endpoint"
+  {% if open %}data-open{% endif %}
+  id="endpoint-{{ method|lower }}-{{ path|replace({'/' : '-', '{' : '', '}' : ''})|trim('-') }}"
+>
+
+  {# ── Clickable header ── #}
+  <header
+    class="shaka-endpoint__header"
+    data-action="click->shaka-endpoint#toggle"
+    aria-expanded="{{ open ? 'true' : 'false' }}"
+  >
+    <div class="shaka-endpoint__meta">
+      <span class="shaka-method shaka-method--{{ method|lower }}">{{ method }}</span>
+      <code class="shaka-endpoint__path">{{ path }}</code>
     </div>
-    <h3 class="shaka-api-endpoint-card__title">{{ title }}</h3>
-    <p class="shaka-api-endpoint-card__description">{{ description }}</p>
+
+    <div class="shaka-endpoint__title-row">
+      <h3 class="shaka-endpoint__title">{{ title }}</h3>
+      {# Chevron ↓ #}
+      <svg class="shaka-endpoint__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <path d="M4 6l4 4 4-4"/>
+      </svg>
+    </div>
+
+    {% if description %}
+      <p class="shaka-endpoint__description">{{ description }}</p>
+    {% endif %}
   </header>
 
-  <div class="shaka-api-endpoint-card__details">
-    <p class="shaka-api-endpoint-card__auth"><strong>Auth:</strong> {{ auth }}</p>
+  {# ── Collapsible body ── #}
+  <div
+    class="shaka-endpoint__body"
+    data-shaka-endpoint-target="body"
+    {% if not open %}hidden{% endif %}
+  >
+    {# Auth #}
+    <div class="shaka-endpoint__auth-row">
+      <span class="shaka-endpoint__auth-label">Auth</span>
+      <span class="shaka-endpoint__auth-value">{{ auth }}</span>
+    </div>
 
-    <ul class="shaka-api-endpoint-card__responses">
-      {% for response in responses %}
-        <li>
-          <span class="shaka-api-endpoint-card__status">{{ response.code }}</span>
-          <span>{{ response.label }}</span>
-        </li>
-      {% endfor %}
-    </ul>
+    {# Responses #}
+    {% if responses is not empty %}
+      <div>
+        <p class="shaka-endpoint__responses-title">Responses</p>
+        <div class="shaka-endpoint__responses">
+          {% for response in responses %}
+            <span
+              class="shaka-endpoint__response"
+              data-code="{{ response.code }}"
+            >
+              <strong>{{ response.code }}</strong>
+              {{ response.label }}
+            </span>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    {# Optional extra content slot #}
+    {% block endpoint_body %}{% endblock %}
   </div>
+
 </article>

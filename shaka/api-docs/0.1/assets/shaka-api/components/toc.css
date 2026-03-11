@@ -1,0 +1,50 @@
+/* ── Table of Contents (right rail) ── */
+.shaka-toc {
+  position: sticky;
+  top: calc(var(--topbar-h) + 1.5rem);
+  align-self: start;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r-2xl);
+  background: var(--s-page);
+  box-shadow: var(--shadow-xs);
+  min-width: 180px;
+}
+
+.shaka-toc__title {
+  font-size: .7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--t-muted);
+  margin-bottom: .625rem;
+}
+
+.shaka-toc__list {
+  display: grid;
+  gap: .125rem;
+}
+
+.shaka-toc__link {
+  display: block;
+  padding: .3rem .5rem;
+  font-size: .8125rem;
+  color: var(--t-tertiary);
+  text-decoration: none;
+  border-radius: var(--r-md);
+  border-left: 2px solid transparent;
+  padding-left: .625rem;
+  transition: color var(--ease-default), border-color var(--ease-default), background var(--ease-default);
+  line-height: 1.4;
+}
+
+.shaka-toc__link:hover {
+  color: var(--t-primary);
+  background: var(--s-subtle);
+}
+
+.shaka-toc__link.is-active {
+  color: var(--brand);
+  border-left-color: var(--brand);
+  background: var(--brand-soft);
+}

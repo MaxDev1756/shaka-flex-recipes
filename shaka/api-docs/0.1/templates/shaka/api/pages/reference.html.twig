@@ -1,47 +1,136 @@
 {% extends 'shaka/api/layout/base.html.twig' %}
 
-{% block title %}Shaka API Reference{% endblock %}
+{% block title %}{{ api_name ?? 'API' }} — Reference{% endblock %}
 
 {% block shell %}
-  {% include 'shaka/api/partials/_topbar.html.twig' %}
+<main class="shaka-api-page shaka-api-page--reference">
+  <div class="shaka-api-page__grid">
 
-  <main class="shaka-api-page shaka-api-page--reference">
-    <div class="shaka-api-page__grid">
-      {% include 'shaka/api/partials/_sidebar.html.twig' only %}
+    {% include 'shaka/api/partials/_sidebar.html.twig' with {
+      sidebar_groups: [
+        {
+          title: 'Getting started',
+          items: [
+            { label: 'Overview',  href: '/shaka/api' },
+            { label: 'Reference', href: '/shaka/api/reference' },
+            { label: 'Errors',    href: '/shaka/api/errors' }
+          ]
+        },
+        {
+          title: 'Users',
+          items: [
+            { label: 'List users',    href: '#get-users',    method: 'GET' },
+            { label: 'Get user',      href: '#get-user',     method: 'GET' },
+            { label: 'Create user',   href: '#post-users',   method: 'POST' },
+            { label: 'Update user',   href: '#patch-user',   method: 'PATCH' },
+            { label: 'Delete user',   href: '#delete-user',  method: 'DELETE' }
+          ]
+        },
+        {
+          title: 'Projects',
+          items: [
+            { label: 'List projects', href: '#get-projects',  method: 'GET' },
+            { label: 'Get project',   href: '#get-project',   method: 'GET' },
+            { label: 'Create project',href: '#post-projects', method: 'POST' }
+          ]
+        }
+      ]
+    } %}
 
-      <div class="shaka-api-page__content">
-        <header class="shaka-api-section">
-          <span class="shaka-api-badge">Reference</span>
-          <h1>Endpoints</h1>
-          <p>Detailed examples and response formats, designed for product APIs and SaaS documentation.</p>
-        </header>
+    <div class="shaka-api-page__content">
 
-        <div class="shaka-api-stack">
-          {% include 'shaka/api/components/_endpoint_card.html.twig' with {
-            method: 'GET',
-            path: '/v1/projects/{id}',
-            title: 'Get project',
-            description: 'Retrieve a single project by id.'
-          } only %}
+      {# ── Header ── #}
+      <header class="shaka-reference-header">
+        <span class="shaka-api-badge">Reference</span>
+        <h1>API Endpoints</h1>
+        <p>Detailed documentation for all endpoints. Click any card to expand request details, parameters and responses.</p>
+      </header>
 
-          {% include 'shaka/api/components/_code_tabs.html.twig' with {
-            title: 'Request example',
-            snippets: {
-              'bash': 'curl https://api.example.com/v1/projects/123',
-              'php': '$client->request("GET", "/v1/projects/123");',
-              'javascript': 'await fetch("/v1/projects/123");'
-            }
-          } only %}
+      {# ── Users group ── #}
+      <div class="shaka-reference-group">
+        <h2 class="shaka-reference-group__title">
+          <span class="shaka-api-badge">Users</span>
+        </h2>
 
-          {% include 'shaka/api/components/_response_table.html.twig' with {
-            rows: [
-              { field: 'id', type: 'string', description: 'Project id' },
-              { field: 'status', type: 'string', description: 'Current lifecycle status' },
-              { field: 'owner', type: 'object', description: 'Project owner details' }
-            ]
-          } only %}
+        <div class="shaka-stack">
+
+          <div id="get-users">
+            {% include 'shaka/api/components/_endpoint_card.html.twig' with {
+              method:      'GET',
+              path:        '/v1/users',
+              title:       'List users',
+              description: 'Returns a paginated list of all users.',
+              responses: [
+                { code: 200, label: 'OK' },
+                { code: 401, label: 'Unauthorized' }
+              ]
+            } only %}
+          </div>
+
+          <div id="get-user">
+            {% include 'shaka/api/components/_endpoint_card.html.twig' with {
+              method:      'GET',
+              path:        '/v1/users/{id}',
+              title:       'Get user',
+              description: 'Retrieve a single user by their UUID.',
+              responses: [
+                { code: 200, label: 'OK' },
+                { code: 404, label: 'Not found' },
+                { code: 401, label: 'Unauthorized' }
+              ]
+            } only %}
+          </div>
+
+          <div id="post-users">
+            {% include 'shaka/api/components/_endpoint_card.html.twig' with {
+              method:      'POST',
+              path:        '/v1/users',
+              title:       'Create user',
+              description: 'Create a new user account.',
+              responses: [
+                { code: 201, label: 'Created' },
+                { code: 422, label: 'Validation failed' },
+                { code: 401, label: 'Unauthorized' }
+              ]
+            } only %}
+          </div>
+
         </div>
       </div>
-    </div>
-  </main>
+
+      {# ── Request example ── #}
+      <section id="request-example" class="shaka-section">
+        <h2>Request example</h2>
+
+        {% include 'shaka/api/components/_code_tabs.html.twig' with {
+          title:    'Get project by ID',
+          snippets: {
+            'bash':       'curl -H "Authorization: Bearer <token>" \\\n  https://api.example.com/v1/projects/proj_abc123',
+            'php':        '$response = $client->request("GET", "/v1/projects/proj_abc123");\n$data = $response->toArray();',
+            'javascript': 'const res = await fetch("/v1/projects/proj_abc123", {\n  headers: { Authorization: `Bearer ${token}` }\n});\nconst { data } = await res.json();',
+            'python':     'response = requests.get(\n  "https://api.example.com/v1/projects/proj_abc123",\n  headers={"Authorization": f"Bearer {token}"}\n)'
+          }
+        } only %}
+      </section>
+
+      {# ── Response fields ── #}
+      <section id="response-fields" class="shaka-section">
+        <h2>Response fields</h2>
+        <p>The <code>data</code> object returned by <code>GET /v1/projects/{id}</code>:</p>
+
+        {% include 'shaka/api/components/_response_table.html.twig' with {
+          rows: [
+            { field: 'id',         type: 'string',   required: true,  description: 'Project UUID.' },
+            { field: 'name',       type: 'string',   required: true,  description: 'Project display name.' },
+            { field: 'status',     type: 'string',   required: true,  description: 'One of: active, archived, draft.' },
+            { field: 'owner',      type: 'object',   required: true,  description: 'Embedded owner user object.' },
+            { field: 'created_at', type: 'datetime', required: false, description: 'ISO 8601 timestamp.' },
+            { field: 'tags',       type: 'string[]', required: false, description: 'Array of string tags.' }
+          ]
+        } only %}
+      </section>
+
+    </div>{# .shaka-api-page__content #}
+  </div>{# .shaka-api-page__grid #}
+</main>
 {% endblock %}

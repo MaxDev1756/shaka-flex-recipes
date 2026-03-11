@@ -1,7 +1,18 @@
-{% set title = title ?? 'Fast to integrate' %}
-{% set text = text ?? 'Compose API docs pages quickly with ready-to-use blocks.' %}
+{# ─────────────────────────────────────────────────────────
+   Component: Feature Card
+   ─────────────────────────────────────────────────────────
+   Variables:
+     title  string  Card title
+     text   string  Card body text
+     icon   string  Emoji or HTML icon (optional)
+   ───────────────────────────────────────────────────────── #}
+{% set title = title ?? 'Feature' %}
+{% set text  = text  ?? 'A short feature description.' %}
 
-<article class="shaka-api-feature-card">
-  <h3>{{ title }}</h3>
-  <p>{{ text }}</p>
+<article class="shaka-feature-card">
+  {% if icon is defined %}
+    <div class="shaka-feature-card__icon" aria-hidden="true">{{ icon }}</div>
+  {% endif %}
+  <h3 class="shaka-feature-card__title">{{ title }}</h3>
+  <p class="shaka-feature-card__text">{{ text }}</p>
 </article>

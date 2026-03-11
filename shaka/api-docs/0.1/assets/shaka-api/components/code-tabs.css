@@ -1,8 +1,180 @@
-.shaka-code-tabs{padding:1rem;border:1px solid var(--border);border-radius:var(--radius-xl);background:#0b1220;color:#f8fafc;box-shadow:var(--shadow-card)}
-.shaka-code-tabs__header{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:1rem}
-.shaka-code-tabs__tablist{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
-.shaka-code-tabs__tab,.shaka-code-tabs__copy{padding:.5rem .75rem;border:1px solid rgba(255,255,255,.14);border-radius:.65rem;background:transparent;color:#cbd5e1;cursor:pointer}
-.shaka-code-tabs__tab.is-active{background:#111827;color:#fff}
-.shaka-code-tabs__panel{display:none}
-.shaka-code-tabs__panel.is-active{display:block}
-.shaka-code-tabs pre{margin:0;overflow:auto;background:#111827;padding:1rem;border-radius:.75rem}
+/* ── Code Tabs (dark theme, brand green) ── */
+.shaka-code-block {
+  border-radius: var(--r-2xl);
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Header bar */
+.shaka-code-block__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .65rem 1rem;
+  border-bottom: 1px solid var(--code-border);
+  background: var(--code-surface);
+  gap: 1rem;
+}
+
+.shaka-code-block__title {
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--code-comment);
+  letter-spacing: .02em;
+}
+
+/* Tabs */
+.shaka-code-block__tabs {
+  display: flex;
+  gap: .25rem;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.shaka-code-block__tab {
+  padding: .3rem .7rem;
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--code-comment);
+  font-size: .78rem;
+  font-weight: 600;
+  font-family: ui-monospace, monospace;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: color var(--ease-default), background var(--ease-default), border-color var(--ease-default);
+}
+
+.shaka-code-block__tab:hover {
+  color: var(--code-text);
+  background: rgba(255, 255, 255, .06);
+}
+
+.shaka-code-block__tab.is-active {
+  color: var(--code-keyword);
+  background: rgba(125, 216, 127, .1);
+  border-color: rgba(125, 216, 127, .25);
+}
+
+/* Copy button */
+.shaka-code-block__copy {
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .3rem .65rem;
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, .06);
+  color: var(--code-comment);
+  font-size: .75rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, .08);
+  cursor: pointer;
+  transition: all var(--ease-default);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.shaka-code-block__copy:hover {
+  background: rgba(255, 255, 255, .1);
+  color: var(--code-text);
+  border-color: rgba(255, 255, 255, .14);
+}
+
+.shaka-code-block__copy.is-copied {
+  color: var(--code-keyword);
+  background: rgba(125, 216, 127, .1);
+  border-color: rgba(125, 216, 127, .25);
+}
+
+/* Code area */
+.shaka-code-block__panel {
+  padding: 1.125rem 1.25rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--code-border) transparent;
+}
+
+.shaka-code-block__panel[hidden] { display: none; }
+
+.shaka-code-block__panel pre {
+  margin: 0;
+}
+
+.shaka-code-block__panel pre code {
+  display: block;
+  font-size: .84rem;
+  line-height: 1.75;
+  color: var(--code-text);
+  white-space: pre;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+/* ── Legacy .shaka-code-tabs support ── */
+.shaka-code-tabs {
+  padding: 0;
+  border: 1px solid var(--code-border);
+  border-radius: var(--r-2xl);
+  background: var(--code-bg);
+  color: var(--code-text);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.shaka-code-tabs__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: .65rem 1rem;
+  border-bottom: 1px solid var(--code-border);
+  background: var(--code-surface);
+}
+
+.shaka-code-tabs__header h3 {
+  font-size: .8rem;
+  color: var(--code-comment);
+}
+
+.shaka-code-tabs__tablist {
+  display: flex;
+  gap: .25rem;
+  flex-wrap: wrap;
+  padding: .5rem 1rem 0;
+}
+
+.shaka-code-tabs__tab {
+  padding: .3rem .7rem;
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--code-comment);
+  font-size: .78rem;
+  font-weight: 600;
+  font-family: ui-monospace, monospace;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: color var(--ease-default), background var(--ease-default), border-color var(--ease-default);
+}
+
+.shaka-code-tabs__tab:hover { color: var(--code-text); background: rgba(255,255,255,.06); }
+.shaka-code-tabs__tab.is-active { color: var(--code-keyword); background: rgba(125,216,127,.1); border-color: rgba(125,216,127,.25); }
+
+.shaka-code-tabs__copy {
+  padding: .3rem .65rem;
+  border-radius: var(--r-md);
+  background: rgba(255,255,255,.06);
+  color: var(--code-comment);
+  font-size: .75rem;
+  font-weight: 600;
+  border: 1px solid rgba(255,255,255,.08);
+  cursor: pointer;
+  transition: all var(--ease-default);
+}
+
+.shaka-code-tabs__copy:hover { color: var(--code-text); background: rgba(255,255,255,.1); }
+
+.shaka-code-tabs__panel { display: none; padding: 1rem 1.25rem; }
+.shaka-code-tabs__panel.is-active { display: block; }
+.shaka-code-tabs pre { margin: 0; overflow-x: auto; }
+.shaka-code-tabs pre code { font-size: .84rem; line-height: 1.75; }

@@ -1,4 +1,94 @@
-.shaka-api-response-table{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius-xl);background:var(--surface-page);box-shadow:var(--shadow-soft)}
-.shaka-api-response-table table{width:100%;border-collapse:collapse}
-.shaka-api-response-table th,.shaka-api-response-table td{padding:.875rem 1rem;text-align:left;border-bottom:1px solid var(--border)}
-.shaka-api-response-table th{background:var(--surface-subtle)}
+/* ── Response / Parameter Table ── */
+.shaka-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  background: var(--s-page);
+  box-shadow: var(--shadow-xs);
+  -webkit-overflow-scrolling: touch;
+}
+
+.shaka-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 500px; /* prevent excessive squishing */
+}
+
+.shaka-table thead th {
+  padding: .7rem 1rem;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--t-tertiary);
+  background: var(--s-subtle);
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.shaka-table thead th:first-child { border-radius: var(--r-xl) 0 0 0; }
+.shaka-table thead th:last-child  { border-radius: 0 var(--r-xl) 0 0; }
+
+.shaka-table tbody td {
+  padding: .8rem 1rem;
+  border-bottom: 1px solid var(--border-soft);
+  font-size: .875rem;
+  color: var(--t-secondary);
+  vertical-align: top;
+  line-height: 1.55;
+}
+
+.shaka-table tbody tr:last-child td { border-bottom: none; }
+
+/* Field column */
+.shaka-table__field {
+  font-family: ui-monospace, 'JetBrains Mono', monospace;
+  font-size: .82rem;
+  color: var(--brand);
+  background: var(--brand-soft);
+  padding: .2rem .45rem;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--brand-muted);
+  white-space: nowrap;
+}
+
+/* Type badge */
+.shaka-table__type {
+  font-family: ui-monospace, monospace;
+  font-size: .78rem;
+  color: var(--t-tertiary);
+  background: var(--s-soft);
+  padding: .2rem .45rem;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+/* Required/optional */
+.shaka-table__required {
+  font-size: .7rem;
+  font-weight: 700;
+  padding: .15rem .4rem;
+  border-radius: var(--r-full);
+}
+
+.shaka-table__required--yes {
+  background: var(--danger-soft);
+  color: var(--danger);
+  border: 1px solid var(--danger-muted);
+}
+
+.shaka-table__required--no {
+  background: var(--s-soft);
+  color: var(--t-muted);
+  border: 1px solid var(--border);
+}
+
+/* ── Legacy ── */
+.shaka-api-response-table { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--r-xl); background: var(--s-page); box-shadow: var(--shadow-xs); }
+.shaka-api-response-table table { width: 100%; border-collapse: collapse; }
+.shaka-api-response-table th,
+.shaka-api-response-table td { padding: .8rem 1rem; text-align: left; border-bottom: 1px solid var(--border-soft); font-size: .875rem; }
+.shaka-api-response-table th { font-size: .75rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--t-tertiary); background: var(--s-subtle); }
+.shaka-api-response-table tbody tr:last-child td { border-bottom: none; }

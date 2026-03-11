@@ -1,0 +1,19 @@
+{# ─────────────────────────────────────────────────────────
+   Component: Alert Block
+   ─────────────────────────────────────────────────────────
+   Variables:
+     type    string  info | success | warning | danger  (default: info)
+     title   string  Bold heading (optional)
+     text    string  Body text
+   ───────────────────────────────────────────────────────── #}
+{% set type  = type  ?? 'info' %}
+{% set icons = { info: 'ℹ', success: '✓', warning: '⚠', danger: '✕' } %}
+
+<div class="shaka-alert shaka-alert--{{ type }}" role="alert">
+  <span class="shaka-alert__icon" aria-hidden="true">{{ icons[type] ?? icons.info }}</span>
+  <div class="shaka-alert__body">
+    {% if title is defined %}<p class="shaka-alert__title">{{ title }}</p>{% endif %}
+    {% if text  is defined %}<p class="shaka-alert__text">{{ text }}</p>{% endif %}
+    {% block alert_content %}{% endblock %}
+  </div>
+</div>

@@ -1,3 +1,54 @@
-.shaka-api-shell{min-height:100vh;background:linear-gradient(to bottom,#ffffff 0%,#fafafa 100%)}
-.shaka-api-page__grid{width:min(100% - 2rem,var(--container));margin-inline:auto;display:grid;grid-template-columns:280px minmax(0,1fr);gap:2rem;padding-block:2rem 4rem}
-.shaka-api-page__content{min-width:0}
+/* ── Shell / page wrapper ── */
+.shaka-api-body {
+  min-height: 100vh;
+  background: var(--s-page);
+}
+
+.shaka-api-page {
+  min-height: calc(100vh - var(--topbar-h));
+}
+
+/* Two-column layout: sidebar + content */
+.shaka-api-page__grid {
+  width: min(100% - 2rem, var(--container));
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+  gap: 2.5rem;
+  padding-block: 2.5rem 5rem;
+  align-items: start;
+}
+
+.shaka-api-page__content {
+  min-width: 0;
+  max-width: 840px;
+}
+
+/* ── Mobile ── */
+@media (max-width: 860px) {
+  .shaka-api-page__grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-block: 1.5rem 4rem;
+  }
+
+  /* Sidebar hidden by default on mobile, shown with JS toggle */
+  .shaka-api-sidebar {
+    display: none;
+  }
+
+  .shaka-api-sidebar.is-open {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    overflow-y: auto;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+  }
+
+  .shaka-api-page__content {
+    max-width: 100%;
+  }
+}

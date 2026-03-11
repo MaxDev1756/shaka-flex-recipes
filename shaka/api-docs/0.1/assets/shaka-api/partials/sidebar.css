@@ -1,5 +1,147 @@
-.shaka-api-sidebar{position:sticky;top:5rem;align-self:start;padding:1rem;border:1px solid var(--border);border-radius:var(--radius-xl);background:var(--surface-page);box-shadow:var(--shadow-soft)}
-.shaka-api-sidebar__brand{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem}
-.shaka-api-sidebar__list{list-style:none;padding:0;margin:0;display:grid;gap:.5rem}
-.shaka-api-sidebar__list a{text-decoration:none;color:var(--text-secondary)}
-.shaka-api-sidebar__list a:hover{color:var(--text-primary)}
+/* ── Sidebar ── */
+.shaka-api-sidebar {
+  position: sticky;
+  top: calc(var(--topbar-h) + 1.5rem);
+  align-self: start;
+  max-height: calc(100vh - var(--topbar-h) - 3rem);
+  overflow-y: auto;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r-2xl);
+  background: var(--s-page);
+  box-shadow: var(--shadow-sm);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+/* Brand area */
+.shaka-api-sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  padding: .5rem .5rem .875rem;
+  margin-bottom: .5rem;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.shaka-api-sidebar__logo {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--r-md);
+  background: var(--brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: .75rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.shaka-api-sidebar__brand-name {
+  font-size: .875rem;
+  font-weight: 600;
+  color: var(--t-primary);
+}
+
+.shaka-api-sidebar__brand-version {
+  font-size: .75rem;
+  color: var(--t-tertiary);
+  font-family: ui-monospace, monospace;
+}
+
+/* Nav section groups */
+.shaka-api-sidebar__section {
+  margin-bottom: 1.25rem;
+}
+
+.shaka-api-sidebar__section-title {
+  padding: .25rem .5rem;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--t-muted);
+  margin-bottom: .25rem;
+}
+
+/* Nav items */
+.shaka-api-sidebar__list {
+  display: grid;
+  gap: .125rem;
+}
+
+.shaka-api-sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .4rem .625rem;
+  border-radius: var(--r-lg);
+  font-size: .875rem;
+  color: var(--t-secondary);
+  text-decoration: none;
+  transition: color var(--ease-default), background var(--ease-default);
+  line-height: 1.4;
+}
+
+.shaka-api-sidebar__link:hover {
+  color: var(--t-primary);
+  background: var(--s-subtle);
+}
+
+.shaka-api-sidebar__link.is-active {
+  color: var(--brand);
+  background: var(--brand-soft);
+  font-weight: 500;
+}
+
+.shaka-api-sidebar__link-dot {
+  width: .375rem;
+  height: .375rem;
+  border-radius: var(--r-full);
+  background: currentColor;
+  opacity: .4;
+  flex-shrink: 0;
+}
+
+/* Method badge inside sidebar link */
+.shaka-api-sidebar__method {
+  font-size: .65rem;
+  font-weight: 700;
+  padding: .1rem .35rem;
+  border-radius: var(--r-sm);
+  font-family: ui-monospace, monospace;
+  flex-shrink: 0;
+}
+
+/* Mobile overlay header */
+.shaka-api-sidebar__mobile-header {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: .75rem .75rem 1rem;
+  margin-bottom: .25rem;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.shaka-api-sidebar__close {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-full);
+  background: var(--s-soft);
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--t-secondary);
+}
+
+@media (max-width: 860px) {
+  .shaka-api-sidebar__mobile-header { display: flex; }
+
+  .shaka-api-sidebar.is-open {
+    padding: 1rem;
+    border-radius: 0;
+  }
+}

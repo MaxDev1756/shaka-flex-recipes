@@ -1,1 +1,22 @@
-.shaka-api-page--reference .shaka-api-page__content{display:grid;gap:1.5rem}
+/* ── Reference page ── */
+.shaka-reference-header {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2rem;
+}
+
+.shaka-reference-group {
+  margin-bottom: 3rem;
+}
+
+.shaka-reference-group__title {
+  display: flex;
+  align-items: center;
+  gap: .625rem;
+  padding: .5rem 0;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-soft);
+  font-size: .9375rem;
+  font-weight: 700;
+  color: var(--t-primary);
+}

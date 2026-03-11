@@ -1,1 +1,8 @@
-.shaka-api-page .shaka-api-section:last-child{margin-bottom:0}
+/* ── Errors page ── */
+.shaka-error-table__code {
+  font-family: ui-monospace, monospace;
+  font-weight: 700;
+}
+
+.shaka-error-table__code--4xx { color: var(--accent-hover); }
+.shaka-error-table__code--5xx { color: var(--danger); }

@@ -1,51 +1,65 @@
-{% set title = title ?? 'Code example' %}
+{# ─────────────────────────────────────────────────────────
+   Component: Code Block with Language Tabs
+   ─────────────────────────────────────────────────────────
+   Variables:
+     title     string  Header label, e.g. "Request example"
+     snippets  object  { 'bash': '...', 'php': '...', 'js': '...' }
+   ───────────────────────────────────────────────────────── #}
+{% set title    = title    ?? 'Code example' %}
 {% set snippets = snippets ?? {
   'bash': 'curl https://api.example.com/v1/users',
-  'php': '$client->request("GET", "/v1/users");',
-  'javascript': 'await fetch("/v1/users");'
+  'php':  '$client->request("GET", "/v1/users");',
+  'js':   'await fetch("/v1/users");'
 } %}
 
-<section class="shaka-code-tabs" data-controller="shaka-code-tabs">
-  <header class="shaka-code-tabs__header">
-    <h3>{{ title }}</h3>
+<section class="shaka-code-block" data-controller="shaka-code-tabs">
+
+  {# ── Header: title + tabs + copy button ── #}
+  <header class="shaka-code-block__header">
+
+    <div class="shaka-code-block__tabs" role="tablist">
+      {% for language, snippet in snippets %}
+        <button
+          type="button"
+          class="shaka-code-block__tab{% if loop.first %} is-active{% endif %}"
+          role="tab"
+          aria-selected="{{ loop.first ? 'true' : 'false' }}"
+          data-action="click->shaka-code-tabs#select"
+          data-shaka-code-tabs-target="tab"
+          data-shaka-code-tabs-language-param="{{ language }}"
+        >
+          {{ language|upper }}
+        </button>
+      {% endfor %}
+    </div>
 
     <button
       type="button"
-      class="shaka-code-tabs__copy"
+      class="shaka-code-block__copy"
       data-controller="shaka-copy-code"
       data-action="click->shaka-copy-code#copy"
-      data-shaka-copy-code-target-value=".shaka-code-tabs__panel.is-active code"
+      data-shaka-copy-code-target-value=".shaka-code-block__panel:not([hidden]) code"
+      aria-label="Copy code to clipboard"
     >
       Copy
     </button>
+
   </header>
 
-  <div class="shaka-code-tabs__tablist" role="tablist">
-    {% for language, snippet in snippets %}
-      <button
-        type="button"
-        class="shaka-code-tabs__tab{% if loop.first %} is-active{% endif %}"
-        data-action="click->shaka-code-tabs#select"
-        data-shaka-code-tabs-target="tab"
-        data-shaka-code-tabs-language-param="{{ language }}"
-        role="tab"
-        aria-selected="{{ loop.first ? 'true' : 'false' }}"
-      >
-        {{ language|upper }}
-      </button>
-    {% endfor %}
-  </div>
+  {# ── Panels ── #}
+  {% for language, snippet in snippets %}
+    <div
+      class="shaka-code-block__panel{% if loop.first %} is-active{% endif %}"
+      role="tabpanel"
+      data-shaka-code-tabs-target="panel"
+      data-language="{{ language }}"
+      {% if not loop.first %}hidden{% endif %}
+    >
+      <pre><code class="language-{{ language }}">{{ snippet }}</code></pre>
+    </div>
+  {% endfor %}
 
-  <div class="shaka-code-tabs__panels">
-    {% for language, snippet in snippets %}
-      <div
-        class="shaka-code-tabs__panel{% if loop.first %} is-active{% endif %}"
-        data-shaka-code-tabs-target="panel"
-        data-language="{{ language }}"
-        {% if not loop.first %}hidden{% endif %}
-      >
-        <pre><code>{{ snippet }}</code></pre>
-      </div>
-    {% endfor %}
-  </div>
 </section>
+
+{# ── Legacy alias kept for backwards compat ── #}
+{# Old markup used .shaka-code-tabs — still supported via CSS #}
