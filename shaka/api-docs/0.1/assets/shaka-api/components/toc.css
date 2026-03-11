@@ -1,28 +1,28 @@
-/* ── Table of Contents (right rail) ── */
+/* ── Table of Contents ── */
 .shaka-toc {
   position: sticky;
   top: calc(var(--topbar-h) + 1.5rem);
   align-self: start;
-  padding: 1rem;
+  padding: .875rem;
   border: 1px solid var(--border);
   border-radius: var(--r-2xl);
   background: var(--s-page);
-  box-shadow: var(--shadow-xs);
-  min-width: 180px;
 }
 
-.shaka-toc__title {
-  font-size: .7rem;
+.shaka-toc__heading {
+  font-size: .6875rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: .08em;
+  letter-spacing: .07em;
   color: var(--t-muted);
-  margin-bottom: .625rem;
+  padding: 0 .375rem;
+  margin-bottom: .5rem;
 }
 
 .shaka-toc__list {
-  display: grid;
-  gap: .125rem;
+  display: flex;
+  flex-direction: column;
+  gap: .0625rem;
 }
 
 .shaka-toc__link {
@@ -34,8 +34,8 @@
   border-radius: var(--r-md);
   border-left: 2px solid transparent;
   padding-left: .625rem;
-  transition: color var(--ease-default), border-color var(--ease-default), background var(--ease-default);
   line-height: 1.4;
+  transition: color var(--ease), border-color var(--ease), background var(--ease);
 }
 
 .shaka-toc__link:hover {
@@ -44,7 +44,14 @@
 }
 
 .shaka-toc__link.is-active {
-  color: var(--brand);
-  border-left-color: var(--brand);
+  color: var(--brand-light);
+  border-left-color: var(--brand-light);
   background: var(--brand-soft);
+  font-weight: 500;
+}
+
+/* Sub-item indent */
+.shaka-toc__link--sub {
+  padding-left: 1.125rem;
+  font-size: .78rem;
 }

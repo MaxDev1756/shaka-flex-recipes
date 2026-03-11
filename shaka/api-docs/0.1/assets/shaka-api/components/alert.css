@@ -1,46 +1,32 @@
-/* ── Alert Blocks ── */
+/* ── Alert Block ── */
 .shaka-alert {
   display: flex;
-  gap: .875rem;
-  padding: 1rem 1.125rem;
+  gap: .75rem;
+  padding: .875rem 1rem;
   border-radius: var(--r-xl);
   border: 1px solid;
-  font-size: .875rem;
+  font-size: .84rem;
   line-height: 1.6;
 }
 
 .shaka-alert__icon {
   flex-shrink: 0;
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-top: .15rem;
+  font-size: .875rem;
+  line-height: 1.6;
+  margin-top: .05rem;
 }
 
-.shaka-alert__body { display: grid; gap: .3rem; }
-.shaka-alert__title { font-weight: 600; font-size: .875rem; }
-.shaka-alert__text  { color: inherit; opacity: .85; }
-
-/* Variants */
-.shaka-alert--info {
-  background: var(--s-subtle);
-  border-color: var(--border);
-  color: var(--t-secondary);
+.shaka-alert__body {
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+  min-width: 0;
 }
 
-.shaka-alert--success {
-  background: var(--brand-soft);
-  border-color: var(--brand-muted);
-  color: var(--brand);
-}
+.shaka-alert__title { font-weight: 600; }
+.shaka-alert__text  { opacity: .9; }
 
-.shaka-alert--warning {
-  background: var(--accent-soft);
-  border-color: var(--accent-muted);
-  color: var(--accent-hover);
-}
-
-.shaka-alert--danger {
-  background: var(--danger-soft);
-  border-color: var(--danger-muted);
-  color: var(--danger);
-}
+.shaka-alert--info    { background: var(--s-subtle);    border-color: var(--border);       color: var(--t-secondary); }
+.shaka-alert--success { background: var(--brand-subtle); border-color: var(--brand-muted); color: var(--brand); }
+.shaka-alert--warning { background: var(--accent-subtle);border-color: var(--accent-muted);color: var(--accent-hover); }
+.shaka-alert--danger  { background: var(--danger-subtle);border-color: var(--danger-muted);color: var(--danger-hover); }

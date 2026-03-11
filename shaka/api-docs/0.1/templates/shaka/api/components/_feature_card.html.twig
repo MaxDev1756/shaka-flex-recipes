@@ -1,18 +1,28 @@
-{# ─────────────────────────────────────────────────────────
+{# ───────────────────────────────────────────────────────────
    Component: Feature Card
-   ─────────────────────────────────────────────────────────
-   Variables:
-     title  string  Card title
-     text   string  Card body text
-     icon   string  Emoji or HTML icon (optional)
-   ───────────────────────────────────────────────────────── #}
+   Variables: title, text, icon (emoji/HTML), href (optional)
+#}
 {% set title = title ?? 'Feature' %}
-{% set text  = text  ?? 'A short feature description.' %}
+{% set text  = text  ?? '' %}
 
-<article class="shaka-feature-card">
-  {% if icon is defined %}
+{% if href is defined %}
+  <a class="shaka-feature-card" href="{{ href }}">
+{% else %}
+  <div class="shaka-feature-card">
+{% endif %}
+
+  {% if icon is defined and icon %}
     <div class="shaka-feature-card__icon" aria-hidden="true">{{ icon }}</div>
   {% endif %}
+
   <h3 class="shaka-feature-card__title">{{ title }}</h3>
-  <p class="shaka-feature-card__text">{{ text }}</p>
-</article>
+
+  {% if text %}
+    <p class="shaka-feature-card__text">{{ text }}</p>
+  {% endif %}
+
+{% if href is defined %}
+  </a>
+{% else %}
+  </div>
+{% endif %}

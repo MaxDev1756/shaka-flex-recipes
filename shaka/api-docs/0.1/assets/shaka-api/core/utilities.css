@@ -1,12 +1,19 @@
 /* ── Utilities ── */
-.shaka-stack   { display: grid; gap: 1.25rem; }
-.shaka-section { display: grid; gap: 1.5rem; margin-bottom: 3rem; }
+.shaka-stack   { display: grid; gap: 1rem; }
+.shaka-stack--lg { display: grid; gap: 1.5rem; }
+.shaka-section { margin-bottom: 3rem; }
+.shaka-section > * + * { margin-top: 1.25rem; }
+
+.shaka-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2.5rem 0;
+}
+
 .shaka-visually-hidden {
   position: absolute; width: 1px; height: 1px;
   overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap;
 }
-.shaka-divider {
-  border: none;
-  border-top: 1px solid var(--border);
-  margin: 2rem 0;
-}
+
+/* Scroll anchor offset */
+[id] { scroll-margin-top: calc(var(--topbar-h) + 1rem); }

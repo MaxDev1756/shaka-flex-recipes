@@ -1,41 +1,43 @@
-{# ─────────────────────────────────────────────────────────
+{# ───────────────────────────────────────────────────────────
    Component: Response / Parameter Table
-   ─────────────────────────────────────────────────────────
+   ───────────────────────────────────────────────────────────
    Variables:
-     rows    array   [{ field, type, required?, description, default? }]
-     caption string  Optional table caption
-   ───────────────────────────────────────────────────────── #}
+     rows     array   [{ field, type, required?, description }]
+     caption  string  Accessible caption (optional)
+#}
 {% set rows = rows ?? [
   { field: 'id',         type: 'string',   required: true,  description: 'Unique identifier (UUID v4).' },
   { field: 'name',       type: 'string',   required: true,  description: 'Human-readable display name.' },
   { field: 'created_at', type: 'datetime', required: false, description: 'ISO 8601 creation timestamp.' }
 ] %}
 
-<div class="shaka-table-wrap" role="region" aria-label="{{ caption ?? 'Response fields' }}">
-  <table class="shaka-table">
+{% set has_required = rows|filter(r => r.required is defined)|length > 0 %}
+
+<div class="shaka-table-wrap">
+  <table class="shaka-table" {% if caption is defined %}aria-label="{{ caption }}"{% endif %}>
     {% if caption is defined %}
       <caption class="shaka-visually-hidden">{{ caption }}</caption>
     {% endif %}
+
     <thead>
       <tr>
         <th scope="col">Field</th>
         <th scope="col">Type</th>
-        {% if rows|filter(r => r.required is defined)|length > 0 %}
-          <th scope="col">Required</th>
-        {% endif %}
+        {% if has_required %}<th scope="col">Required</th>{% endif %}
         <th scope="col">Description</th>
       </tr>
     </thead>
+
     <tbody>
       {% for row in rows %}
         <tr>
           <td><span class="shaka-table__field">{{ row.field }}</span></td>
           <td><span class="shaka-table__type">{{ row.type }}</span></td>
-          {% if rows|filter(r => r.required is defined)|length > 0 %}
+          {% if has_required %}
             <td>
               {% if row.required is defined %}
                 <span class="shaka-table__required shaka-table__required--{{ row.required ? 'yes' : 'no' }}">
-                  {{ row.required ? 'required' : 'optional' }}
+                  {{- row.required ? 'required' : 'optional' -}}
                 </span>
               {% endif %}
             </td>

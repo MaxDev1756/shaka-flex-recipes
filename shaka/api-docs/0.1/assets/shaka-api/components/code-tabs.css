@@ -1,139 +1,161 @@
-/* ── Code Tabs (dark theme, brand green) ── */
+/* ── Code Block (dark — bleu nuit) ── */
 .shaka-code-block {
   border-radius: var(--r-2xl);
   background: var(--code-bg);
   border: 1px solid var(--code-border);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-code);
 }
 
-/* Header bar */
-.shaka-code-block__header {
+/* ── Top bar ── */
+.shaka-code-block__bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: .65rem 1rem;
-  border-bottom: 1px solid var(--code-border);
+  gap: .75rem;
+  padding: .5rem .875rem;
   background: var(--code-surface);
-  gap: 1rem;
+  border-bottom: 1px solid var(--code-border);
 }
 
-.shaka-code-block__title {
-  font-size: .8rem;
-  font-weight: 600;
-  color: var(--code-comment);
-  letter-spacing: .02em;
-}
-
-/* Tabs */
+/* Tabs in bar */
 .shaka-code-block__tabs {
   display: flex;
   gap: .25rem;
   flex-wrap: wrap;
   flex: 1;
+  min-width: 0;
 }
 
 .shaka-code-block__tab {
-  padding: .3rem .7rem;
+  padding: .275rem .625rem;
   border-radius: var(--r-md);
   background: transparent;
   color: var(--code-comment);
-  font-size: .78rem;
+  font-size: .75rem;
   font-weight: 600;
   font-family: ui-monospace, monospace;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: color var(--ease-default), background var(--ease-default), border-color var(--ease-default);
+  transition: color var(--ease), background var(--ease), border-color var(--ease);
+  letter-spacing: .01em;
+  white-space: nowrap;
 }
 
 .shaka-code-block__tab:hover {
   color: var(--code-text);
-  background: rgba(255, 255, 255, .06);
+  background: rgba(255, 255, 255, .05);
+}
+
+.shaka-code-block__tab:focus-visible {
+  outline: 2px solid var(--code-keyword);
+  outline-offset: 1px;
 }
 
 .shaka-code-block__tab.is-active {
   color: var(--code-keyword);
-  background: rgba(125, 216, 127, .1);
-  border-color: rgba(125, 216, 127, .25);
+  background: rgba(121, 192, 255, .1);
+  border-color: rgba(121, 192, 255, .2);
 }
 
 /* Copy button */
 .shaka-code-block__copy {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: .35rem;
-  padding: .3rem .65rem;
+  gap: .3rem;
+  padding: .275rem .625rem;
   border-radius: var(--r-md);
-  background: rgba(255, 255, 255, .06);
+  background: rgba(255, 255, 255, .05);
   color: var(--code-comment);
-  font-size: .75rem;
+  font-size: .72rem;
   font-weight: 600;
-  border: 1px solid rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .07);
   cursor: pointer;
-  transition: all var(--ease-default);
+  transition: all var(--ease);
   white-space: nowrap;
   flex-shrink: 0;
 }
 
 .shaka-code-block__copy:hover {
-  background: rgba(255, 255, 255, .1);
+  background: rgba(255, 255, 255, .09);
   color: var(--code-text);
-  border-color: rgba(255, 255, 255, .14);
+  border-color: rgba(255, 255, 255, .12);
+}
+
+.shaka-code-block__copy:focus-visible {
+  outline: 2px solid var(--code-keyword);
+  outline-offset: 1px;
 }
 
 .shaka-code-block__copy.is-copied {
-  color: var(--code-keyword);
-  background: rgba(125, 216, 127, .1);
-  border-color: rgba(125, 216, 127, .25);
+  color: var(--code-tag);
+  background: rgba(126, 231, 135, .1);
+  border-color: rgba(126, 231, 135, .2);
 }
 
-/* Code area */
+/* Copy icon */
+.shaka-code-block__copy-icon {
+  width: .75rem;
+  height: .75rem;
+  flex-shrink: 0;
+}
+
+/* ── Code panels ── */
 .shaka-code-block__panel {
   padding: 1.125rem 1.25rem;
   overflow-x: auto;
   scrollbar-width: thin;
-  scrollbar-color: var(--code-border) transparent;
+  scrollbar-color: var(--code-border-2) transparent;
+  -webkit-overflow-scrolling: touch;
 }
 
 .shaka-code-block__panel[hidden] { display: none; }
 
 .shaka-code-block__panel pre {
   margin: 0;
+  min-width: 0;
 }
 
 .shaka-code-block__panel pre code {
   display: block;
-  font-size: .84rem;
-  line-height: 1.75;
+  font-size: .8125rem;
+  line-height: 1.8;
   color: var(--code-text);
   white-space: pre;
   word-break: normal;
   overflow-wrap: normal;
 }
 
-/* ── Legacy .shaka-code-tabs support ── */
+/* Mobile: smaller font */
+@media (max-width: 640px) {
+  .shaka-code-block__panel pre code {
+    font-size: .75rem;
+    line-height: 1.7;
+  }
+}
+
+/* ── Legacy .shaka-code-tabs ── */
 .shaka-code-tabs {
-  padding: 0;
   border: 1px solid var(--code-border);
   border-radius: var(--r-2xl);
   background: var(--code-bg);
-  color: var(--code-text);
-  box-shadow: var(--shadow-lg);
   overflow: hidden;
+  box-shadow: var(--shadow-code);
 }
 
 .shaka-code-tabs__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
-  padding: .65rem 1rem;
-  border-bottom: 1px solid var(--code-border);
+  gap: .75rem;
+  padding: .5rem .875rem;
   background: var(--code-surface);
+  border-bottom: 1px solid var(--code-border);
 }
 
 .shaka-code-tabs__header h3 {
-  font-size: .8rem;
+  font-size: .78rem;
+  font-weight: 600;
   color: var(--code-comment);
 }
 
@@ -141,40 +163,39 @@
   display: flex;
   gap: .25rem;
   flex-wrap: wrap;
-  padding: .5rem 1rem 0;
+  padding: .625rem .875rem 0;
 }
 
 .shaka-code-tabs__tab {
-  padding: .3rem .7rem;
+  padding: .275rem .625rem;
   border-radius: var(--r-md);
   background: transparent;
   color: var(--code-comment);
-  font-size: .78rem;
+  font-size: .75rem;
   font-weight: 600;
   font-family: ui-monospace, monospace;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: color var(--ease-default), background var(--ease-default), border-color var(--ease-default);
+  transition: color var(--ease), background var(--ease), border-color var(--ease);
 }
 
-.shaka-code-tabs__tab:hover { color: var(--code-text); background: rgba(255,255,255,.06); }
-.shaka-code-tabs__tab.is-active { color: var(--code-keyword); background: rgba(125,216,127,.1); border-color: rgba(125,216,127,.25); }
+.shaka-code-tabs__tab:hover { color: var(--code-text); background: rgba(255,255,255,.05); }
+.shaka-code-tabs__tab.is-active { color: var(--code-keyword); background: rgba(121,192,255,.1); border-color: rgba(121,192,255,.2); }
 
 .shaka-code-tabs__copy {
-  padding: .3rem .65rem;
+  padding: .275rem .625rem;
   border-radius: var(--r-md);
-  background: rgba(255,255,255,.06);
+  background: rgba(255,255,255,.05);
   color: var(--code-comment);
-  font-size: .75rem;
+  font-size: .72rem;
   font-weight: 600;
-  border: 1px solid rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.07);
   cursor: pointer;
-  transition: all var(--ease-default);
+  transition: all var(--ease);
 }
+.shaka-code-tabs__copy:hover { color: var(--code-text); background: rgba(255,255,255,.09); }
 
-.shaka-code-tabs__copy:hover { color: var(--code-text); background: rgba(255,255,255,.1); }
-
-.shaka-code-tabs__panel { display: none; padding: 1rem 1.25rem; }
+.shaka-code-tabs__panel { display: none; padding: 1rem 1.25rem; overflow-x: auto; }
 .shaka-code-tabs__panel.is-active { display: block; }
-.shaka-code-tabs pre { margin: 0; overflow-x: auto; }
-.shaka-code-tabs pre code { font-size: .84rem; line-height: 1.75; }
+.shaka-code-tabs pre { margin: 0; }
+.shaka-code-tabs pre code { font-size: .8125rem; line-height: 1.8; }

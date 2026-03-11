@@ -1,79 +1,91 @@
+{# ───────────────────────────────────────────────────────────
+   Partial: Sidebar navigation
+   ───────────────────────────────────────────────────────────
+   Variables:
+     sidebar_groups  array  Override default navigation groups
+       [{
+         title: 'Section name',
+         items: [{ label, href, method? }]
+       }]
+     api_name    string
+     api_acronym string
+     api_version string
+#}
 {% set current_path = app.request.pathInfo ?? '' %}
 
-{# Default navigation groups — override via `sidebar_groups` variable #}
 {% set sidebar_groups = sidebar_groups ?? [
   {
     title: 'Getting started',
     items: [
-      { label: 'Overview',        href: '/shaka/api' },
-      { label: 'Authentication',  href: '#authentication' },
-      { label: 'Rate limiting',   href: '#rate-limiting' },
-      { label: 'Pagination',      href: '#pagination' }
+      { label: 'Overview',       href: '/shaka/api' },
+      { label: 'Authentication', href: '#authentication' },
+      { label: 'Rate limiting',  href: '#rate-limiting' },
+      { label: 'Pagination',     href: '#pagination' }
     ]
   },
   {
-    title: 'Core resources',
+    title: 'Resources',
     items: [
-      { label: 'Reference',       href: '/shaka/api/reference' },
-      { label: 'Error handling',  href: '/shaka/api/errors' }
+      { label: 'Reference',      href: '/shaka/api/reference' },
+      { label: 'Error handling', href: '/shaka/api/errors' }
     ]
   }
 ] %}
 
 <aside class="shaka-api-sidebar"
        data-controller="shaka-sidebar"
-       aria-label="API documentation navigation">
+       aria-label="Documentation navigation">
 
-  {# Mobile close button #}
-  <div class="shaka-api-sidebar__mobile-header">
-    <div class="shaka-api-sidebar__brand">
-      <span class="shaka-api-sidebar__logo" aria-hidden="true">{{ api_acronym ?? 'AP' }}</span>
-      <div>
-        <div class="shaka-api-sidebar__brand-name">{{ api_name ?? 'Shaka API' }}</div>
-        {% if api_version is defined %}
-          <div class="shaka-api-sidebar__brand-version">v{{ api_version }}</div>
+  {# ── Header: brand + close button ── #}
+  <div class="shaka-api-sidebar__header">
+    <a class="shaka-api-sidebar__brand" href="/shaka/api">
+      <span class="shaka-api-sidebar__mark" aria-hidden="true">
+        {{- api_acronym ?? 'AP' -}}
+      </span>
+      <div class="shaka-api-sidebar__brand-info">
+        <span class="shaka-api-sidebar__brand-name">{{ api_name ?? 'Shaka API' }}</span>
+        {% if api_version is defined and api_version %}
+          <span class="shaka-api-sidebar__brand-version">v{{ api_version }}</span>
         {% endif %}
       </div>
-    </div>
+    </a>
+
     <button class="shaka-api-sidebar__close"
             type="button"
             aria-label="Close navigation"
             data-action="click->shaka-sidebar#close">✕</button>
   </div>
 
-  {# Desktop brand (hidden in mobile header) #}
-  <div class="shaka-api-sidebar__brand" style="display:flex" aria-hidden="true">
-    <span class="shaka-api-sidebar__logo">{{ api_acronym ?? 'AP' }}</span>
-    <div>
-      <div class="shaka-api-sidebar__brand-name">{{ api_name ?? 'Shaka API' }}</div>
-      {% if api_version is defined %}
-        <div class="shaka-api-sidebar__brand-version">v{{ api_version }}</div>
-      {% endif %}
-    </div>
-  </div>
-
+  {# ── Navigation ── #}
   <nav aria-label="Sidebar navigation">
     {% for group in sidebar_groups %}
       <div class="shaka-api-sidebar__section">
-        {% if group.title is defined %}
-          <p class="shaka-api-sidebar__section-title">{{ group.title }}</p>
+        {% if group.title is defined and group.title %}
+          <p class="shaka-api-sidebar__group-label" aria-hidden="true">
+            {{ group.title }}
+          </p>
         {% endif %}
 
         <ul class="shaka-api-sidebar__list" role="list">
           {% for item in group.items %}
-            <li>
-              <a class="shaka-api-sidebar__link{% if current_path == item.href or (item.href starts with '/shaka' and current_path starts with item.href) %} is-active{% endif %}"
-                 href="{{ item.href }}">
+            {% set is_page_link = not (item.href starts with '#') %}
+            {% set is_active = is_page_link and current_path == item.href %}
 
-                {% if item.method is defined %}
-                  <span class="shaka-api-sidebar__method shaka-method shaka-method--{{ item.method|lower }}">
-                    {{ item.method }}
+            <li>
+              <a class="shaka-api-sidebar__link{% if is_active %} is-active{% endif %}"
+                 href="{{ item.href }}"
+                 {% if is_active %}aria-current="page"{% endif %}>
+
+                {% if item.method is defined and item.method %}
+                  <span class="shaka-api-sidebar__method shaka-api-sidebar__method--{{ item.method|lower }}"
+                        aria-label="{{ item.method }}">
+                    {{- item.method -}}
                   </span>
                 {% else %}
-                  <span class="shaka-api-sidebar__link-dot" aria-hidden="true"></span>
+                  <span class="shaka-api-sidebar__dot" aria-hidden="true"></span>
                 {% endif %}
 
-                {{ item.label }}
+                <span>{{ item.label }}</span>
               </a>
             </li>
           {% endfor %}

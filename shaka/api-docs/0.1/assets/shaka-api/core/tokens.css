@@ -1,93 +1,136 @@
-/* ─────────────────────────────────────────────────────────
-   SHAKA API DOCS — Design Tokens
-   Palette inspirée Removit : vert / jaune / rouge
-   ───────────────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════
+   SHAKA API DOCS — Design Tokens v2
+   Palette Removit × Vercel : vert / jaune / rouge / bleu nuit
+   ═══════════════════════════════════════════════════════════ */
 
 :root {
 
-  /* ── Surfaces ── */
-  --s-page:    #ffffff;
-  --s-subtle:  #f7f8f7;
-  --s-soft:    #f0f2f0;
-  --s-overlay: rgba(0, 0, 0, .04);
+  /* ── Surfaces ──────────────────────────────────────── */
+  --s-page:      #ffffff;
+  --s-subtle:    #f9fafb;
+  --s-soft:      #f3f4f6;
+  --s-raised:    #ffffff;
+  --s-overlay:   rgba(0, 0, 0, .45);
 
-  /* ── Text ── */
-  --t-primary:   #0d1a0e;
-  --t-secondary: #4a5c4b;
-  --t-tertiary:  #7a8f7b;
-  --t-muted:     #a8b8a9;
+  /* ── Text ──────────────────────────────────────────── */
+  --t-primary:   #0a0f0b;
+  --t-secondary: #374151;
+  --t-tertiary:  #6b7280;
+  --t-muted:     #9ca3af;
+  --t-disabled:  #d1d5db;
   --t-inverted:  #ffffff;
 
-  /* ── Borders ── */
-  --border:       #dce5dc;
-  --border-soft:  #eaf0ea;
-  --border-focus: #2d7a3a;
+  /* ── Borders ───────────────────────────────────────── */
+  --border:        #e5e7eb;
+  --border-soft:   #f0f1f3;
+  --border-medium: #d1d5db;
+  --border-focus:  #2d7a3a;
 
-  /* ── Brand – Vert Removit ── */
-  --brand:        #2d7a3a;
-  --brand-hover:  #236030;
-  --brand-soft:   #eaf5ec;
-  --brand-muted:  #c6e6ca;
+  /* ── Brand — Vert Removit ──────────────────────────── */
+  --brand:          #1e6b2e;
+  --brand-light:    #2d7a3a;
+  --brand-hover:    #165423;
+  --brand-soft:     #e8f5eb;
+  --brand-muted:    #b3dabb;
+  --brand-subtle:   #f1faf3;
 
-  /* ── Accent – Jaune Removit ── */
-  --accent:       #e8a800;
-  --accent-hover: #c99000;
-  --accent-soft:  #fef8e6;
-  --accent-muted: #fce9a0;
+  /* ── Accent — Jaune Removit ────────────────────────── */
+  --accent:         #d97706;
+  --accent-light:   #f59e0b;
+  --accent-hover:   #b45309;
+  --accent-soft:    #fffbeb;
+  --accent-muted:   #fde68a;
+  --accent-subtle:  #fef9ec;
 
-  /* ── Danger – Rouge Removit ── */
-  --danger:       #d63b2f;
-  --danger-hover: #b52e23;
-  --danger-soft:  #fdf0ee;
-  --danger-muted: #f5c4bf;
+  /* ── Danger — Rouge Removit ────────────────────────── */
+  --danger:         #dc2626;
+  --danger-light:   #ef4444;
+  --danger-hover:   #b91c1c;
+  --danger-soft:    #fef2f2;
+  --danger-muted:   #fecaca;
+  --danger-subtle:  #fff5f5;
 
-  /* ── HTTP Methods ── */
-  --method-get:       #047857;
-  --method-get-bg:    #ecfdf5;
-  --method-post:      #2d7a3a;
-  --method-post-bg:   #eaf5ec;
-  --method-put:       #c07d0a;
-  --method-put-bg:    #fef8e6;
-  --method-patch:     #6d4cc8;
-  --method-patch-bg:  #f2eeff;
-  --method-delete:    #d63b2f;
-  --method-delete-bg: #fdf0ee;
+  /* ── Bleu nuit — Vercel-inspired ───────────────────── */
+  --night:          #0a0f1e;
+  --night-surface:  #0d1117;
+  --night-raised:   #161b27;
+  --night-border:   #21262d;
+  --night-border-2: #30363d;
+  --night-text:     #e6edf3;
+  --night-muted:    #7d8590;
+  --night-subtle:   #c9d1d9;
 
-  /* ── Status codes ── */
-  --status-2xx: #047857;
-  --status-4xx: #e8a800;
-  --status-5xx: #d63b2f;
+  /* ── HTTP Methods ──────────────────────────────────── */
+  --method-get:        #059669;
+  --method-get-bg:     #ecfdf5;
+  --method-get-border: #a7f3d0;
 
-  /* ── Code theme (dark green) ── */
-  --code-bg:        #0d1a0e;
-  --code-surface:   #112214;
-  --code-border:    #1e3a22;
-  --code-text:      #d4e8d6;
-  --code-comment:   #5a8060;
-  --code-keyword:   #7dd87f;
-  --code-string:    #e8c97a;
-  --code-number:    #f59a6a;
+  --method-post:        #2d7a3a;
+  --method-post-bg:     #e8f5eb;
+  --method-post-border: #b3dabb;
 
-  /* ── Radius ── */
+  --method-put:        #d97706;
+  --method-put-bg:     #fffbeb;
+  --method-put-border: #fde68a;
+
+  --method-patch:        #7c3aed;
+  --method-patch-bg:     #f5f3ff;
+  --method-patch-border: #ddd6fe;
+
+  --method-delete:        #dc2626;
+  --method-delete-bg:     #fef2f2;
+  --method-delete-border: #fecaca;
+
+  /* ── Status codes ──────────────────────────────────── */
+  --status-2xx:     #059669;
+  --status-2xx-bg:  #ecfdf5;
+  --status-4xx:     #d97706;
+  --status-4xx-bg:  #fffbeb;
+  --status-5xx:     #dc2626;
+  --status-5xx-bg:  #fef2f2;
+
+  /* ── Code (dark — bleu nuit) ───────────────────────── */
+  --code-bg:        #0d1117;
+  --code-surface:   #161b27;
+  --code-border:    #21262d;
+  --code-border-2:  #30363d;
+  --code-text:      #e6edf3;
+  --code-comment:   #6e7681;
+  --code-keyword:   #79c0ff;
+  --code-string:    #a5d6ff;
+  --code-number:    #ffa657;
+  --code-tag:       #7ee787;
+  --code-attr:      #ffab70;
+  --code-fn:        #d2a8ff;
+  --code-operator:  #ff7b72;
+
+  /* ── Radius ────────────────────────────────────────── */
+  --r-xs:   .25rem;
   --r-sm:   .375rem;
   --r-md:   .5rem;
   --r-lg:   .75rem;
   --r-xl:   1rem;
   --r-2xl:  1.25rem;
+  --r-3xl:  1.5rem;
   --r-full: 999px;
 
-  /* ── Shadow ── */
-  --shadow-xs: 0 1px 2px rgba(13, 26, 14, .06);
-  --shadow-sm: 0 2px 8px rgba(13, 26, 14, .07);
-  --shadow-md: 0 4px 16px rgba(13, 26, 14, .09);
-  --shadow-lg: 0 8px 32px rgba(13, 26, 14, .11);
+  /* ── Shadows ───────────────────────────────────────── */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, .05);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, .08), 0 1px 2px rgba(0, 0, 0, .04);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, .07), 0 2px 4px rgba(0, 0, 0, .04);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, .08), 0 4px 6px rgba(0, 0, 0, .04);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, .10), 0 8px 10px rgba(0, 0, 0, .05);
+  --shadow-code: 0 16px 40px rgba(0, 0, 0, .35), 0 4px 12px rgba(0, 0, 0, .2);
 
-  /* ── Transitions ── */
-  --ease-default: 150ms ease;
-  --ease-enter:   200ms cubic-bezier(.16, 1, .3, 1);
+  /* ── Transitions ───────────────────────────────────── */
+  --ease: 150ms ease;
+  --ease-md: 200ms ease;
+  --ease-enter: 220ms cubic-bezier(.16, 1, .3, 1);
+  --ease-exit: 160ms cubic-bezier(.4, 0, .6, 1);
 
-  /* ── Layout ── */
-  --container: 1320px;
-  --sidebar-w: 260px;
-  --topbar-h:  3.75rem;
+  /* ── Layout ────────────────────────────────────────── */
+  --container:  1320px;
+  --sidebar-w:  264px;
+  --topbar-h:   3.5rem;
+  --content-w:  780px;
 }

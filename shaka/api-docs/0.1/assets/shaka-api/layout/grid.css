@@ -5,14 +5,9 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-@media (max-width: 680px) {
-  .shaka-api-feature-grid {
-    grid-template-columns: 1fr;
-  }
+@media (max-width: 640px) {
+  .shaka-api-feature-grid { grid-template-columns: 1fr; }
 }
-
-@media (min-width: 681px) and (max-width: 860px) {
-  .shaka-api-feature-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+@media (min-width: 641px) and (max-width: 880px) {
+  .shaka-api-feature-grid { grid-template-columns: repeat(2, 1fr); }
 }

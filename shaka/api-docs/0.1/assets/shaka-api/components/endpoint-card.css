@@ -4,158 +4,173 @@
   border-radius: var(--r-2xl);
   background: var(--s-page);
   overflow: hidden;
-  transition: box-shadow var(--ease-default), border-color var(--ease-default);
+  transition: border-color var(--ease), box-shadow var(--ease);
 }
 
 .shaka-endpoint:hover {
-  border-color: var(--brand-muted);
+  border-color: var(--border-medium);
   box-shadow: var(--shadow-md);
 }
 
-/* ── Header (always visible) ── */
+/* Left accent line by method */
+.shaka-endpoint[data-method="GET"]    { border-left: 3px solid var(--method-get); }
+.shaka-endpoint[data-method="POST"]   { border-left: 3px solid var(--method-post); }
+.shaka-endpoint[data-method="PUT"]    { border-left: 3px solid var(--method-put); }
+.shaka-endpoint[data-method="PATCH"]  { border-left: 3px solid var(--method-patch); }
+.shaka-endpoint[data-method="DELETE"] { border-left: 3px solid var(--method-delete); }
+
+/* ── Header ── */
 .shaka-endpoint__header {
-  padding: 1.125rem 1.25rem;
+  padding: 1rem 1.25rem;
   cursor: pointer;
-  display: grid;
-  gap: .625rem;
   user-select: none;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
 }
 
 .shaka-endpoint__meta {
   display: flex;
   align-items: center;
-  gap: .625rem;
+  gap: .5rem;
   flex-wrap: wrap;
 }
 
 .shaka-endpoint__path {
   font-family: ui-monospace, 'JetBrains Mono', monospace;
-  font-size: .85rem;
+  font-size: .82rem;
   color: var(--t-secondary);
   padding: .2rem .5rem;
   background: var(--s-subtle);
   border-radius: var(--r-md);
-  border: 1px solid var(--border-soft);
+  border: 1px solid var(--border);
   word-break: break-all;
+  flex: 1;
+  min-width: 0;
 }
 
 .shaka-endpoint__title-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 1rem;
+  gap: .75rem;
 }
 
 .shaka-endpoint__title {
-  font-size: .9375rem;
+  font-size: .9rem;
   font-weight: 600;
   color: var(--t-primary);
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
 .shaka-endpoint__chevron {
   flex-shrink: 0;
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1.125rem;
+  height: 1.125rem;
   color: var(--t-muted);
-  transition: transform var(--ease-default);
+  transition: transform var(--ease), color var(--ease);
+  margin-top: .0625rem;
 }
 
 .shaka-endpoint.is-open .shaka-endpoint__chevron {
   transform: rotate(180deg);
+  color: var(--t-secondary);
 }
 
 .shaka-endpoint__description {
-  font-size: .875rem;
-  color: var(--t-secondary);
+  font-size: .84rem;
+  color: var(--t-tertiary);
   line-height: 1.6;
 }
 
-/* ── Body (collapsible) ── */
+/* ── Body ── */
 .shaka-endpoint__body {
   border-top: 1px solid var(--border-soft);
-  padding: 1.125rem 1.25rem;
-  display: grid;
-  gap: 1.25rem;
+  background: var(--s-subtle);
 }
 
 .shaka-endpoint__body[hidden] { display: none; }
 
-/* ── Auth row ── */
-.shaka-endpoint__auth-row {
+.shaka-endpoint__body-inner {
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Auth row */
+.shaka-endpoint__meta-row {
   display: flex;
   align-items: center;
   gap: .5rem;
   font-size: .8rem;
 }
 
-.shaka-endpoint__auth-label {
-  font-weight: 600;
-  color: var(--t-tertiary);
+.shaka-endpoint__meta-key {
+  font-size: .6875rem;
+  font-weight: 700;
+  letter-spacing: .05em;
   text-transform: uppercase;
-  letter-spacing: .04em;
-  font-size: .7rem;
+  color: var(--t-muted);
+  min-width: 2.5rem;
 }
 
-.shaka-endpoint__auth-value {
+.shaka-endpoint__meta-value {
   color: var(--t-secondary);
   font-family: ui-monospace, monospace;
   font-size: .8rem;
 }
 
-/* ── Responses list ── */
-.shaka-endpoint__responses-title {
-  font-size: .7rem;
+/* Responses */
+.shaka-endpoint__responses-label {
+  font-size: .6875rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: .05em;
   color: var(--t-muted);
-  margin-bottom: .5rem;
+  margin-bottom: .4rem;
 }
 
 .shaka-endpoint__responses {
   display: flex;
   flex-wrap: wrap;
-  gap: .4rem;
+  gap: .35rem;
 }
 
-.shaka-endpoint__response {
+.shaka-endpoint__status {
   display: inline-flex;
   align-items: center;
-  gap: .4rem;
-  padding: .25rem .65rem;
+  gap: .35rem;
+  padding: .2rem .6rem;
   border-radius: var(--r-full);
-  font-size: .8rem;
+  font-size: .775rem;
   font-family: ui-monospace, monospace;
   font-weight: 600;
   border: 1px solid transparent;
 }
 
-/* 2xx */
-.shaka-endpoint__response[data-code^="2"] {
-  background: var(--method-get-bg);
+.shaka-endpoint__status[data-code^="2"] {
+  background: var(--status-2xx-bg);
   color: var(--status-2xx);
-  border-color: #b2e8d2;
+  border-color: var(--method-get-border);
 }
 
-/* 4xx */
-.shaka-endpoint__response[data-code^="4"] {
-  background: var(--accent-soft);
-  color: var(--accent-hover);
+.shaka-endpoint__status[data-code^="4"] {
+  background: var(--status-4xx-bg);
+  color: var(--status-4xx);
   border-color: var(--accent-muted);
 }
 
-/* 5xx */
-.shaka-endpoint__response[data-code^="5"] {
-  background: var(--danger-soft);
-  color: var(--danger);
+.shaka-endpoint__status[data-code^="5"] {
+  background: var(--status-5xx-bg);
+  color: var(--status-5xx);
   border-color: var(--danger-muted);
 }
 
-/* ── Legacy support ── */
-.shaka-api-endpoint-card { padding: 1.25rem; border: 1px solid var(--border); border-radius: var(--r-2xl); background: var(--s-page); box-shadow: var(--shadow-sm); }
-.shaka-api-endpoint-card__meta { display: flex; align-items: center; gap: .625rem; flex-wrap: wrap; margin-bottom: .625rem; }
-.shaka-api-endpoint-card__path { font-family: ui-monospace, monospace; font-size: .85rem; color: var(--t-secondary); padding: .2rem .5rem; background: var(--s-subtle); border-radius: var(--r-md); border: 1px solid var(--border-soft); }
-.shaka-api-endpoint-card__responses { display: flex; flex-wrap: wrap; gap: .4rem; padding: 0; margin: 1rem 0 0; }
-.shaka-api-endpoint-card__responses li { display: inline-flex; gap: .35rem; padding: .2rem .55rem; border-radius: var(--r-full); font-size: .8rem; font-family: ui-monospace, monospace; background: var(--s-soft); border: 1px solid var(--border); }
+/* Legacy */
+.shaka-api-endpoint-card { padding: 1rem 1.25rem; border: 1px solid var(--border); border-radius: var(--r-2xl); background: var(--s-page); }
+.shaka-api-endpoint-card__meta { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; margin-bottom: .5rem; }
+.shaka-api-endpoint-card__path { font-family: ui-monospace, monospace; font-size: .82rem; color: var(--t-secondary); padding: .2rem .5rem; background: var(--s-subtle); border-radius: var(--r-md); border: 1px solid var(--border); }
+.shaka-api-endpoint-card__responses { display: flex; flex-wrap: wrap; gap: .35rem; padding: 0; margin: .75rem 0 0; }
+.shaka-api-endpoint-card__responses li { display: inline-flex; gap: .3rem; padding: .2rem .55rem; border-radius: var(--r-full); font-size: .78rem; font-family: ui-monospace, monospace; background: var(--s-soft); border: 1px solid var(--border); }
 .shaka-api-endpoint-card__status { font-weight: 700; }

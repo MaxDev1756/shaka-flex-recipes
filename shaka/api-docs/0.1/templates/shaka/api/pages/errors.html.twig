@@ -6,40 +6,85 @@
 <main class="shaka-api-page shaka-api-page--errors">
   <div class="shaka-api-page__grid">
 
-    {% include 'shaka/api/partials/_sidebar.html.twig' %}
+    {% include 'shaka/api/partials/_sidebar.html.twig' with {
+      sidebar_groups: [
+        {
+          title: 'Pages',
+          items: [
+            { label: 'Overview',        href: '/shaka/api' },
+            { label: 'Reference',       href: '/shaka/api/reference' },
+            { label: 'Errors',          href: '/shaka/api/errors' }
+          ]
+        },
+        {
+          title: 'On this page',
+          items: [
+            { label: 'Error object',    href: '#error-structure' },
+            { label: 'Error codes',     href: '#error-codes' },
+            { label: 'HTTP statuses',   href: '#status-codes' },
+            { label: 'Handling errors', href: '#handling-errors' }
+          ]
+        }
+      ]
+    } %}
 
     <div class="shaka-api-page__content">
 
-      <header class="shaka-reference-header">
-        <span class="shaka-api-badge">Errors</span>
-        <h1>Error handling</h1>
-        <p>All errors return a JSON object with a consistent structure. Use the <code>error.code</code> field to handle specific cases in your application.</p>
-      </header>
+      {# ── Page header ── #}
+      <div class="shaka-page-header">
+        <div class="shaka-page-header__eyebrow">
+          <span class="shaka-badge shaka-badge--danger">Errors</span>
+        </div>
+        <h1 class="shaka-page-header__title">Error handling</h1>
+        <p class="shaka-page-header__subtitle">
+          All errors return a consistent JSON envelope. Use the <code>error.code</code> field to handle specific cases programmatically.
+        </p>
+      </div>
 
-      {# ── Error structure ── #}
+      {# ── Error object ── #}
       <section id="error-structure" class="shaka-section">
         <h2>Error object</h2>
+        <p>Every error response wraps the failure in an <code>error</code> object at the top level:</p>
 
         {% include 'shaka/api/components/_response_table.html.twig' with {
           caption: 'Error response fields',
           rows: [
             { field: 'error.code',    type: 'string', required: true,  description: 'Machine-readable error code, e.g. validation_failed.' },
-            { field: 'error.message', type: 'string', required: true,  description: 'Human-readable error description.' },
-            { field: 'error.details', type: 'array',  required: false, description: 'Array of field-level validation messages.' },
-            { field: 'request_id',    type: 'string', required: true,  description: 'Trace ID — include in support requests.' }
+            { field: 'error.message', type: 'string', required: true,  description: 'Human-readable description of the error.' },
+            { field: 'error.details', type: 'array',  required: false, description: 'Field-level validation errors (422 only).' },
+            { field: 'request_id',    type: 'string', required: true,  description: 'Trace ID — always include this in support requests.' }
           ]
         } only %}
       </section>
 
-      {# ── Example error ── #}
+      {# ── Error codes ── #}
+      <section id="error-codes" class="shaka-section">
+        <h2>Error codes</h2>
+        <p>The <code>error.code</code> field is a stable, versioned string you can match in your code:</p>
+
+        {% include 'shaka/api/components/_response_table.html.twig' with {
+          rows: [
+            { field: 'bad_request',        type: '400', description: 'Malformed JSON body or missing Content-Type header.' },
+            { field: 'unauthorized',       type: '401', description: 'Missing or expired bearer token.' },
+            { field: 'forbidden',          type: '403', description: 'Token is valid but lacks the required permission.' },
+            { field: 'not_found',          type: '404', description: 'The requested resource does not exist or was deleted.' },
+            { field: 'validation_failed',  type: '422', description: 'One or more request body fields failed validation.' },
+            { field: 'rate_limited',       type: '429', description: 'Too many requests — see Retry-After header.' },
+            { field: 'internal_error',     type: '500', description: 'Unexpected server error. Use request_id when reporting.' },
+            { field: 'service_unavailable',type: '503', description: 'The service is temporarily offline. Retry after a delay.' }
+          ]
+        } only %}
+      </section>
+
+      {# ── Example error response ── #}
       <section id="error-example" class="shaka-section">
         <h2>Example error response</h2>
 
         {% include 'shaka/api/components/_endpoint_card.html.twig' with {
           method:      'POST',
           path:        '/v1/users',
-          title:       'Validation error example',
-          description: 'Returned when required fields are missing or invalid.',
+          title:       'Validation error (422)',
+          description: 'Returned when required fields are missing or fail schema validation.',
           responses: [
             { code: 422, label: 'Validation failed' },
             { code: 401, label: 'Unauthorized' }
@@ -47,16 +92,38 @@
         } only %}
 
         {% include 'shaka/api/components/_code_tabs.html.twig' with {
-          title:    'Error response payload',
           snippets: {
-            'json': '{\n  "error": {\n    "code": "validation_failed",\n    "message": "The request body is invalid.",\n    "details": [\n      { "field": "email", "message": "The email field is required." }\n    ]\n  },\n  "request_id": "req_9fa23b4c"\n}',
-            'php':        '$code = $response["error"]["code"]; // "validation_failed"\n$msg  = $response["error"]["message"];',
-            'javascript': 'const { error } = await res.json();\nconsole.error(error.code); // "validation_failed"'
+            'json': '{
+  "error": {
+    "code": "validation_failed",
+    "message": "The request body is invalid.",
+    "details": [
+      { "field": "email",    "message": "The email field is required." },
+      { "field": "password", "message": "Must be at least 8 characters." }
+    ]
+  },
+  "request_id": "req_9fa23b4c"
+}',
+            'php': '// Catch validation errors
+$data = $response->toArray(false);
+if ($data["error"]["code"] === "validation_failed") {
+    foreach ($data["error"]["details"] as $detail) {
+        echo $detail["field"] . ": " . $detail["message"] . "\n";
+    }
+}',
+            'javascript': 'const res = await fetch("/v1/users", { method: "POST", body });
+const { error } = await res.json();
+
+if (!res.ok) {
+  if (error.code === "validation_failed") {
+    error.details.forEach(d => console.error(d.field, d.message));
+  }
+}'
           }
         } only %}
       </section>
 
-      {# ── HTTP status codes table ── #}
+      {# ── HTTP status codes ── #}
       <section id="status-codes" class="shaka-section">
         <h2>HTTP status codes</h2>
 
@@ -64,76 +131,62 @@
           <table class="shaka-table">
             <thead>
               <tr>
-                <th>Status</th>
-                <th>Code</th>
-                <th>When it occurs</th>
+                <th scope="col">Status</th>
+                <th scope="col">Meaning</th>
+                <th scope="col">When it occurs</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><span class="shaka-endpoint__response" data-code="200">200</span></td>
-                <td><code>ok</code></td>
-                <td>Request succeeded.</td>
-              </tr>
-              <tr>
-                <td><span class="shaka-endpoint__response" data-code="201">201</span></td>
-                <td><code>created</code></td>
-                <td>Resource was created successfully.</td>
-              </tr>
-              <tr>
-                <td><span class="shaka-endpoint__response" data-code="400">400</span></td>
-                <td><code>bad_request</code></td>
-                <td>Malformed JSON or missing Content-Type header.</td>
-              </tr>
-              <tr>
-                <td><span class="shaka-endpoint__response" data-code="401">401</span></td>
-                <td><code>unauthorized</code></td>
-                <td>Missing or invalid bearer token.</td>
-              </tr>
-              <tr>
-                <td><span class="shaka-endpoint__response" data-code="403">403</span></td>
-                <td><code>forbidden</code></td>
-                <td>Valid token but insufficient permissions.</td>
-              </tr>
-              <tr>
-                <td><span class="shaka-endpoint__response" data-code="404">404</span></td>
-                <td><code>not_found</code></td>
-                <td>Resource does not exist or was deleted.</td>
-              </tr>
-              <tr>
-                <td><span class="shaka-endpoint__response" data-code="422">422</span></td>
-                <td><code>validation_failed</code></td>
-                <td>Request body failed schema validation.</td>
-              </tr>
-              <tr>
-                <td><span class="shaka-endpoint__response" data-code="429">429</span></td>
-                <td><code>rate_limited</code></td>
-                <td>Too many requests — see Retry-After header.</td>
-              </tr>
-              <tr>
-                <td><span class="shaka-endpoint__response" data-code="500">500</span></td>
-                <td><code>internal_error</code></td>
-                <td>Unexpected server error. Include request_id in support requests.</td>
-              </tr>
+              {% set statuses = [
+                { code: 200, label: 'OK',                  desc: 'Request succeeded.' },
+                { code: 201, label: 'Created',             desc: 'Resource created successfully.' },
+                { code: 204, label: 'No Content',          desc: 'Success with no response body (e.g. DELETE).' },
+                { code: 400, label: 'Bad Request',         desc: 'Malformed JSON or missing Content-Type.' },
+                { code: 401, label: 'Unauthorized',        desc: 'Missing or invalid bearer token.' },
+                { code: 403, label: 'Forbidden',           desc: 'Valid token but insufficient permissions.' },
+                { code: 404, label: 'Not Found',           desc: 'Resource does not exist or was deleted.' },
+                { code: 422, label: 'Unprocessable',       desc: 'Request body failed schema validation.' },
+                { code: 429, label: 'Too Many Requests',   desc: 'Rate limit exceeded — check Retry-After.' },
+                { code: 500, label: 'Internal Error',      desc: 'Unexpected server error — include request_id.' },
+                { code: 503, label: 'Service Unavailable', desc: 'Scheduled maintenance or overload.' }
+              ] %}
+
+              {% for s in statuses %}
+                <tr>
+                  <td>
+                    <span class="shaka-endpoint__status" data-code="{{ s.code }}">
+                      {{ s.code }} {{ s.label }}
+                    </span>
+                  </td>
+                  <td><code>{{ s.code }}</code></td>
+                  <td>{{ s.desc }}</td>
+                </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>
       </section>
 
-      {# ── Alert examples ── #}
-      <section id="alerts" class="shaka-section">
+      {# ── Handling errors ── #}
+      <section id="handling-errors" class="shaka-section">
         <h2>Handling errors in code</h2>
 
         {% include 'shaka/api/components/_alert.html.twig' with {
           type:  'success',
-          title: 'Retry on 429',
-          text:  'Use exponential backoff when you receive a 429. Check the Retry-After response header for the wait duration.'
+          title: 'Retry on 429 with backoff',
+          text:  'Use exponential backoff when you receive a 429. Always check the Retry-After header for the exact wait time.'
         } only %}
 
         {% include 'shaka/api/components/_alert.html.twig' with {
           type:  'danger',
-          title: 'Never retry on 4xx (except 429)',
-          text:  'Client errors (400, 401, 403, 404, 422) indicate a problem with the request itself. Fix the request before retrying.'
+          title: 'Never retry 4xx errors (except 429)',
+          text:  'Errors 400, 401, 403, 404 and 422 indicate a problem with your request. Fix it before retrying.'
+        } only %}
+
+        {% include 'shaka/api/components/_alert.html.twig' with {
+          type:  'warning',
+          title: 'Include request_id in support tickets',
+          text:  'The request_id is logged on every request. It allows our team to trace the exact cause of a 5xx error.'
         } only %}
       </section>
 

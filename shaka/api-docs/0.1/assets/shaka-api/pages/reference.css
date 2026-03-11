@@ -1,22 +1,17 @@
 /* ── Reference page ── */
-.shaka-reference-header {
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 2rem;
+.shaka-resource-group {
+  margin-bottom: 3.5rem;
 }
 
-.shaka-reference-group {
-  margin-bottom: 3rem;
-}
-
-.shaka-reference-group__title {
+.shaka-resource-group__title {
   display: flex;
   align-items: center;
-  gap: .625rem;
-  padding: .5rem 0;
-  margin-bottom: 1rem;
+  gap: .5rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: .75rem;
   border-bottom: 1px solid var(--border-soft);
-  font-size: .9375rem;
+  font-size: .875rem;
   font-weight: 700;
-  color: var(--t-primary);
+  color: var(--t-secondary);
+  letter-spacing: -.01em;
 }

@@ -1,28 +1,43 @@
-{% set page_title = page_title ?? 'API Documentation' %}
+{# ═══════════════════════════════════════════════════════════
+   Layout: Base
+   ═══════════════════════════════════════════════════════════
+   Variables (all optional):
+     page_title       string  <title> tag
+     page_description string  <meta description>
+     api_name         string  Brand name
+     api_acronym      string  2-letter acronym for the mark
+     api_version      string  e.g. "1.0"
+#}
+{% set page_title       = page_title       ?? (api_name ?? 'API') ~ ' Docs' %}
+{% set page_description = page_description ?? 'API Reference Documentation' %}
+
 <!DOCTYPE html>
-<html lang="{{ app.request.locale ?? 'en' }}">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ page_description ?? 'API Reference Documentation' }}">
-    <title>{% block title %}{{ page_title }}{% endblock %}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
-    {{ importmap('app') }}
-  </head>
-  <body class="shaka-api-body">
+<html lang="{{ app.request.locale ?? 'en' }}" data-color-scheme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{ page_description }}">
+  <title>{% block title %}{{ page_title }}{% endblock %}</title>
 
-    {% block topbar %}
-      {% include 'shaka/api/partials/_topbar.html.twig' %}
-    {% endblock %}
+  {# Inter font via Google Fonts (optional — replace with self-hosted for performance) #}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
 
-    {% block shell %}{% endblock %}
+  {% block head %}{% endblock %}
 
-    {# Mobile sidebar overlay backdrop #}
-    <div class="shaka-sidebar-backdrop"
-         aria-hidden="true"
-         data-action="click->shaka-sidebar#close"
-         style="display:none"></div>
+  {{ importmap('app') }}
+</head>
+<body class="shaka-api-body">
 
-  </body>
+  {% block topbar %}
+    {% include 'shaka/api/partials/_topbar.html.twig' %}
+  {% endblock %}
+
+  {# Mobile sidebar backdrop (controlled by shaka_sidebar_controller) #}
+  <div class="shaka-sidebar-backdrop" aria-hidden="true"></div>
+
+  {% block shell %}{% endblock %}
+
+</body>
 </html>

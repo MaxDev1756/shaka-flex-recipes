@@ -1,18 +1,19 @@
-{# ─────────────────────────────────────────────────────────
-   Component: Endpoint Card
-   ─────────────────────────────────────────────────────────
+{# ───────────────────────────────────────────────────────────
+   Component: Endpoint Card (collapsible)
+   ───────────────────────────────────────────────────────────
    Variables:
-     method      string  HTTP verb — GET | POST | PUT | PATCH | DELETE
-     path        string  URL path, e.g. /v1/users/{id}
-     title       string  Short human-readable name
-     description string  Longer description
-     auth        string  Auth scheme, default "Bearer token"
-     responses   array   [{ code: int, label: string }]
-     open        bool    Expand card by default (default: false)
-   ───────────────────────────────────────────────────────── #}
+     method       string  GET | POST | PUT | PATCH | DELETE
+     path         string  /v1/resource/{id}
+     title        string  Human-readable name
+     description  string  Short description
+     auth         string  Auth scheme (default: "Bearer token")
+     responses    array   [{ code: int, label: string }]
+     params       array   [{ name, type, required, description }]
+     open         bool    Expanded by default
+#}
 {% set method      = method      ?? 'GET' %}
 {% set path        = path        ?? '/v1/example' %}
-{% set title       = title       ?? 'Example endpoint' %}
+{% set title       = title       ?? 'Endpoint' %}
 {% set description = description ?? '' %}
 {% set auth        = auth        ?? 'Bearer token' %}
 {% set open        = open        ?? false %}
@@ -21,18 +22,26 @@
   { code: 401, label: 'Unauthorized' }
 ] %}
 
+{# Stable ID from method + path #}
+{% set card_id = 'ep-' ~ method|lower ~ '-' ~ path
+  |replace({'/' : '-', '{' : '', '}' : '', ' ' : ''})
+  |trim('-') %}
+
 <article
   class="shaka-endpoint{% if open %} is-open{% endif %}"
   data-controller="shaka-endpoint"
+  data-method="{{ method }}"
+  id="{{ card_id }}"
   {% if open %}data-open{% endif %}
-  id="endpoint-{{ method|lower }}-{{ path|replace({'/' : '-', '{' : '', '}' : ''})|trim('-') }}"
 >
 
-  {# ── Clickable header ── #}
+  {# ── Header (always visible, toggles on click) ── #}
   <header
     class="shaka-endpoint__header"
     data-action="click->shaka-endpoint#toggle"
+    data-shaka-endpoint-target="trigger"
     aria-expanded="{{ open ? 'true' : 'false' }}"
+    aria-controls="{{ card_id }}-body"
   >
     <div class="shaka-endpoint__meta">
       <span class="shaka-method shaka-method--{{ method|lower }}">{{ method }}</span>
@@ -41,9 +50,13 @@
 
     <div class="shaka-endpoint__title-row">
       <h3 class="shaka-endpoint__title">{{ title }}</h3>
-      {# Chevron ↓ #}
-      <svg class="shaka-endpoint__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-        <path d="M4 6l4 4 4-4"/>
+      <svg class="shaka-endpoint__chevron"
+           viewBox="0 0 16 16"
+           fill="none"
+           stroke="currentColor"
+           stroke-width="1.75"
+           aria-hidden="true">
+        <path d="M4 6l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
 
@@ -56,34 +69,45 @@
   <div
     class="shaka-endpoint__body"
     data-shaka-endpoint-target="body"
+    id="{{ card_id }}-body"
     {% if not open %}hidden{% endif %}
   >
-    {# Auth #}
-    <div class="shaka-endpoint__auth-row">
-      <span class="shaka-endpoint__auth-label">Auth</span>
-      <span class="shaka-endpoint__auth-value">{{ auth }}</span>
-    </div>
+    <div class="shaka-endpoint__body-inner">
 
-    {# Responses #}
-    {% if responses is not empty %}
-      <div>
-        <p class="shaka-endpoint__responses-title">Responses</p>
-        <div class="shaka-endpoint__responses">
-          {% for response in responses %}
-            <span
-              class="shaka-endpoint__response"
-              data-code="{{ response.code }}"
-            >
-              <strong>{{ response.code }}</strong>
-              {{ response.label }}
-            </span>
-          {% endfor %}
-        </div>
+      {# Auth #}
+      <div class="shaka-endpoint__meta-row">
+        <span class="shaka-endpoint__meta-key">Auth</span>
+        <span class="shaka-endpoint__meta-value">{{ auth }}</span>
       </div>
-    {% endif %}
 
-    {# Optional extra content slot #}
-    {% block endpoint_body %}{% endblock %}
+      {# Responses #}
+      {% if responses is not empty %}
+        <div>
+          <p class="shaka-endpoint__responses-label">Returns</p>
+          <div class="shaka-endpoint__responses">
+            {% for r in responses %}
+              <span class="shaka-endpoint__status" data-code="{{ r.code }}">
+                <strong>{{ r.code }}</strong>&nbsp;{{ r.label }}
+              </span>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {# Parameters (optional) #}
+      {% if params is defined and params is not empty %}
+        <div>
+          <p class="shaka-endpoint__responses-label">Parameters</p>
+          {% include 'shaka/api/components/_response_table.html.twig' with {
+            rows: params
+          } only %}
+        </div>
+      {% endif %}
+
+      {# Extra content slot #}
+      {% block endpoint_body %}{% endblock %}
+
+    </div>
   </div>
 
 </article>

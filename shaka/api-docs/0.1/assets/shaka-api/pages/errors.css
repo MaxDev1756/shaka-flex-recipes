@@ -1,8 +1,14 @@
 /* ── Errors page ── */
-.shaka-error-table__code {
-  font-family: ui-monospace, monospace;
-  font-weight: 700;
+.shaka-status-dot {
+  display: inline-block;
+  width: .5rem;
+  height: .5rem;
+  border-radius: var(--r-full);
+  flex-shrink: 0;
+  vertical-align: middle;
+  margin-right: .3rem;
 }
 
-.shaka-error-table__code--4xx { color: var(--accent-hover); }
-.shaka-error-table__code--5xx { color: var(--danger); }
+.shaka-status-dot--2xx { background: var(--status-2xx); }
+.shaka-status-dot--4xx { background: var(--status-4xx); }
+.shaka-status-dot--5xx { background: var(--status-5xx); }

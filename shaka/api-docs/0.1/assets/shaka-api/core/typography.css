@@ -1,37 +1,68 @@
 /* ── Typography ── */
 body {
-  font-family: Inter, 'Geist', system-ui, -apple-system, sans-serif;
+  font-family: Inter, 'Geist', ui-sans-serif, system-ui, -apple-system, sans-serif;
   font-size: 15px;
-  line-height: 1.65;
+  line-height: 1.6;
   color: var(--t-primary);
   background: var(--s-page);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 700; letter-spacing: -.035em; line-height: 1.1; color: var(--t-primary); }
-h2 { font-size: 1.25rem; font-weight: 600; letter-spacing: -.025em; line-height: 1.25; color: var(--t-primary); }
-h3 { font-size: 1rem; font-weight: 600; letter-spacing: -.02em; line-height: 1.3; color: var(--t-primary); }
+h1 {
+  font-size: clamp(1.625rem, 3.5vw, 2.125rem);
+  font-weight: 700;
+  letter-spacing: -.04em;
+  line-height: 1.1;
+  color: var(--t-primary);
+}
 
-p { color: var(--t-secondary); line-height: 1.7; }
+h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -.025em;
+  line-height: 1.3;
+  color: var(--t-primary);
+}
+
+h3 {
+  font-size: .9375rem;
+  font-weight: 600;
+  letter-spacing: -.02em;
+  line-height: 1.35;
+  color: var(--t-primary);
+}
+
+p {
+  color: var(--t-secondary);
+  line-height: 1.7;
+}
+
 a { color: inherit; text-decoration: none; }
 
-code {
+/* Inline code */
+:not(pre) > code {
   font-family: 'Geist Mono', 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
-  font-size: .875em;
+  font-size: .8125em;
   background: var(--s-soft);
-  color: var(--brand);
+  color: var(--brand-light);
   padding: .15em .4em;
   border-radius: var(--r-sm);
-  border: 1px solid var(--border-soft);
+  border: 1px solid var(--border);
+  font-variant-ligatures: none;
 }
 
+/* Code inside dark blocks */
 pre code {
+  font-family: 'Geist Mono', 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
   background: none;
   color: var(--code-text);
   padding: 0;
   border: none;
   border-radius: 0;
-  font-size: .85rem;
+  font-size: .84rem;
+  font-variant-ligatures: none;
 }
 
 strong { font-weight: 600; color: var(--t-primary); }
+small  { font-size: .8125rem; color: var(--t-tertiary); }

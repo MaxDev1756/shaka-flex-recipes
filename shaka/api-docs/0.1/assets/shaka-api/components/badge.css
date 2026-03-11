@@ -3,17 +3,24 @@
   display: inline-flex;
   align-items: center;
   gap: .3rem;
-  padding: .2rem .6rem;
+  padding: .175rem .55rem;
   border-radius: var(--r-full);
-  font-size: .75rem;
+  font-size: .72rem;
   font-weight: 600;
   letter-spacing: .01em;
+  line-height: 1.5;
 }
 
-.shaka-badge--brand   { background: var(--brand-soft);  color: var(--brand);  border: 1px solid var(--brand-muted); }
+.shaka-badge--brand   { background: var(--brand-soft);   color: var(--brand);        border: 1px solid var(--brand-muted); }
 .shaka-badge--accent  { background: var(--accent-soft);  color: var(--accent-hover); border: 1px solid var(--accent-muted); }
-.shaka-badge--danger  { background: var(--danger-soft);  color: var(--danger); border: 1px solid var(--danger-muted); }
-.shaka-badge--neutral { background: var(--s-soft); color: var(--t-secondary); border: 1px solid var(--border); }
+.shaka-badge--danger  { background: var(--danger-soft);  color: var(--danger);       border: 1px solid var(--danger-muted); }
+.shaka-badge--neutral { background: var(--s-soft);       color: var(--t-secondary);  border: 1px solid var(--border); }
+.shaka-badge--night   { background: var(--night-raised); color: var(--night-subtle); border: 1px solid var(--night-border); }
 
-/* Legacy alias (backwards compat) */
-.shaka-api-badge { display: inline-flex; align-items: center; gap: .3rem; padding: .2rem .6rem; border-radius: var(--r-full); font-size: .75rem; font-weight: 600; background: var(--brand-soft); color: var(--brand); border: 1px solid var(--brand-muted); }
+/* Legacy */
+.shaka-api-badge {
+  display: inline-flex; align-items: center; gap: .3rem;
+  padding: .175rem .55rem; border-radius: var(--r-full);
+  font-size: .72rem; font-weight: 600;
+  background: var(--brand-soft); color: var(--brand); border: 1px solid var(--brand-muted);
+}

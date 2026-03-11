@@ -10,20 +10,31 @@
 
     <div class="shaka-api-page__content">
 
-      {# ── Hero ── #}
+      {# ── Hero ──────────────────────────────────────────── #}
       <header class="shaka-hero">
         <div class="shaka-hero__eyebrow">
-          <span class="shaka-api-badge">Docs</span>
+          {% include 'shaka/api/components/_alert.html.twig' with {
+            type: 'info',
+            text: 'v' ~ (api_version ?? '1.0') ~ ' — Stable release'
+          } only %}
         </div>
-        <h1 class="shaka-hero__title">{{ api_title ?? 'API documentation, fast.' }}</h1>
-        <p class="shaka-hero__subtitle">{{ api_subtitle ?? 'Clean, professional API docs inspired by Stripe, Vercel and Linear — built for Symfony.' }}</p>
+        <h1 class="shaka-hero__title">
+          {{ api_title ?? 'Build faster with our API.' }}
+        </h1>
+        <p class="shaka-hero__subtitle">
+          {{ api_subtitle ?? 'Clean, professional API docs inspired by Stripe, Vercel and Linear — built for Symfony.' }}
+        </p>
         <div class="shaka-hero__actions">
-          <a class="shaka-btn shaka-btn--primary" href="/shaka/api/reference">Reference →</a>
-          <a class="shaka-btn shaka-btn--outline" href="/shaka/api/errors">Error codes</a>
+          <a class="shaka-btn shaka-btn--primary" href="/shaka/api/reference">
+            API Reference →
+          </a>
+          <a class="shaka-btn shaka-btn--outline" href="/shaka/api/errors">
+            Error codes
+          </a>
         </div>
       </header>
 
-      {# ── Features ── #}
+      {# ── Features ──────────────────────────────────────── #}
       <section id="features" class="shaka-section">
         <h2>Why this bundle?</h2>
 
@@ -31,60 +42,72 @@
           {% include 'shaka/api/components/_feature_card.html.twig' with {
             icon:  '📦',
             title: 'Single package',
-            text:  'Twig, CSS and Stimulus controllers live in one Composer package.'
+            text:  'Twig, CSS and Stimulus controllers ship in one Composer package — zero config required.'
           } only %}
 
           {% include 'shaka/api/components/_feature_card.html.twig' with {
             icon:  '⚡',
-            title: 'Ready for Symfony',
-            text:  'Install with Composer, configure with Flex, preview in seconds.'
+            title: 'Symfony-native',
+            text:  'Install with Composer, configure with Flex, preview the demo in seconds.'
           } only %}
 
           {% include 'shaka/api/components/_feature_card.html.twig' with {
             icon:  '🎨',
-            title: 'Easy to customize',
-            text:  'Override CSS tokens or Twig blocks — no rebuild required.'
+            title: 'Fully customizable',
+            text:  'Override any CSS token or Twig block. No rebuild, no framework lock-in.'
           } only %}
         </div>
       </section>
 
       <hr class="shaka-divider">
 
-      {# ── Authentication ── #}
+      {# ── Authentication ────────────────────────────────── #}
       <section id="authentication" class="shaka-section">
         <h2>Authentication</h2>
-        <p>Every request must include a bearer token in the <code>Authorization</code> header.</p>
+        <p>Every request must include a valid bearer token in the <code>Authorization</code> header.</p>
 
         {% include 'shaka/api/components/_alert.html.twig' with {
           type:  'warning',
           title: 'Keep your token secret',
-          text:  'Never expose API keys in client-side code or public repositories.'
+          text:  'Never expose API keys in client-side code, git repos or public logs.'
         } only %}
 
         {% include 'shaka/api/components/_code_tabs.html.twig' with {
-          title:    'Auth example',
           snippets: {
-            'bash':       'curl -H "Authorization: Bearer <token>" https://api.example.com/v1/users',
-            'php':        '$client->request("GET", "/v1/users", [\n  "headers" => ["Authorization" => "Bearer ".$token]\n]);',
-            'javascript': 'await fetch("/v1/users", {\n  headers: { Authorization: `Bearer ${token}` }\n});'
+            'bash': 'curl -H "Authorization: Bearer <token>" \
+  https://api.example.com/v1/users',
+            'php': '$response = $client->request("GET", "/v1/users", [
+  "headers" => ["Authorization" => "Bearer " . $token],
+]);',
+            'javascript': 'const res = await fetch("/v1/users", {
+  headers: { Authorization: `Bearer ${token}` },
+});
+const { data } = await res.json();',
+            'python': 'import requests
+
+response = requests.get(
+  "https://api.example.com/v1/users",
+  headers={"Authorization": f"Bearer {token}"}
+)'
           }
         } only %}
       </section>
 
       <hr class="shaka-divider">
 
-      {# ── Common endpoints ── #}
-      <section id="requests" class="shaka-section">
+      {# ── Common endpoints ──────────────────────────────── #}
+      <section id="quickstart" class="shaka-section">
         <h2>Common endpoints</h2>
+        <p>A quick overview of the most frequently used endpoints.</p>
 
         <div class="shaka-stack">
           {% include 'shaka/api/components/_endpoint_card.html.twig' with {
             method:      'GET',
             path:        '/v1/users',
             title:       'List users',
-            description: 'Returns a paginated list of users ordered by creation date.',
+            description: 'Returns a paginated list of all users, ordered by creation date.',
             responses: [
-              { code: 200, label: 'OK — paginated list' },
+              { code: 200, label: 'Paginated list' },
               { code: 401, label: 'Unauthorized' }
             ]
           } only %}
@@ -93,10 +116,22 @@
             method:      'POST',
             path:        '/v1/users',
             title:       'Create user',
-            description: 'Creates a new user from the provided JSON payload.',
+            description: 'Creates a new user from the JSON payload. Returns the created resource.',
             responses: [
               { code: 201, label: 'Created' },
               { code: 422, label: 'Validation failed' },
+              { code: 401, label: 'Unauthorized' }
+            ]
+          } only %}
+
+          {% include 'shaka/api/components/_endpoint_card.html.twig' with {
+            method:      'DELETE',
+            path:        '/v1/users/{id}',
+            title:       'Delete user',
+            description: 'Permanently deletes a user. This action cannot be undone.',
+            responses: [
+              { code: 204, label: 'No content' },
+              { code: 404, label: 'Not found' },
               { code: 401, label: 'Unauthorized' }
             ]
           } only %}
@@ -105,18 +140,40 @@
 
       <hr class="shaka-divider">
 
-      {# ── Response format ── #}
+      {# ── Response format ───────────────────────────────── #}
       <section id="response-format" class="shaka-section">
         <h2>Response format</h2>
-        <p>All responses return JSON with the following envelope fields:</p>
+        <p>All responses return JSON with a consistent envelope structure:</p>
 
         {% include 'shaka/api/components/_response_table.html.twig' with {
-          caption: 'Standard response envelope',
+          caption: 'Response envelope fields',
           rows: [
-            { field: 'data',       type: 'object|array', required: false, description: 'The response payload.' },
-            { field: 'meta',       type: 'object',       required: false, description: 'Pagination or extra metadata.' },
-            { field: 'error',      type: 'object',       required: false, description: 'Error object present only on failure.' },
-            { field: 'request_id', type: 'string',       required: true,  description: 'Unique identifier for support tracing.' }
+            { field: 'data',       type: 'object | array', required: false, description: 'The response payload. Null on error.' },
+            { field: 'meta',       type: 'object',         required: false, description: 'Pagination cursors and total counts.' },
+            { field: 'error',      type: 'object',         required: false, description: 'Error object — present only on failure.' },
+            { field: 'request_id', type: 'string',         required: true,  description: 'Unique trace ID. Include in support requests.' }
+          ]
+        } only %}
+
+        {% include 'shaka/api/components/_alert.html.twig' with {
+          type: 'info',
+          text: 'Use the request_id field to correlate log entries and contact support.'
+        } only %}
+      </section>
+
+      <hr class="shaka-divider">
+
+      {# ── Rate limiting ─────────────────────────────────── #}
+      <section id="rate-limiting" class="shaka-section">
+        <h2>Rate limiting</h2>
+        <p>The API enforces per-token rate limits. When a limit is exceeded, the server responds with <code>429 Too Many Requests</code>.</p>
+
+        {% include 'shaka/api/components/_response_table.html.twig' with {
+          caption: 'Rate limit headers',
+          rows: [
+            { field: 'X-RateLimit-Limit',     type: 'integer', description: 'Maximum requests allowed in the current window.' },
+            { field: 'X-RateLimit-Remaining', type: 'integer', description: 'Requests remaining before the limit is hit.' },
+            { field: 'Retry-After',            type: 'integer', description: 'Seconds to wait before retrying (429 only).' }
           ]
         } only %}
       </section>

@@ -1,77 +1,126 @@
 /* ── Overview page ── */
+
+/* Hero */
 .shaka-hero {
-  padding: 2rem 2rem 1.75rem;
-  margin-bottom: 2.5rem;
+  padding: 2.25rem 2rem 2rem;
+  margin-bottom: 3rem;
   border: 1px solid var(--border);
-  border-radius: var(--r-2xl);
-  background: linear-gradient(135deg, #f7fdf8 0%, #eaf5ec 60%, #fef8e6 100%);
+  border-radius: var(--r-3xl);
+  background: var(--s-subtle);
   position: relative;
   overflow: hidden;
 }
 
+/* Subtle decorative grid */
 .shaka-hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 80% 60% at 60% -20%, rgba(45, 122, 58, .07), transparent);
+  background-image:
+    linear-gradient(var(--border-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse 70% 80% at 50% 0%, black 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 0%, black 40%, transparent 100%);
+  opacity: .5;
   pointer-events: none;
 }
 
 .shaka-hero__eyebrow {
-  margin-bottom: .875rem;
+  margin-bottom: 1.125rem;
+  position: relative;
 }
 
 .shaka-hero__title {
-  max-width: 520px;
-  margin-bottom: .75rem;
+  max-width: 540px;
+  margin-bottom: .875rem;
+  position: relative;
 }
 
 .shaka-hero__subtitle {
-  max-width: 460px;
-  font-size: 1.05rem;
-  color: var(--t-secondary);
-  margin-bottom: 1.5rem;
+  max-width: 480px;
+  font-size: 1rem;
+  color: var(--t-tertiary);
+  margin-bottom: 1.75rem;
+  line-height: 1.7;
+  position: relative;
 }
 
 .shaka-hero__actions {
   display: flex;
-  gap: .75rem;
+  gap: .625rem;
   flex-wrap: wrap;
+  position: relative;
 }
 
-/* Buttons */
+/* ── Buttons ── */
 .shaka-btn {
   display: inline-flex;
   align-items: center;
-  gap: .4rem;
-  padding: .55rem 1.1rem;
+  gap: .375rem;
+  padding: .5rem 1rem;
   border-radius: var(--r-lg);
-  font-size: .875rem;
+  font-size: .84rem;
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
-  transition: all var(--ease-default);
+  transition: all var(--ease);
   border: 1px solid transparent;
+  white-space: nowrap;
+  line-height: 1.4;
 }
 
 .shaka-btn--primary {
+  background: var(--t-primary);
+  color: var(--t-inverted);
+  border-color: var(--t-primary);
+}
+
+.shaka-btn--primary:hover {
+  background: #1a2b1c;
+  border-color: #1a2b1c;
+}
+
+.shaka-btn--outline {
+  background: var(--s-page);
+  color: var(--t-secondary);
+  border-color: var(--border-medium);
+}
+
+.shaka-btn--outline:hover {
+  background: var(--s-soft);
+  color: var(--t-primary);
+  border-color: var(--border-medium);
+}
+
+.shaka-btn--brand {
   background: var(--brand);
   color: #fff;
   border-color: var(--brand);
 }
 
-.shaka-btn--primary:hover {
+.shaka-btn--brand:hover {
   background: var(--brand-hover);
   border-color: var(--brand-hover);
 }
 
-.shaka-btn--outline {
-  background: transparent;
-  color: var(--t-secondary);
-  border-color: var(--border);
+/* ── Page header (reference, errors) ── */
+.shaka-page-header {
+  padding-bottom: 2rem;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border);
 }
 
-.shaka-btn--outline:hover {
-  background: var(--s-subtle);
-  color: var(--t-primary);
+.shaka-page-header__eyebrow {
+  margin-bottom: .875rem;
+}
+
+.shaka-page-header__title {
+  margin-bottom: .625rem;
+}
+
+.shaka-page-header__subtitle {
+  max-width: 520px;
+  color: var(--t-tertiary);
+  font-size: .9rem;
 }

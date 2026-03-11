@@ -1,19 +1,29 @@
-{# ─────────────────────────────────────────────────────────
+{# ───────────────────────────────────────────────────────────
    Component: Alert Block
-   ─────────────────────────────────────────────────────────
+   ───────────────────────────────────────────────────────────
    Variables:
-     type    string  info | success | warning | danger  (default: info)
-     title   string  Bold heading (optional)
-     text    string  Body text
-   ───────────────────────────────────────────────────────── #}
-{% set type  = type  ?? 'info' %}
-{% set icons = { info: 'ℹ', success: '✓', warning: '⚠', danger: '✕' } %}
+     type   string  info | success | warning | danger
+     title  string  Bold heading (optional)
+     text   string  Body text (or use block alert_content)
+#}
+{% set type  = type ?? 'info' %}
+
+{% set _icons = {
+  info:    '&#x2139;',
+  success: '&#x2713;',
+  warning: '&#x26A0;',
+  danger:  '&#x2715;'
+} %}
 
 <div class="shaka-alert shaka-alert--{{ type }}" role="alert">
-  <span class="shaka-alert__icon" aria-hidden="true">{{ icons[type] ?? icons.info }}</span>
+  <span class="shaka-alert__icon" aria-hidden="true">{{ _icons[type]|default(_icons.info)|raw }}</span>
   <div class="shaka-alert__body">
-    {% if title is defined %}<p class="shaka-alert__title">{{ title }}</p>{% endif %}
-    {% if text  is defined %}<p class="shaka-alert__text">{{ text }}</p>{% endif %}
+    {% if title is defined and title %}
+      <p class="shaka-alert__title">{{ title }}</p>
+    {% endif %}
+    {% if text is defined and text %}
+      <p class="shaka-alert__text">{{ text }}</p>
+    {% endif %}
     {% block alert_content %}{% endblock %}
   </div>
 </div>

@@ -9,7 +9,7 @@
     {% include 'shaka/api/partials/_sidebar.html.twig' with {
       sidebar_groups: [
         {
-          title: 'Getting started',
+          title: 'Pages',
           items: [
             { label: 'Overview',  href: '/shaka/api' },
             { label: 'Reference', href: '/shaka/api/reference' },
@@ -19,19 +19,19 @@
         {
           title: 'Users',
           items: [
-            { label: 'List users',    href: '#get-users',    method: 'GET' },
-            { label: 'Get user',      href: '#get-user',     method: 'GET' },
-            { label: 'Create user',   href: '#post-users',   method: 'POST' },
-            { label: 'Update user',   href: '#patch-user',   method: 'PATCH' },
-            { label: 'Delete user',   href: '#delete-user',  method: 'DELETE' }
+            { label: 'List users',    href: '#ep-get--v1-users',        method: 'GET' },
+            { label: 'Get user',      href: '#ep-get--v1-users-id',     method: 'GET' },
+            { label: 'Create user',   href: '#ep-post--v1-users',       method: 'POST' },
+            { label: 'Update user',   href: '#ep-patch--v1-users-id',   method: 'PATCH' },
+            { label: 'Delete user',   href: '#ep-delete--v1-users-id',  method: 'DELETE' }
           ]
         },
         {
           title: 'Projects',
           items: [
-            { label: 'List projects', href: '#get-projects',  method: 'GET' },
-            { label: 'Get project',   href: '#get-project',   method: 'GET' },
-            { label: 'Create project',href: '#post-projects', method: 'POST' }
+            { label: 'List projects',   href: '#ep-get--v1-projects',       method: 'GET' },
+            { label: 'Get project',     href: '#ep-get--v1-projects-id',    method: 'GET' },
+            { label: 'Create project',  href: '#ep-post--v1-projects',      method: 'POST' }
           ]
         }
       ]
@@ -39,93 +39,190 @@
 
     <div class="shaka-api-page__content">
 
-      {# ── Header ── #}
-      <header class="shaka-reference-header">
-        <span class="shaka-api-badge">Reference</span>
-        <h1>API Endpoints</h1>
-        <p>Detailed documentation for all endpoints. Click any card to expand request details, parameters and responses.</p>
-      </header>
+      {# ── Page header ────────────────────────────────────── #}
+      <div class="shaka-page-header">
+        <div class="shaka-page-header__eyebrow">
+          <span class="shaka-badge shaka-badge--brand">Reference</span>
+        </div>
+        <h1 class="shaka-page-header__title">API Endpoints</h1>
+        <p class="shaka-page-header__subtitle">
+          Full reference for all available endpoints. Click any card to expand parameters and response codes.
+        </p>
+      </div>
 
-      {# ── Users group ── #}
-      <div class="shaka-reference-group">
-        <h2 class="shaka-reference-group__title">
-          <span class="shaka-api-badge">Users</span>
+      {# ══ Users ══════════════════════════════════════════════ #}
+      <div class="shaka-resource-group" id="users">
+        <h2 class="shaka-resource-group__title">
+          <span class="shaka-badge shaka-badge--neutral">Users</span>
         </h2>
 
         <div class="shaka-stack">
 
-          <div id="get-users">
-            {% include 'shaka/api/components/_endpoint_card.html.twig' with {
-              method:      'GET',
-              path:        '/v1/users',
-              title:       'List users',
-              description: 'Returns a paginated list of all users.',
-              responses: [
-                { code: 200, label: 'OK' },
-                { code: 401, label: 'Unauthorized' }
-              ]
-            } only %}
-          </div>
+          {% include 'shaka/api/components/_endpoint_card.html.twig' with {
+            method:      'GET',
+            path:        '/v1/users',
+            title:       'List users',
+            description: 'Returns a paginated list of all users ordered by creation date.',
+            responses: [
+              { code: 200, label: 'OK — paginated list' },
+              { code: 401, label: 'Unauthorized' }
+            ],
+            params: [
+              { field: 'page',     type: 'integer', required: false, description: 'Page number, starting at 1.' },
+              { field: 'per_page', type: 'integer', required: false, description: 'Results per page (max 100, default 20).' },
+              { field: 'q',        type: 'string',  required: false, description: 'Filter by name or email (case-insensitive).' }
+            ]
+          } only %}
 
-          <div id="get-user">
-            {% include 'shaka/api/components/_endpoint_card.html.twig' with {
-              method:      'GET',
-              path:        '/v1/users/{id}',
-              title:       'Get user',
-              description: 'Retrieve a single user by their UUID.',
-              responses: [
-                { code: 200, label: 'OK' },
-                { code: 404, label: 'Not found' },
-                { code: 401, label: 'Unauthorized' }
-              ]
-            } only %}
-          </div>
+          {% include 'shaka/api/components/_endpoint_card.html.twig' with {
+            method:      'GET',
+            path:        '/v1/users/{id}',
+            title:       'Get user',
+            description: 'Retrieve a single user by their UUID.',
+            responses: [
+              { code: 200, label: 'OK' },
+              { code: 404, label: 'Not found' },
+              { code: 401, label: 'Unauthorized' }
+            ]
+          } only %}
 
-          <div id="post-users">
-            {% include 'shaka/api/components/_endpoint_card.html.twig' with {
-              method:      'POST',
-              path:        '/v1/users',
-              title:       'Create user',
-              description: 'Create a new user account.',
-              responses: [
-                { code: 201, label: 'Created' },
-                { code: 422, label: 'Validation failed' },
-                { code: 401, label: 'Unauthorized' }
-              ]
-            } only %}
-          </div>
+          {% include 'shaka/api/components/_endpoint_card.html.twig' with {
+            method:      'POST',
+            path:        '/v1/users',
+            title:       'Create user',
+            description: 'Create a new user account from a JSON body.',
+            responses: [
+              { code: 201, label: 'Created' },
+              { code: 422, label: 'Validation failed' },
+              { code: 401, label: 'Unauthorized' }
+            ],
+            params: [
+              { field: 'name',     type: 'string', required: true,  description: 'Full display name.' },
+              { field: 'email',    type: 'string', required: true,  description: 'Unique email address.' },
+              { field: 'password', type: 'string', required: true,  description: 'Plain-text password (min 8 chars).' },
+              { field: 'role',     type: 'string', required: false, description: 'One of: user, admin. Default: user.' }
+            ]
+          } only %}
+
+          {% include 'shaka/api/components/_endpoint_card.html.twig' with {
+            method:      'PATCH',
+            path:        '/v1/users/{id}',
+            title:       'Update user',
+            description: 'Partially update a user. Only provided fields are changed.',
+            responses: [
+              { code: 200, label: 'OK — updated resource' },
+              { code: 422, label: 'Validation failed' },
+              { code: 404, label: 'Not found' },
+              { code: 401, label: 'Unauthorized' }
+            ]
+          } only %}
+
+          {% include 'shaka/api/components/_endpoint_card.html.twig' with {
+            method:      'DELETE',
+            path:        '/v1/users/{id}',
+            title:       'Delete user',
+            description: 'Permanently delete a user and all associated data.',
+            responses: [
+              { code: 204, label: 'No content' },
+              { code: 404, label: 'Not found' },
+              { code: 401, label: 'Unauthorized' }
+            ]
+          } only %}
 
         </div>
       </div>
 
-      {# ── Request example ── #}
+      {# ══ Projects ═══════════════════════════════════════════ #}
+      <div class="shaka-resource-group" id="projects">
+        <h2 class="shaka-resource-group__title">
+          <span class="shaka-badge shaka-badge--neutral">Projects</span>
+        </h2>
+
+        <div class="shaka-stack">
+
+          {% include 'shaka/api/components/_endpoint_card.html.twig' with {
+            method:      'GET',
+            path:        '/v1/projects',
+            title:       'List projects',
+            description: 'Returns all projects accessible to the authenticated user.',
+            responses: [
+              { code: 200, label: 'OK' },
+              { code: 401, label: 'Unauthorized' }
+            ]
+          } only %}
+
+          {% include 'shaka/api/components/_endpoint_card.html.twig' with {
+            method:      'GET',
+            path:        '/v1/projects/{id}',
+            title:       'Get project',
+            description: 'Retrieve a project by its UUID, including owner and tags.',
+            responses: [
+              { code: 200, label: 'OK' },
+              { code: 404, label: 'Not found' },
+              { code: 401, label: 'Unauthorized' }
+            ]
+          } only %}
+
+          {% include 'shaka/api/components/_endpoint_card.html.twig' with {
+            method:      'POST',
+            path:        '/v1/projects',
+            title:       'Create project',
+            description: 'Create a new project owned by the authenticated user.',
+            responses: [
+              { code: 201, label: 'Created' },
+              { code: 422, label: 'Validation failed' },
+              { code: 401, label: 'Unauthorized' }
+            ],
+            params: [
+              { field: 'name',        type: 'string',   required: true,  description: 'Project display name.' },
+              { field: 'description', type: 'string',   required: false, description: 'Optional longer description.' },
+              { field: 'tags',        type: 'string[]', required: false, description: 'Array of tag strings.' }
+            ]
+          } only %}
+
+        </div>
+      </div>
+
+      {# ── Request example ─────────────────────────────────── #}
       <section id="request-example" class="shaka-section">
         <h2>Request example</h2>
+        <p>Getting a project by its ID:</p>
 
         {% include 'shaka/api/components/_code_tabs.html.twig' with {
-          title:    'Get project by ID',
           snippets: {
-            'bash':       'curl -H "Authorization: Bearer <token>" \\\n  https://api.example.com/v1/projects/proj_abc123',
-            'php':        '$response = $client->request("GET", "/v1/projects/proj_abc123");\n$data = $response->toArray();',
-            'javascript': 'const res = await fetch("/v1/projects/proj_abc123", {\n  headers: { Authorization: `Bearer ${token}` }\n});\nconst { data } = await res.json();',
-            'python':     'response = requests.get(\n  "https://api.example.com/v1/projects/proj_abc123",\n  headers={"Authorization": f"Bearer {token}"}\n)'
+            'bash': 'curl -H "Authorization: Bearer <token>" \
+  https://api.example.com/v1/projects/proj_abc123',
+            'php': '$response = $client->request("GET", "/v1/projects/proj_abc123", [
+  "headers" => ["Authorization" => "Bearer " . $token],
+]);
+$data = $response->toArray()["data"];',
+            'javascript': 'const res = await fetch("/v1/projects/proj_abc123", {
+  headers: { Authorization: `Bearer ${token}` },
+});
+const { data } = await res.json();',
+            'python': 'response = requests.get(
+  "https://api.example.com/v1/projects/proj_abc123",
+  headers={"Authorization": f"Bearer {token}"}
+)
+data = response.json()["data"]'
           }
         } only %}
       </section>
 
-      {# ── Response fields ── #}
+      {# ── Response fields ─────────────────────────────────── #}
       <section id="response-fields" class="shaka-section">
-        <h2>Response fields</h2>
-        <p>The <code>data</code> object returned by <code>GET /v1/projects/{id}</code>:</p>
+        <h2>Project response fields</h2>
+        <p>The <code>data</code> object returned by <code>GET /v1/projects/{'{'}id{'}'}</code>:</p>
 
         {% include 'shaka/api/components/_response_table.html.twig' with {
           rows: [
-            { field: 'id',         type: 'string',   required: true,  description: 'Project UUID.' },
-            { field: 'name',       type: 'string',   required: true,  description: 'Project display name.' },
-            { field: 'status',     type: 'string',   required: true,  description: 'One of: active, archived, draft.' },
-            { field: 'owner',      type: 'object',   required: true,  description: 'Embedded owner user object.' },
-            { field: 'created_at', type: 'datetime', required: false, description: 'ISO 8601 timestamp.' },
-            { field: 'tags',       type: 'string[]', required: false, description: 'Array of string tags.' }
+            { field: 'id',          type: 'string',   required: true,  description: 'Project UUID, prefixed proj_.' },
+            { field: 'name',        type: 'string',   required: true,  description: 'Project display name.' },
+            { field: 'status',      type: 'string',   required: true,  description: 'One of: active, archived, draft.' },
+            { field: 'owner',       type: 'object',   required: true,  description: 'Embedded owner user — id, name, email.' },
+            { field: 'tags',        type: 'string[]', required: false, description: 'Array of tag strings.' },
+            { field: 'created_at',  type: 'datetime', required: true,  description: 'ISO 8601 UTC timestamp.' },
+            { field: 'updated_at',  type: 'datetime', required: true,  description: 'ISO 8601 UTC timestamp.' }
           ]
         } only %}
       </section>

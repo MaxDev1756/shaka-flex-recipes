@@ -1,4 +1,4 @@
-/* ── Response / Parameter Table ── */
+/* ── Response Table ── */
 .shaka-table-wrap {
   overflow-x: auto;
   border: 1px solid var(--border);
@@ -11,41 +11,44 @@
 .shaka-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 500px; /* prevent excessive squishing */
 }
 
 .shaka-table thead th {
-  padding: .7rem 1rem;
-  font-size: .75rem;
+  padding: .625rem 1rem;
+  font-size: .7rem;
   font-weight: 700;
-  letter-spacing: .04em;
+  letter-spacing: .05em;
   text-transform: uppercase;
-  color: var(--t-tertiary);
+  color: var(--t-muted);
   background: var(--s-subtle);
   border-bottom: 1px solid var(--border);
   text-align: left;
   white-space: nowrap;
 }
 
-.shaka-table thead th:first-child { border-radius: var(--r-xl) 0 0 0; }
-.shaka-table thead th:last-child  { border-radius: 0 var(--r-xl) 0 0; }
+.shaka-table thead th:first-child { padding-left: 1.25rem; }
+.shaka-table thead th:last-child  { padding-right: 1.25rem; }
 
 .shaka-table tbody td {
-  padding: .8rem 1rem;
+  padding: .75rem 1rem;
   border-bottom: 1px solid var(--border-soft);
-  font-size: .875rem;
+  font-size: .84rem;
   color: var(--t-secondary);
   vertical-align: top;
-  line-height: 1.55;
+  line-height: 1.6;
 }
 
-.shaka-table tbody tr:last-child td { border-bottom: none; }
+.shaka-table tbody td:first-child { padding-left: 1.25rem; }
+.shaka-table tbody td:last-child  { padding-right: 1.25rem; }
 
-/* Field column */
+.shaka-table tbody tr:last-child td { border-bottom: none; }
+.shaka-table tbody tr:hover td { background: var(--s-subtle); }
+
+/* ── Cell variants ── */
 .shaka-table__field {
   font-family: ui-monospace, 'JetBrains Mono', monospace;
-  font-size: .82rem;
-  color: var(--brand);
+  font-size: .78rem;
+  color: var(--brand-light);
   background: var(--brand-soft);
   padding: .2rem .45rem;
   border-radius: var(--r-sm);
@@ -53,10 +56,9 @@
   white-space: nowrap;
 }
 
-/* Type badge */
 .shaka-table__type {
   font-family: ui-monospace, monospace;
-  font-size: .78rem;
+  font-size: .75rem;
   color: var(--t-tertiary);
   background: var(--s-soft);
   padding: .2rem .45rem;
@@ -65,12 +67,14 @@
   white-space: nowrap;
 }
 
-/* Required/optional */
 .shaka-table__required {
+  display: inline-flex;
+  align-items: center;
   font-size: .7rem;
-  font-weight: 700;
-  padding: .15rem .4rem;
+  font-weight: 600;
+  padding: .15rem .45rem;
   border-radius: var(--r-full);
+  white-space: nowrap;
 }
 
 .shaka-table__required--yes {
@@ -89,6 +93,6 @@
 .shaka-api-response-table { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--r-xl); background: var(--s-page); box-shadow: var(--shadow-xs); }
 .shaka-api-response-table table { width: 100%; border-collapse: collapse; }
 .shaka-api-response-table th,
-.shaka-api-response-table td { padding: .8rem 1rem; text-align: left; border-bottom: 1px solid var(--border-soft); font-size: .875rem; }
-.shaka-api-response-table th { font-size: .75rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--t-tertiary); background: var(--s-subtle); }
+.shaka-api-response-table td { padding: .75rem 1rem; text-align: left; border-bottom: 1px solid var(--border-soft); font-size: .84rem; }
+.shaka-api-response-table th { font-size: .7rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--t-muted); background: var(--s-subtle); }
 .shaka-api-response-table tbody tr:last-child td { border-bottom: none; }

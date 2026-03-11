@@ -7,17 +7,16 @@ import ShakaTocController       from './shaka_toc_controller.js';
 /**
  * Register all Shaka API Docs Stimulus controllers.
  *
- * @param {Application} app — your Stimulus Application instance
+ * @param {import('@hotwired/stimulus').Application} app
  */
 export function registerShakaApiDocsControllers(app) {
-  app.register('shaka-code-tabs',  ShakaCodeTabsController);
-  app.register('shaka-copy-code',  ShakaCopyCodeController);
-  app.register('shaka-endpoint',   ShakaEndpointController);
-  app.register('shaka-sidebar',    ShakaSidebarController);
-  app.register('shaka-toc',        ShakaTocController);
+  app.register('shaka-code-tabs', ShakaCodeTabsController);
+  app.register('shaka-copy-code', ShakaCopyCodeController);
+  app.register('shaka-endpoint',  ShakaEndpointController);
+  app.register('shaka-sidebar',   ShakaSidebarController);
+  app.register('shaka-toc',       ShakaTocController);
 }
 
-// Named re-exports for selective imports
 export {
   ShakaCodeTabsController,
   ShakaCopyCodeController,

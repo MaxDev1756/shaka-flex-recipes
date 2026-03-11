@@ -3,27 +3,28 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 3.5rem;
-  padding: .2rem .55rem;
+  min-width: 3.75rem;
+  padding: .2rem .5rem;
   border-radius: var(--r-sm);
-  font-size: .7rem;
+  font-size: .6875rem;
   font-weight: 800;
-  letter-spacing: .05em;
+  letter-spacing: .04em;
   font-family: ui-monospace, monospace;
   text-transform: uppercase;
   flex-shrink: 0;
+  border: 1px solid transparent;
 }
 
-.shaka-method--get    { color: var(--method-get);    background: var(--method-get-bg); }
-.shaka-method--post   { color: var(--method-post);   background: var(--method-post-bg); }
-.shaka-method--put    { color: var(--method-put);    background: var(--method-put-bg); }
-.shaka-method--patch  { color: var(--method-patch);  background: var(--method-patch-bg); }
-.shaka-method--delete { color: var(--method-delete); background: var(--method-delete-bg); }
+.shaka-method--get    { color: var(--method-get);    background: var(--method-get-bg);    border-color: var(--method-get-border); }
+.shaka-method--post   { color: var(--method-post);   background: var(--method-post-bg);   border-color: var(--method-post-border); }
+.shaka-method--put    { color: var(--method-put);    background: var(--method-put-bg);    border-color: var(--method-put-border); }
+.shaka-method--patch  { color: var(--method-patch);  background: var(--method-patch-bg);  border-color: var(--method-patch-border); }
+.shaka-method--delete { color: var(--method-delete); background: var(--method-delete-bg); border-color: var(--method-delete-border); }
 
-/* Legacy alias */
-.shaka-api-method         { display: inline-flex; align-items: center; justify-content: center; min-width: 3.5rem; padding: .2rem .55rem; border-radius: var(--r-sm); font-size: .7rem; font-weight: 800; font-family: ui-monospace, monospace; }
-.shaka-api-method--get    { color: var(--method-get);    background: var(--method-get-bg); }
-.shaka-api-method--post   { color: var(--method-post);   background: var(--method-post-bg); }
-.shaka-api-method--put    { color: var(--method-put);    background: var(--method-put-bg); }
-.shaka-api-method--patch  { color: var(--method-patch);  background: var(--method-patch-bg); }
-.shaka-api-method--delete { color: var(--method-delete); background: var(--method-delete-bg); }
+/* Legacy */
+.shaka-api-method         { display: inline-flex; align-items: center; justify-content: center; min-width: 3.75rem; padding: .2rem .5rem; border-radius: var(--r-sm); font-size: .6875rem; font-weight: 800; font-family: ui-monospace, monospace; text-transform: uppercase; flex-shrink: 0; border: 1px solid transparent; }
+.shaka-api-method--get    { color: var(--method-get);    background: var(--method-get-bg);    border-color: var(--method-get-border); }
+.shaka-api-method--post   { color: var(--method-post);   background: var(--method-post-bg);   border-color: var(--method-post-border); }
+.shaka-api-method--put    { color: var(--method-put);    background: var(--method-put-bg);    border-color: var(--method-put-border); }
+.shaka-api-method--patch  { color: var(--method-patch);  background: var(--method-patch-bg);  border-color: var(--method-patch-border); }
+.shaka-api-method--delete { color: var(--method-delete); background: var(--method-delete-bg); border-color: var(--method-delete-border); }

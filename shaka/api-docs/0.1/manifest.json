@@ -7,6 +7,11 @@
     "assets/": "assets/",
     "config/": "config/"
   },
+  "files": {
+    "assets/stimulus_bootstrap.js": {
+      "append": "\n// Shaka API Docs\nimport { registerShakaApiDocsControllers } from './controllers/index.js';\nregisterShakaApiDocsControllers(app);\n\n// Shaka API Docs styles\nimport './shaka-api/shaka-api.css';\n"
+    }
+  },
   "post-install-output": [
     "Shaka API Docs installed successfully.",
     "",
